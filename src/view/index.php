@@ -8,18 +8,10 @@
     <link rel="stylesheet" href="../css/css/style.css">
 </head>
 <body>
-   
-        <nav>
-            <div class="nav-wrapper">
-                <ul>
-                    <li><a href="#" id="logo">Logo</a></li>
-                    <li><a href="#" id="cardapio">Cardápio</a></li>
-                    <li><a href="#" id="sacola">Sacola</a></li>
-                </ul>
-            </div>
-        </nav>  
-        
-    
+    <?php 
+    // incluindo o arquvio da navbar que pode ser encontrado na pasta template
+        require_once __DIR__."/../templeate/nav.php"; 
+    ?>
     <main>
         <h2>Hamburger</h2>
         <hr>
