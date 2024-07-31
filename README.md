@@ -11,6 +11,7 @@ Diretórios e suas funções - Modelo MVC
 
 Instruções para usar o projeto base codeigniter 4
 1. Pré-requisitos
+
 ● Banco de dados ( Mysql ou MariaDB).
 ○ MySQL
 ■ https://dev.mysql.com/downloads/mysql/
@@ -25,31 +26,43 @@ Instruções para usar o projeto base codeigniter 4
 ○ PHPMYADMIN (caso seja usado o XAMPP)
 ● Composer
 ○ https://getcomposer.org/download/
+
 2. Como usar o Projeto Base.
-Passo 1. Criar um Banco de dados. O nome padrão que já esta configurado
-no projeto é “sysdelivery”.
-Passo 2. Importar o arquivo sysdelivery.sql que está disponível na pasta
+
+**Passo 1.** Criar um Banco de dados. O nome padrão que já esta configurado
+no projeto é “nome_banco”.
+
+**Passo 2.** Importar o arquivo nome_banco.sql que está disponível na pasta
 compactada do projeto.
-Passo 3. Adicionar o projeto no workspace do programa VSCODE.
-Passo 4. Apenas se estiver usando Windows.
+
+**Passo 3.** Adicionar o projeto no workspace do programa VSCODE.
+
+**Passo 4.** Apenas se estiver usando Windows.
+
 ● Verificar a restrição de execução no PowerShell no terminal
 VSCODE
 $ Get-ExecutionPolicy Se o resultado for restricted.
+
 ● Abrir o PowerShell do Sistema operacional e alterar as
 definições de restrição de execução. Execute o camando:
 $ Set-ExecutionPolicy Unrestricted
+
 ● Reinicie o VS Code, abra o terminal do VSCODE iniciar a
 edição do projeto.
-Passo 5. Abra a pasta do projeto pelo terminal e acesse a pasta do projeto.
-$ cd nomeditoriodoseuprojeto/sysdelivery
-Passo 6. Inicialize o servidor usando o método SPARK. digite o comando:
-$ php spark serve
-Passo 7. Abrir o navegador de internet e digitar o host http://localhost:8080
+
+**Passo 5.** Abra a pasta do projeto pelo terminal e acesse a pasta do projeto.
+$ cd projeto-web2/nome_banco
+
+**Passo 6.** Inicialize o servidor usando o método SPARK. digite o comando:
+`$ php spark serve`
+
+**Passo 7.** Abrir o navegador de internet e digitar o host http://localhost:8080
 3. Acesso ao sistema
 a. login
 i. Para acessar com usuário Administrador:
-1. login: admin@gmail.com
-2. senha: 123456
+1. login: 
+2. senha: 
+
 ii. para acessar com usuário comum:
-1. login: user@gmail.com
-2. senha: 123456
+1. login: 
+2. senha: 
