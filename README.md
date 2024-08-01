@@ -30,9 +30,9 @@ Instruções para usar o projeto base codeigniter 4
 2. Como usar o Projeto Base.
 
 **Passo 1.** Criar um Banco de dados. O nome padrão que já esta configurado
-no projeto é “nome_banco”.
+no projeto é "hamburgueria”.
 
-**Passo 2.** Importar o arquivo nome_banco.sql que está disponível na pasta
+**Passo 2.** Importar o arquivo hamburgueria.sql que está disponível na pasta
 compactada do projeto.
 
 **Passo 3.** Adicionar o projeto no workspace do programa VSCODE.
@@ -57,12 +57,3 @@ $ cd projeto-web2/nome_banco
 `$ php spark serve`
 
 **Passo 7.** Abrir o navegador de internet e digitar o host http://localhost:8080
-3. Acesso ao sistema
-a. login
-i. Para acessar com usuário Administrador:
-1. login: 
-2. senha: 
-
-ii. para acessar com usuário comum:
-1. login: 
-2. senha: 
