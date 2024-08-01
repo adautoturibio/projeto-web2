@@ -4,6 +4,7 @@
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
 
+
 .cor-1{
   background-color: #881E3B;
 }
@@ -19,6 +20,35 @@
       height: 30px; /* Ajuste a altura para dispositivos móveis */
   }
 } 
+
+.hover-yellow:hover{
+  color: #F8A000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 .materialize-red {
