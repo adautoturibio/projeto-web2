@@ -178,3 +178,669 @@ in APPPATH\Views\index.php on line 4.
 10 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
 11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-01 16:49:27 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App/Controllers\Home::index"
+[Method: GET, Route: /]
+in SYSTEMPATH/Router/Router.php on line 492.
+ 1 SYSTEMPATH/Router/Router.php(492): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName()
+ 2 SYSTEMPATH/Router/Router.php(210): CodeIgniter\Router\Router->checkRoutes()
+ 3 SYSTEMPATH/CodeIgniter.php(834): CodeIgniter\Router\Router->handle()
+ 4 SYSTEMPATH/CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt()
+ 5 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 16:49:38 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App/Controllers\Home::index"
+[Method: GET, Route: /]
+in SYSTEMPATH/Router/Router.php on line 492.
+ 1 SYSTEMPATH/Router/Router.php(492): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName()
+ 2 SYSTEMPATH/Router/Router.php(210): CodeIgniter\Router\Router->checkRoutes()
+ 3 SYSTEMPATH/CodeIgniter.php(834): CodeIgniter\Router\Router->handle()
+ 4 SYSTEMPATH/CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt()
+ 5 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 16:49:41 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App/Controllers\Home::index"
+[Method: GET, Route: /]
+in SYSTEMPATH/Router/Router.php on line 492.
+ 1 SYSTEMPATH/Router/Router.php(492): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName()
+ 2 SYSTEMPATH/Router/Router.php(210): CodeIgniter\Router\Router->checkRoutes()
+ 3 SYSTEMPATH/CodeIgniter.php(834): CodeIgniter\Router\Router->handle()
+ 4 SYSTEMPATH/CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt()
+ 5 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 16:49:45 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App/Controllers\Home::index"
+[Method: GET, Route: /]
+in SYSTEMPATH/Router/Router.php on line 492.
+ 1 SYSTEMPATH/Router/Router.php(492): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName()
+ 2 SYSTEMPATH/Router/Router.php(210): CodeIgniter\Router\Router->checkRoutes()
+ 3 SYSTEMPATH/CodeIgniter.php(834): CodeIgniter\Router\Router->handle()
+ 4 SYSTEMPATH/CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt()
+ 5 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 16:50:25 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App/Controllers\Home::index"
+[Method: GET, Route: /]
+in SYSTEMPATH/Router/Router.php on line 492.
+ 1 SYSTEMPATH/Router/Router.php(492): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName()
+ 2 SYSTEMPATH/Router/Router.php(210): CodeIgniter\Router\Router->checkRoutes()
+ 3 SYSTEMPATH/CodeIgniter.php(834): CodeIgniter\Router\Router->handle()
+ 4 SYSTEMPATH/CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt()
+ 5 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 16:50:28 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App/Controllers\Home::index"
+[Method: GET, Route: /]
+in SYSTEMPATH/Router/Router.php on line 492.
+ 1 SYSTEMPATH/Router/Router.php(492): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName()
+ 2 SYSTEMPATH/Router/Router.php(210): CodeIgniter\Router\Router->checkRoutes()
+ 3 SYSTEMPATH/CodeIgniter.php(834): CodeIgniter\Router\Router->handle()
+ 4 SYSTEMPATH/CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt()
+ 5 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 16:51:06 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App/Controllers\Home::index"
+[Method: GET, Route: /]
+in SYSTEMPATH/Router/Router.php on line 492.
+ 1 SYSTEMPATH/Router/Router.php(492): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName()
+ 2 SYSTEMPATH/Router/Router.php(210): CodeIgniter\Router\Router->checkRoutes()
+ 3 SYSTEMPATH/CodeIgniter.php(834): CodeIgniter\Router\Router->handle()
+ 4 SYSTEMPATH/CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt()
+ 5 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 16:51:06 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App/Controllers\Home::index"
+[Method: GET, Route: /]
+in SYSTEMPATH/Router/Router.php on line 492.
+ 1 SYSTEMPATH/Router/Router.php(492): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName()
+ 2 SYSTEMPATH/Router/Router.php(210): CodeIgniter\Router\Router->checkRoutes()
+ 3 SYSTEMPATH/CodeIgniter.php(834): CodeIgniter\Router\Router->handle()
+ 4 SYSTEMPATH/CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt()
+ 5 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 19:57:33 --> ErrorException: Undefined variable $titulos
+[Method: GET, Route: usuario/index]
+in APPPATH/Views/usuarios/home.php on line 6.
+ 1 APPPATH/Views/usuarios/home.php(6): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(13): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 19:57:49 --> ErrorException: Undefined variable $titulos
+[Method: GET, Route: usuario/index]
+in APPPATH/Views/usuarios/home.php on line 6.
+ 1 APPPATH/Views/usuarios/home.php(6): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(13): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 19:57:50 --> ErrorException: Undefined variable $titulos
+[Method: GET, Route: usuario/index]
+in APPPATH/Views/usuarios/home.php on line 6.
+ 1 APPPATH/Views/usuarios/home.php(6): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(13): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 19:57:50 --> ErrorException: Undefined variable $titulos
+[Method: GET, Route: usuario/index]
+in APPPATH/Views/usuarios/home.php on line 6.
+ 1 APPPATH/Views/usuarios/home.php(6): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(13): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 19:57:50 --> ErrorException: Undefined variable $titulos
+[Method: GET, Route: usuario/index]
+in APPPATH/Views/usuarios/home.php on line 6.
+ 1 APPPATH/Views/usuarios/home.php(6): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(13): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 19:57:56 --> ErrorException: Undefined variable $titulos
+[Method: GET, Route: usuario]
+in APPPATH/Views/usuarios/home.php on line 6.
+ 1 APPPATH/Views/usuarios/home.php(6): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(13): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 19:59:26 --> ErrorException: Undefined variable $variaveis
+[Method: GET, Route: usuario]
+in APPPATH/Views/usuarios/home.php on line 6.
+ 1 APPPATH/Views/usuarios/home.php(6): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(13): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 19:59:28 --> ErrorException: Undefined variable $variaveis
+[Method: GET, Route: usuario]
+in APPPATH/Views/usuarios/home.php on line 6.
+ 1 APPPATH/Views/usuarios/home.php(6): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(13): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 19:59:28 --> ErrorException: Undefined variable $variaveis
+[Method: GET, Route: usuario]
+in APPPATH/Views/usuarios/home.php on line 6.
+ 1 APPPATH/Views/usuarios/home.php(6): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(13): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 19:59:59 --> ErrorException: Undefined variable $variaveis
+[Method: GET, Route: usuario]
+in APPPATH/Views/usuarios/home.php on line 6.
+ 1 APPPATH/Views/usuarios/home.php(6): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(13): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 20:00:00 --> ErrorException: Undefined variable $variaveis
+[Method: GET, Route: usuario]
+in APPPATH/Views/usuarios/home.php on line 6.
+ 1 APPPATH/Views/usuarios/home.php(6): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(13): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 20:00:11 --> ErrorException: Undefined variable $variaveis
+[Method: GET, Route: usuario]
+in APPPATH/Views/usuarios/home.php on line 10.
+ 1 APPPATH/Views/usuarios/home.php(10): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(13): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 20:00:12 --> ErrorException: Undefined variable $variaveis
+[Method: GET, Route: usuario]
+in APPPATH/Views/usuarios/home.php on line 10.
+ 1 APPPATH/Views/usuarios/home.php(10): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(13): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 20:24:13 --> Error: Class "App\Models\UsuarioModel" not found
+[Method: GET, Route: usuario]
+in APPPATH/Controllers/Usuario.php on line 11.
+ 1 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 2 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 4 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 7 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 20:24:13 --> Error: Class "App\Models\UsuarioModel" not found
+[Method: GET, Route: usuario]
+in APPPATH/Controllers/Usuario.php on line 11.
+ 1 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 2 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 4 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 7 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+ERROR - 2024-08-01 20:32:11 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /home/eric/Documentos/GitHub/projeto-web2/system/Database/MySQLi/Connection.php:187
+Stack trace:
+#0 /home/eric/Documentos/GitHub/projeto-web2/system/Database/MySQLi/Connection.php(187): mysqli->real_connect()
+#1 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+#4 /home/eric/Documentos/GitHub/projeto-web2/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/eric/Documentos/GitHub/projeto-web2/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/eric/Documentos/GitHub/projeto-web2/app/Controllers/Usuario.php(12): CodeIgniter\BaseModel->findAll()
+#7 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(933): App\Controllers\Usuario->index()
+#8 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+#9 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#11 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/eric/Documentos/GitHub/projeto-web2/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#13 /home/eric/Documentos/GitHub/projeto-web2/system/rewrite.php(44): require_once('...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /home/eric/Documentos/GitHub/projeto-web2/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+#3 /home/eric/Documentos/GitHub/projeto-web2/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/eric/Documentos/GitHub/projeto-web2/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/eric/Documentos/GitHub/projeto-web2/app/Controllers/Usuario.php(12): CodeIgniter\BaseModel->findAll()
+#6 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(933): App\Controllers\Usuario->index()
+#7 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+#8 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#10 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/eric/Documentos/GitHub/projeto-web2/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /home/eric/Documentos/GitHub/projeto-web2/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2024-08-01 20:32:11 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: usuario]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Usuario.php(12): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+ERROR - 2024-08-01 20:36:19 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /home/eric/Documentos/GitHub/projeto-web2/system/Database/MySQLi/Connection.php:187
+Stack trace:
+#0 /home/eric/Documentos/GitHub/projeto-web2/system/Database/MySQLi/Connection.php(187): mysqli->real_connect()
+#1 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+#4 /home/eric/Documentos/GitHub/projeto-web2/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/eric/Documentos/GitHub/projeto-web2/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/eric/Documentos/GitHub/projeto-web2/app/Controllers/Usuario.php(12): CodeIgniter\BaseModel->findAll()
+#7 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(933): App\Controllers\Usuario->index()
+#8 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+#9 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#11 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/eric/Documentos/GitHub/projeto-web2/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#13 /home/eric/Documentos/GitHub/projeto-web2/system/rewrite.php(44): require_once('...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /home/eric/Documentos/GitHub/projeto-web2/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+#3 /home/eric/Documentos/GitHub/projeto-web2/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/eric/Documentos/GitHub/projeto-web2/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/eric/Documentos/GitHub/projeto-web2/app/Controllers/Usuario.php(12): CodeIgniter\BaseModel->findAll()
+#6 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(933): App\Controllers\Usuario->index()
+#7 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+#8 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#10 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/eric/Documentos/GitHub/projeto-web2/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /home/eric/Documentos/GitHub/projeto-web2/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2024-08-01 20:36:19 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: usuario]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Usuario.php(12): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 20:36:55 --> ErrorException: Undefined variable $usuario
+[Method: GET, Route: usuario]
+in APPPATH/Views/usuarios/home.php on line 17.
+ 1 APPPATH/Views/usuarios/home.php(17): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(18): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 20:36:56 --> ErrorException: Undefined variable $usuario
+[Method: GET, Route: usuario]
+in APPPATH/Views/usuarios/home.php on line 17.
+ 1 APPPATH/Views/usuarios/home.php(17): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(18): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 20:37:07 --> ErrorException: Undefined variable $usuario
+[Method: GET, Route: usuario]
+in APPPATH/Views/usuarios/home.php on line 17.
+ 1 APPPATH/Views/usuarios/home.php(17): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(18): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+ERROR - 2024-08-01 20:38:05 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'ci4' in /home/eric/Documentos/GitHub/projeto-web2/system/Database/MySQLi/Connection.php:187
+Stack trace:
+#0 /home/eric/Documentos/GitHub/projeto-web2/system/Database/MySQLi/Connection.php(187): mysqli->real_connect()
+#1 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+#4 /home/eric/Documentos/GitHub/projeto-web2/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/eric/Documentos/GitHub/projeto-web2/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/eric/Documentos/GitHub/projeto-web2/app/Controllers/Usuario.php(12): CodeIgniter\BaseModel->findAll()
+#7 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(933): App\Controllers\Usuario->index()
+#8 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+#9 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#11 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/eric/Documentos/GitHub/projeto-web2/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#13 /home/eric/Documentos/GitHub/projeto-web2/system/rewrite.php(44): require_once('...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'ci4' in /home/eric/Documentos/GitHub/projeto-web2/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+#3 /home/eric/Documentos/GitHub/projeto-web2/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/eric/Documentos/GitHub/projeto-web2/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/eric/Documentos/GitHub/projeto-web2/app/Controllers/Usuario.php(12): CodeIgniter\BaseModel->findAll()
+#6 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(933): App\Controllers\Usuario->index()
+#7 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+#8 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#10 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/eric/Documentos/GitHub/projeto-web2/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /home/eric/Documentos/GitHub/projeto-web2/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2024-08-01 20:38:05 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'ci4'
+[Method: GET, Route: usuario]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Usuario.php(12): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+ERROR - 2024-08-01 20:38:06 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'ci4' in /home/eric/Documentos/GitHub/projeto-web2/system/Database/MySQLi/Connection.php:187
+Stack trace:
+#0 /home/eric/Documentos/GitHub/projeto-web2/system/Database/MySQLi/Connection.php(187): mysqli->real_connect()
+#1 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+#4 /home/eric/Documentos/GitHub/projeto-web2/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/eric/Documentos/GitHub/projeto-web2/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/eric/Documentos/GitHub/projeto-web2/app/Controllers/Usuario.php(12): CodeIgniter\BaseModel->findAll()
+#7 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(933): App\Controllers\Usuario->index()
+#8 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+#9 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#11 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/eric/Documentos/GitHub/projeto-web2/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#13 /home/eric/Documentos/GitHub/projeto-web2/system/rewrite.php(44): require_once('...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'ci4' in /home/eric/Documentos/GitHub/projeto-web2/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+#3 /home/eric/Documentos/GitHub/projeto-web2/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/eric/Documentos/GitHub/projeto-web2/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/eric/Documentos/GitHub/projeto-web2/app/Controllers/Usuario.php(12): CodeIgniter\BaseModel->findAll()
+#6 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(933): App\Controllers\Usuario->index()
+#7 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+#8 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#10 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/eric/Documentos/GitHub/projeto-web2/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /home/eric/Documentos/GitHub/projeto-web2/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2024-08-01 20:38:06 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'ci4'
+[Method: GET, Route: usuario]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Usuario.php(12): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 20:39:44 --> ErrorException: Undefined variable $usuario
+[Method: GET, Route: usuario]
+in APPPATH/Views/usuarios/home.php on line 17.
+ 1 APPPATH/Views/usuarios/home.php(17): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(18): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 20:39:46 --> ErrorException: Undefined variable $usuario
+[Method: GET, Route: usuario]
+in APPPATH/Views/usuarios/home.php on line 17.
+ 1 APPPATH/Views/usuarios/home.php(17): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(18): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 20:39:46 --> ErrorException: Undefined variable $usuario
+[Method: GET, Route: usuario]
+in APPPATH/Views/usuarios/home.php on line 17.
+ 1 APPPATH/Views/usuarios/home.php(17): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(18): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+ERROR - 2024-08-01 20:40:04 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'localhostteste' in /home/eric/Documentos/GitHub/projeto-web2/system/Database/MySQLi/Connection.php:187
+Stack trace:
+#0 /home/eric/Documentos/GitHub/projeto-web2/system/Database/MySQLi/Connection.php(187): mysqli->real_connect()
+#1 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+#4 /home/eric/Documentos/GitHub/projeto-web2/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/eric/Documentos/GitHub/projeto-web2/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/eric/Documentos/GitHub/projeto-web2/app/Controllers/Usuario.php(12): CodeIgniter\BaseModel->findAll()
+#7 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(933): App\Controllers\Usuario->index()
+#8 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+#9 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#11 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/eric/Documentos/GitHub/projeto-web2/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#13 /home/eric/Documentos/GitHub/projeto-web2/system/rewrite.php(44): require_once('...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'localhostteste' in /home/eric/Documentos/GitHub/projeto-web2/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/eric/Documentos/GitHub/projeto-web2/system/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+#3 /home/eric/Documentos/GitHub/projeto-web2/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/eric/Documentos/GitHub/projeto-web2/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/eric/Documentos/GitHub/projeto-web2/app/Controllers/Usuario.php(12): CodeIgniter\BaseModel->findAll()
+#6 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(933): App\Controllers\Usuario->index()
+#7 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+#8 /home/eric/Documentos/GitHub/projeto-web2/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#10 /home/eric/Documentos/GitHub/projeto-web2/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/eric/Documentos/GitHub/projeto-web2/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /home/eric/Documentos/GitHub/projeto-web2/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2024-08-01 20:40:04 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'localhostteste'
+[Method: GET, Route: usuario]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Usuario.php(12): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
+CRITICAL - 2024-08-01 20:40:14 --> ErrorException: Undefined variable $usuario
+[Method: GET, Route: usuario]
+in APPPATH/Views/usuarios/home.php on line 17.
+ 1 APPPATH/Views/usuarios/home.php(17): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(234): include('/home/eric/Documentos/GitHub/projeto-web2/app/Views/usuarios/home.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/Usuario.php(18): view()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/eric/Documentos/GitHub/projeto-web2/public/index.php')
