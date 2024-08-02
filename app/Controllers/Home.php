@@ -2,10 +2,19 @@
 
 namespace App\Controllers;
 
+use App\Models\ProdutoModel;
+
 class Home extends BaseController
 {
     public function index(): string
     {
-        return view('index');
+        $produto = new ProdutoModel();
+        $produtos = $produto->findAll();
+        
+        $variavel = [
+              'titulo' => "Pedidos",
+              'produto' => $produtos  
+        ];
+        return view('index', $variavel);
     }
 }
