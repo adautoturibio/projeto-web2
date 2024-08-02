@@ -1,5 +1,5 @@
 <nav>
-    <div class="nav-wrapper cor-1">
+    <div class="nav-wrapper cor-1b">
       <a href="#" class="brand-logo">
         <img src="/assets/imagens/logo.png" alt="Logo" class="navbar-logo">
       </a>

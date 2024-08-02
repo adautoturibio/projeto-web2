@@ -5,8 +5,12 @@
  */
 
 
-.cor-1{
+.cor-1b{
   background-color: #881E3B;
+}
+
+.cor-1t{
+  color:#881E3B;
 }
 
 .navbar-logo {
@@ -24,6 +28,18 @@
 .hover-yellow:hover{
   color: #F8A000;
 }
+
+
+
+
+
+.linha{
+  height: 0.3em;  /* Altura da linha */
+  background-color: #881E3B;  /* Cor da linha */
+  width: 100%;  /* Largura da linha */
+  margin: 20px 0;  /* Margem superior e inferior */ 
+}
+
 
 
 
