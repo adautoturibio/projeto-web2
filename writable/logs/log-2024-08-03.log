@@ -408,3 +408,19 @@ in APPPATH/Controllers/Home.php on line 11.
  5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
  6 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
  7 SYSTEMPATH/rewrite.php(44): require_once('/var/www/html/projeto-web2/public/index.php')
+CRITICAL - 2024-08-03 23:25:21 --> ErrorException: Undefined variable $produto
+[Method: GET, Route: home]
+in APPPATH/Views/Templates/hamburgueres.php on line 8.
+ 1 APPPATH/Views/Templates/hamburgueres.php(8): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH/Views/index.php(4): include('/var/www/html/projeto-web2/app/Views/Templates/hamburgueres.php')
+ 3 SYSTEMPATH/View/View.php(234): include('/var/www/html/projeto-web2/app/Views/index.php')
+ 4 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 6 APPPATH/Controllers/Home.php(19): view()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Home->index()
+ 8 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/var/www/html/projeto-web2/public/index.php')
