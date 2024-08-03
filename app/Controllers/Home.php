@@ -8,13 +8,14 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        $produto = new ProdutoModel();
-        $produtos = $produto->findAll();
+        // $produto = new Produtos();
+        // $produto = $produto->findAll();
         
-        $variavel = [
-              'titulo' => "Pedidos",
-              'produto' => $produtos  
-        ];
-        return view('index', $variavel);
+        // $variavel = [
+        //       'titulo' => "Pedidos",
+        //       'produto' => $produto  
+        // ];
+        // return view('index', $variavel);
+        return view('index');
     }
 }
