@@ -13,7 +13,7 @@ use CodeIgniter\Model;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['ome',
+    protected $allowedFields    = ['nome',
                                    'descricao',
                                    'preco_custo',
                                    'preco_venda',
