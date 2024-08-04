@@ -5,7 +5,7 @@
 
 </div>
 
-<?php foreach($produtos as $produto):?>
+<?php foreach($produto as $produtos):?>
   <div class="row">
     <div class="col s12 m3 ">
       <div class="card">
