@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -148,10 +146,8 @@ class Response extends Message implements ResponseInterface
      * @param App $config
      *
      * @todo Recommend removing reliance on config injection
-     *
-     * @deprecated 4.5.0 The param $config is no longer used.
      */
-    public function __construct($config) // @phpstan-ignore-line
+    public function __construct($config)
     {
         // Default to a non-caching page.
         // Also ensures that a Cache-control header exists.
@@ -159,6 +155,8 @@ class Response extends Message implements ResponseInterface
 
         // We need CSP object even if not enabled to avoid calls to non existing methods
         $this->CSP = Services::csp();
+
+        $this->CSPEnabled = $config->CSPEnabled;
 
         $this->cookieStore = new CookieStore([]);
 
@@ -178,7 +176,6 @@ class Response extends Message implements ResponseInterface
      *
      * @return $this
      *
-     * @internal For testing purposes only.
      * @testTag only available to test code
      */
     public function pretend(bool $pretend = true)

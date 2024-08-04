@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -15,7 +13,6 @@ namespace CodeIgniter\Router;
 
 use Closure;
 use CodeIgniter\HTTP\Request;
-use CodeIgniter\HTTP\ResponseInterface;
 
 /**
  * Expected behavior of a Router.
@@ -32,14 +29,14 @@ interface RouterInterface
      *
      * @param string|null $uri URI path relative to baseURL
      *
-     * @return (Closure(mixed...): (ResponseInterface|string|void))|string Controller classname or Closure
+     * @return Closure|string Controller classname or Closure
      */
     public function handle(?string $uri = null);
 
     /**
      * Returns the name of the matched controller.
      *
-     * @return (Closure(mixed...): (ResponseInterface|string|void))|string Controller classname or Closure
+     * @return Closure|string Controller classname or Closure
      */
     public function controllerName();
 

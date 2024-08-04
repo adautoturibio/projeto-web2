@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -13,7 +11,8 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Commands\Utilities\Routes;
 
-use CodeIgniter\Autoloader\FileLocatorInterface;
+use CodeIgniter\Autoloader\FileLocator;
+use CodeIgniter\Config\Services;
 
 /**
  * Finds all controllers in a namespace for auto route listing.
@@ -22,19 +21,25 @@ use CodeIgniter\Autoloader\FileLocatorInterface;
  */
 final class ControllerFinder
 {
-    private readonly FileLocatorInterface $locator;
+    /**
+     * @var string namespace to search
+     */
+    private string $namespace;
+
+    private FileLocator $locator;
 
     /**
      * @param string $namespace namespace to search
      */
-    public function __construct(
-        private readonly string $namespace
-    ) {
-        $this->locator = service('locator');
+    public function __construct(string $namespace)
+    {
+        $this->namespace = $namespace;
+        $this->locator   = Services::locator();
     }
 
     /**
-     * @return list<class-string>
+     * @return string[]
+     * @phpstan-return class-string[]
      */
     public function find(): array
     {
@@ -61,7 +66,7 @@ final class ControllerFinder
                 $classnameOrEmpty = $this->locator->getClassname($file);
 
                 if ($classnameOrEmpty !== '') {
-                    /** @var class-string $classname */
+                    /** @phpstan-var class-string $classname */
                     $classname = $classnameOrEmpty;
 
                     $classes[] = $classname;

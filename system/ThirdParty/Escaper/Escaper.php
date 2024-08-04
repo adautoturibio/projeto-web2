@@ -157,21 +157,9 @@ class Escaper
         $this->htmlSpecialCharsFlags = ENT_QUOTES | ENT_SUBSTITUTE;
 
         // set matcher callbacks
-        $this->htmlAttrMatcher =
-            /** @param array<array-key, string> $matches */
-            function (array $matches): string {
-                return $this->htmlAttrMatcher($matches);
-            };
-        $this->jsMatcher       =
-            /** @param array<array-key, string> $matches */
-            function (array $matches): string {
-                return $this->jsMatcher($matches);
-            };
-        $this->cssMatcher      =
-            /** @param array<array-key, string> $matches */
-            function (array $matches): string {
-                return $this->cssMatcher($matches);
-            };
+        $this->htmlAttrMatcher = [$this, 'htmlAttrMatcher'];
+        $this->jsMatcher       = [$this, 'jsMatcher'];
+        $this->cssMatcher      = [$this, 'cssMatcher'];
     }
 
     /**

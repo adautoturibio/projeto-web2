@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -75,7 +73,7 @@ class FileHandler extends BaseHandler
         } else {
             $sessionPath = rtrim(ini_get('session.save_path'), '/\\');
 
-            if ($sessionPath === '') {
+            if (! $sessionPath) {
                 $sessionPath = WRITEPATH . 'session';
             }
 

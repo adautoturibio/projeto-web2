@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -56,7 +54,7 @@ final class ExceptionHandler extends BaseExceptionHandler implements ExceptionHa
         if ($request instanceof IncomingRequest) {
             try {
                 $response->setStatusCode($statusCode);
-            } catch (HTTPException) {
+            } catch (HTTPException $e) {
                 // Workaround for invalid HTTP status code.
                 $statusCode = 500;
                 $response->setStatusCode($statusCode);
@@ -75,7 +73,7 @@ final class ExceptionHandler extends BaseExceptionHandler implements ExceptionHa
                 );
             }
 
-            if (! str_contains($request->getHeaderLine('accept'), 'text/html')) {
+            if (strpos($request->getHeaderLine('accept'), 'text/html') === false) {
                 $data = (ENVIRONMENT === 'development' || ENVIRONMENT === 'testing')
                     ? $this->collectVars($exception, $statusCode)
                     : '';
@@ -99,8 +97,8 @@ final class ExceptionHandler extends BaseExceptionHandler implements ExceptionHa
             . DIRECTORY_SEPARATOR . 'errors' . DIRECTORY_SEPARATOR . $addPath;
 
         // Determine the views
-        $view    = $this->determineView($exception, $path, $statusCode);
-        $altView = $this->determineView($exception, $altPath, $statusCode);
+        $view    = $this->determineView($exception, $path);
+        $altView = $this->determineView($exception, $altPath);
 
         // Check if the view exists
         $viewFile = null;
@@ -121,26 +119,17 @@ final class ExceptionHandler extends BaseExceptionHandler implements ExceptionHa
     }
 
     /**
-     * Determines the view to display based on the exception thrown, HTTP status
-     * code, whether an HTTP or CLI request, etc.
+     * Determines the view to display based on the exception thrown,
+     * whether an HTTP or CLI request, etc.
      *
      * @return string The filename of the view file to use
      */
-    protected function determineView(
-        Throwable $exception,
-        string $templatePath,
-        int $statusCode = 500
-    ): string {
+    protected function determineView(Throwable $exception, string $templatePath): string
+    {
         // Production environments should have a custom exception file.
         $view = 'production.php';
 
-        if (
-            in_array(
-                strtolower(ini_get('display_errors')),
-                ['1', 'true', 'on', 'yes'],
-                true
-            )
-        ) {
+        if (str_ireplace(['off', 'none', 'no', 'false', 'null'], '', ini_get('display_errors')) !== '') {
             $view = 'error_exception.php';
         }
 
@@ -152,8 +141,8 @@ final class ExceptionHandler extends BaseExceptionHandler implements ExceptionHa
         $templatePath = rtrim($templatePath, '\\/ ') . DIRECTORY_SEPARATOR;
 
         // Allow for custom views based upon the status code
-        if (is_file($templatePath . 'error_' . $statusCode . '.php')) {
-            return 'error_' . $statusCode . '.php';
+        if (is_file($templatePath . 'error_' . $exception->getCode() . '.php')) {
+            return 'error_' . $exception->getCode() . '.php';
         }
 
         return $view;

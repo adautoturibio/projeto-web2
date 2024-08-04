@@ -10,12 +10,12 @@ use Tests\Support\Libraries\ConfigReader;
  */
 final class HealthTest extends CIUnitTestCase
 {
-    public function testIsDefinedAppPath(): void
+    public function testIsDefinedAppPath()
     {
         $this->assertTrue(defined('APPPATH'));
     }
 
-    public function testBaseUrlHasBeenSet(): void
+    public function testBaseUrlHasBeenSet()
     {
         $validation = Services::validation();
 

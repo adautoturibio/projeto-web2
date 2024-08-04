@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -14,9 +12,7 @@ declare(strict_types=1);
 namespace CodeIgniter\Database\SQLSRV;
 
 use CodeIgniter\Database\BaseConnection;
-use CodeIgniter\Database\Exceptions\DatabaseException;
 use CodeIgniter\Database\Forge as BaseForge;
-use Throwable;
 
 /**
  * Forge for SQLSRV
@@ -44,7 +40,7 @@ class Forge extends BaseForge
      *
      * @var string
      */
-    protected $createDatabaseIfStr = "DECLARE @DBName VARCHAR(255) = '%s'\nDECLARE @SQL VARCHAR(max) = 'IF DB_ID( ''' + @DBName + ''' ) IS NULL CREATE DATABASE %s'\nEXEC( @SQL )";
+    protected $createDatabaseIfStr = "DECLARE @DBName VARCHAR(255) = '%s'\nDECLARE @SQL VARCHAR(max) = 'IF DB_ID( ''' + @DBName + ''' ) IS NULL CREATE DATABASE ' + @DBName\nEXEC( @SQL )";
 
     /**
      * CREATE DATABASE IF statement
@@ -122,53 +118,6 @@ class Forge extends BaseForge
     }
 
     /**
-     * Create database
-     *
-     * @param bool $ifNotExists Whether to add IF NOT EXISTS condition
-     *
-     * @throws DatabaseException
-     */
-    public function createDatabase(string $dbName, bool $ifNotExists = false): bool
-    {
-        if ($ifNotExists) {
-            $sql = sprintf(
-                $this->createDatabaseIfStr,
-                $dbName,
-                $this->db->escapeIdentifier($dbName)
-            );
-        } else {
-            $sql = sprintf(
-                $this->createDatabaseStr,
-                $this->db->escapeIdentifier($dbName)
-            );
-        }
-
-        try {
-            if (! $this->db->query($sql)) {
-                // @codeCoverageIgnoreStart
-                if ($this->db->DBDebug) {
-                    throw new DatabaseException('Unable to create the specified database.');
-                }
-
-                return false;
-                // @codeCoverageIgnoreEnd
-            }
-
-            if (isset($this->db->dataCache['db_names'])) {
-                $this->db->dataCache['db_names'][] = $dbName;
-            }
-
-            return true;
-        } catch (Throwable $e) {
-            if ($this->db->DBDebug) {
-                throw new DatabaseException('Unable to create the specified database.', 0, $e);
-            }
-
-            return false; // @codeCoverageIgnore
-        }
-    }
-
-    /**
      * CREATE TABLE attributes
      */
     protected function _createTableAttributes(array $attributes): string
@@ -177,30 +126,26 @@ class Forge extends BaseForge
     }
 
     /**
-     * @param array|string $processedFields Processed column definitions
-     *                                      or column names to DROP
+     * @param array|string $field
      *
-     * @return         false|list<string>|string                            SQL string or false
-     * @phpstan-return ($alterType is 'DROP' ? string : list<string>|false)
+     * @return false|string|string[]
      */
-    protected function _alterTable(string $alterType, string $table, $processedFields)
+    protected function _alterTable(string $alterType, string $table, $field)
     {
         // Handle DROP here
         if ($alterType === 'DROP') {
-            $columnNamesToDrop = $processedFields;
-
             // check if fields are part of any indexes
             $indexData = $this->db->getIndexData($table);
 
             foreach ($indexData as $index) {
-                if (is_string($columnNamesToDrop)) {
-                    $columnNamesToDrop = explode(',', $columnNamesToDrop);
+                if (is_string($field)) {
+                    $field = explode(',', $field);
                 }
 
-                $fld = array_intersect($columnNamesToDrop, $index->fields);
+                $fld = array_intersect($field, $index->fields);
 
                 // Drop index if field is part of an index
-                if ($fld !== []) {
+                if (! empty($fld)) {
                     $this->_dropIndex($table, $index);
                 }
             }
@@ -208,7 +153,7 @@ class Forge extends BaseForge
             $fullTable = $this->db->escapeIdentifiers($this->db->schema) . '.' . $this->db->escapeIdentifiers($table);
 
             // Drop default constraints
-            $fields = implode(',', $this->db->escape((array) $columnNamesToDrop));
+            $fields = implode(',', $this->db->escape((array) $field));
 
             $sql = <<<SQL
                 SELECT name
@@ -225,7 +170,7 @@ class Forge extends BaseForge
 
             $sql = 'ALTER TABLE ' . $fullTable . ' DROP ';
 
-            $fields = array_map(static fn ($item) => 'COLUMN [' . trim($item) . ']', (array) $columnNamesToDrop);
+            $fields = array_map(static fn ($item) => 'COLUMN [' . trim($item) . ']', (array) $field);
 
             return $sql . implode(',', $fields);
         }
@@ -236,45 +181,45 @@ class Forge extends BaseForge
         $sqls = [];
 
         if ($alterType === 'ADD') {
-            foreach ($processedFields as $field) {
-                $sqls[] = $sql . ($field['_literal'] !== false ? $field['_literal'] : $this->_processColumn($field));
+            foreach ($field as $data) {
+                $sqls[] = $sql . ($data['_literal'] !== false ? $data['_literal'] : $this->_processColumn($data));
             }
 
             return $sqls;
         }
 
-        foreach ($processedFields as $field) {
-            if ($field['_literal'] !== false) {
+        foreach ($field as $data) {
+            if ($data['_literal'] !== false) {
                 return false;
             }
 
-            if (isset($field['type'])) {
-                $sqls[] = $sql . ' ALTER COLUMN ' . $this->db->escapeIdentifiers($field['name'])
-                    . " {$field['type']}{$field['length']}";
+            if (isset($data['type'])) {
+                $sqls[] = $sql . ' ALTER COLUMN ' . $this->db->escapeIdentifiers($data['name'])
+                    . " {$data['type']}{$data['length']}";
             }
 
-            if (! empty($field['default'])) {
-                $sqls[] = $sql . ' ALTER COLUMN ADD CONSTRAINT ' . $this->db->escapeIdentifiers($field['name']) . '_def'
-                    . " DEFAULT {$field['default']} FOR " . $this->db->escapeIdentifiers($field['name']);
+            if (! empty($data['default'])) {
+                $sqls[] = $sql . ' ALTER COLUMN ADD CONSTRAINT ' . $this->db->escapeIdentifiers($data['name']) . '_def'
+                    . " DEFAULT {$data['default']} FOR " . $this->db->escapeIdentifiers($data['name']);
             }
 
             $nullable = true; // Nullable by default.
-            if (isset($field['null']) && ($field['null'] === false || $field['null'] === ' NOT ' . $this->null)) {
+            if (isset($data['null']) && ($data['null'] === false || $data['null'] === ' NOT ' . $this->null)) {
                 $nullable = false;
             }
-            $sqls[] = $sql . ' ALTER COLUMN ' . $this->db->escapeIdentifiers($field['name'])
-                . " {$field['type']}{$field['length']} " . ($nullable === true ? '' : 'NOT') . ' NULL';
+            $sqls[] = $sql . ' ALTER COLUMN ' . $this->db->escapeIdentifiers($data['name'])
+                . " {$data['type']}{$data['length']} " . ($nullable === true ? '' : 'NOT') . ' NULL';
 
-            if (! empty($field['comment'])) {
+            if (! empty($data['comment'])) {
                 $sqls[] = 'EXEC sys.sp_addextendedproperty '
-                    . "@name=N'Caption', @value=N'" . $field['comment'] . "' , "
+                    . "@name=N'Caption', @value=N'" . $data['comment'] . "' , "
                     . "@level0type=N'SCHEMA',@level0name=N'" . $this->db->schema . "', "
                     . "@level1type=N'TABLE',@level1name=N'" . $this->db->escapeIdentifiers($table) . "', "
-                    . "@level2type=N'COLUMN',@level2name=N'" . $this->db->escapeIdentifiers($field['name']) . "'";
+                    . "@level2type=N'COLUMN',@level2name=N'" . $this->db->escapeIdentifiers($data['name']) . "'";
             }
 
-            if (! empty($field['new_name'])) {
-                $sqls[] = "EXEC sp_rename  '[" . $this->db->schema . '].[' . $table . '].[' . $field['name'] . "]' , '" . $field['new_name'] . "', 'COLUMN';";
+            if (! empty($data['new_name'])) {
+                $sqls[] = "EXEC sp_rename  '[" . $this->db->schema . '].[' . $table . '].[' . $data['name'] . "]' , '" . $data['new_name'] . "', 'COLUMN';";
             }
         }
 
@@ -342,16 +287,16 @@ class Forge extends BaseForge
     /**
      * Process column
      */
-    protected function _processColumn(array $processedField): string
+    protected function _processColumn(array $field): string
     {
-        return $this->db->escapeIdentifiers($processedField['name'])
-            . (empty($processedField['new_name']) ? '' : ' ' . $this->db->escapeIdentifiers($processedField['new_name']))
-            . ' ' . $processedField['type'] . ($processedField['type'] === 'text' ? '' : $processedField['length'])
-            . $processedField['default']
-            . $processedField['null']
-            . $processedField['auto_increment']
+        return $this->db->escapeIdentifiers($field['name'])
+            . (empty($field['new_name']) ? '' : ' ' . $this->db->escapeIdentifiers($field['new_name']))
+            . ' ' . $field['type'] . ($field['type'] === 'text' ? '' : $field['length'])
+            . $field['default']
+            . $field['null']
+            . $field['auto_increment']
             . ''
-            . $processedField['unique'];
+            . $field['unique'];
     }
 
     /**
@@ -375,18 +320,8 @@ class Forge extends BaseForge
                 break;
 
             case 'ENUM':
-                // in char(n) and varchar(n), the n defines the string length in
-                // bytes (0 to 8,000).
-                // https://learn.microsoft.com/en-us/sql/t-sql/data-types/char-and-varchar-transact-sql?view=sql-server-ver16#remarks
-                $maxLength = max(
-                    array_map(
-                        static fn ($value) => strlen($value),
-                        $attributes['CONSTRAINT']
-                    )
-                );
-
-                $attributes['TYPE']       = 'VARCHAR';
-                $attributes['CONSTRAINT'] = $maxLength;
+                $attributes['TYPE']       = 'TEXT';
+                $attributes['CONSTRAINT'] = null;
                 break;
 
             case 'TIMESTAMP':

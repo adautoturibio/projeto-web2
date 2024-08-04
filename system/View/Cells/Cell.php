@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -16,7 +14,6 @@ namespace CodeIgniter\View\Cells;
 use CodeIgniter\Traits\PropertiesTrait;
 use LogicException;
 use ReflectionClass;
-use Stringable;
 
 /**
  * Class Cell
@@ -27,7 +24,7 @@ use Stringable;
  *
  * @function mount()
  */
-class Cell implements Stringable
+class Cell
 {
     use PropertiesTrait;
 
@@ -121,7 +118,7 @@ class Cell implements Stringable
     /**
      * Provides capability to render on string casting.
      */
-    public function __toString(): string
+    public function __toString()
     {
         return $this->render();
     }

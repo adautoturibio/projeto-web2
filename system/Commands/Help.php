@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -55,7 +53,7 @@ class Help extends BaseCommand
     /**
      * the Command's Arguments
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $arguments = [
         'command_name' => 'The command name [default: "help"]',
@@ -64,7 +62,7 @@ class Help extends BaseCommand
     /**
      * the Command's Options
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $options = [];
 

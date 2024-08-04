@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -152,8 +150,8 @@ class FileHandler extends BaseHandler
      */
     public function increment(string $key, int $offset = 1)
     {
-        $prefixedKey = static::validateKey($key, $this->prefix);
-        $tmp         = $this->getItem($prefixedKey);
+        $key = static::validateKey($key, $this->prefix);
+        $tmp = $this->getItem($key);
 
         if ($tmp === false) {
             $tmp = ['data' => 0, 'ttl' => 60];
@@ -224,7 +222,8 @@ class FileHandler extends BaseHandler
      * Does the heavy lifting of actually retrieving the file and
      * verifying it's age.
      *
-     * @return array{data: mixed, ttl: int, time: int}|false
+     * @return array<string, mixed>|false
+     * @phpstan-return array{data: mixed, ttl: int, time: int}|false
      */
     protected function getItem(string $filename)
     {

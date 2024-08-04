@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -13,12 +11,10 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Database;
 
-use Stringable;
-
 /**
  * Query builder
  */
-class Query implements QueryInterface, Stringable
+class Query implements QueryInterface
 {
     /**
      * The query string, as provided by the user.
@@ -118,7 +114,7 @@ class Query implements QueryInterface, Stringable
             }
 
             if ($setEscape) {
-                array_walk($binds, static function (&$item): void {
+                array_walk($binds, static function (&$item) {
                     $item = [
                         $item,
                         true,
@@ -141,7 +137,7 @@ class Query implements QueryInterface, Stringable
     public function setBinds(array $binds, bool $setEscape = true)
     {
         if ($setEscape) {
-            array_walk($binds, static function (&$item): void {
+            array_walk($binds, static function (&$item) {
                 $item = [$item, true];
             });
         }
@@ -361,7 +357,7 @@ class Query implements QueryInterface, Stringable
                 $escapedValue = '(' . implode(',', $escapedValue) . ')';
             }
 
-            $sql = substr_replace($sql, (string) $escapedValue, $matches[0][$c][1], $ml);
+            $sql = substr_replace($sql, $escapedValue, $matches[0][$c][1], $ml);
         } while ($c !== 0);
 
         return $sql;

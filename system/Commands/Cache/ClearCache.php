@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -54,7 +52,7 @@ class ClearCache extends BaseCommand
     /**
      * the Command's Arguments
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $arguments = [
         'driver' => 'The cache driver to use',

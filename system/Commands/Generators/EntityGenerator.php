@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -54,7 +52,7 @@ class EntityGenerator extends BaseCommand
     /**
      * The Command's Arguments
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $arguments = [
         'name' => 'The entity class name.',
@@ -63,7 +61,7 @@ class EntityGenerator extends BaseCommand
     /**
      * The Command's Options
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $options = [
         '--namespace' => 'Set root namespace. Default: "APP_NAMESPACE".',
@@ -81,6 +79,6 @@ class EntityGenerator extends BaseCommand
         $this->template  = 'entity.tpl.php';
 
         $this->classNameLang = 'CLI.generator.className.entity';
-        $this->generateClass($params);
+        $this->execute($params);
     }
 }

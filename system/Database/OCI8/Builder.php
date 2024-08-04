@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -168,7 +166,7 @@ class Builder extends BaseBuilder
      */
     public function delete($where = '', ?int $limit = null, bool $resetData = true)
     {
-        if ($limit !== null && $limit !== 0) {
+        if (! empty($limit)) {
             $this->QBLimit = $limit;
         }
 
@@ -224,7 +222,7 @@ class Builder extends BaseBuilder
         }
 
         $this->limitUsed    = true;
-        $limitTemplateQuery = 'SELECT * FROM (SELECT INNER_QUERY.*, ROWNUM RNUM FROM (%s) INNER_QUERY WHERE ROWNUM < %d)' . ($offset !== 0 ? ' WHERE RNUM >= %d' : '');
+        $limitTemplateQuery = 'SELECT * FROM (SELECT INNER_QUERY.*, ROWNUM RNUM FROM (%s) INNER_QUERY WHERE ROWNUM < %d)' . ($offset ? ' WHERE RNUM >= %d' : '');
 
         return sprintf($limitTemplateQuery, $sql, $offset + $this->QBLimit + 1, $offset);
     }

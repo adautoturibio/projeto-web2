@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -13,6 +11,7 @@ declare(strict_types=1);
 
 namespace CodeIgniter\View;
 
+use Config\Services;
 use NumberFormatter;
 
 /**
@@ -39,10 +38,6 @@ class Filters
             $value = strtotime($value);
         }
 
-        if ($value !== null) {
-            $value = (int) $value;
-        }
-
         return date($format, $value);
     }
 
@@ -67,11 +62,11 @@ class Filters
     /**
      * Returns the given default value if $value is empty or undefined.
      *
-     * @param bool|float|int|list<string>|object|resource|string|null $value
+     * @param array|bool|float|int|object|resource|string|null $value
      */
     public static function default($value, string $default): string
     {
-        return empty($value) // @phpstan-ignore-line
+        return empty($value)
             ? $default
             : $value;
     }
@@ -79,7 +74,7 @@ class Filters
     /**
      * Escapes the given value with our `esc()` helper function.
      *
-     * @param         string                               $value
+     * @param string $value
      * @phpstan-param 'html'|'js'|'css'|'url'|'attr'|'raw' $context
      */
     public static function esc($value, string $context = 'html'): string
@@ -163,7 +158,7 @@ class Filters
             'duration'   => NumberFormatter::DURATION,
         ];
 
-        return format_number((float) $value, $precision, $locale, ['type' => $types[$type]]);
+        return format_number($value, $precision, $locale, ['type' => $types[$type]]);
     }
 
     /**
@@ -184,7 +179,7 @@ class Filters
             'fraction' => $fraction,
         ];
 
-        return format_number((float) $value, 2, $locale, $options);
+        return format_number($value, 2, $locale, $options);
     }
 
     /**
@@ -193,7 +188,7 @@ class Filters
      */
     public static function nl2br(string $value): string
     {
-        $typography = service('typography');
+        $typography = Services::typography();
 
         return $typography->nl2brExceptPre($value);
     }
@@ -204,7 +199,7 @@ class Filters
      */
     public static function prose(string $value): string
     {
-        $typography = service('typography');
+        $typography = Services::typography();
 
         return $typography->autoTypography($value);
     }
@@ -230,13 +225,19 @@ class Filters
             $precision = (int) $precision;
         }
 
-        return match ($type) {
-            'common' => round((float) $value, $precision),
-            'ceil'   => ceil((float) $value),
-            'floor'  => floor((float) $value),
-            // Still here, just return the value.
-            default => $value,
-        };
+        switch ($type) {
+            case 'common':
+                return round((float) $value, $precision);
+
+            case 'ceil':
+                return ceil((float) $value);
+
+            case 'floor':
+                return floor((float) $value);
+        }
+
+        // Still here, just return the value.
+        return $value;
     }
 
     /**

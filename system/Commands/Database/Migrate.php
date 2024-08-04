@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -15,6 +13,7 @@ namespace CodeIgniter\Commands\Database;
 
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
+use Config\Services;
 use Throwable;
 
 /**
@@ -54,7 +53,7 @@ class Migrate extends BaseCommand
     /**
      * the Command's Options
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $options = [
         '-n'    => 'Set migration namespace',
@@ -67,7 +66,7 @@ class Migrate extends BaseCommand
      */
     public function run(array $params)
     {
-        $runner = service('migrations');
+        $runner = Services::migrations();
         $runner->clearCliMessages();
 
         CLI::write(lang('Migrations.latest'), 'yellow');

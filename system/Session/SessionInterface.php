@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -53,7 +51,7 @@ interface SessionInterface
      *
      * Replaces the legacy method $session->userdata();
      *
-     * @param non-empty-string|null $key Identifier of the session property to retrieve
+     * @param string $key Identifier of the session property to retrieve
      *
      * @return array|bool|float|int|object|string|null The property value(s)
      */

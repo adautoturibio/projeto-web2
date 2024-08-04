@@ -10,20 +10,21 @@
         "slack": "https://codeigniterchat.slack.com"
     },
     "require": {
-        "php": "^8.1",
+        "php": "^7.4 || ^8.0",
         "ext-intl": "*",
+        "ext-json": "*",
         "ext-mbstring": "*",
-        "laminas/laminas-escaper": "^2.13",
-        "psr/log": "^3.0"
+        "laminas/laminas-escaper": "^2.9",
+        "psr/log": "^1.1"
     },
     "require-dev": {
-        "codeigniter/coding-standard": "^1.7",
+        "codeigniter/coding-standard": "^1.5",
         "fakerphp/faker": "^1.9",
-        "friendsofphp/php-cs-fixer": "^3.47.1",
+        "friendsofphp/php-cs-fixer": "3.13.0",
         "kint-php/kint": "^5.0.4",
         "mikey179/vfsstream": "^1.6",
         "nexusphp/cs-config": "^3.6",
-        "phpunit/phpunit": "^10.5.16",
+        "phpunit/phpunit": "^9.1",
         "predis/predis": "^1.1 || ^2.0"
     },
     "suggest": {
@@ -42,7 +43,6 @@
         "ext-readline": "Improves CLI::input() usability",
         "ext-redis": "If you use Cache class RedisHandler",
         "ext-simplexml": "If you format XML",
-        "ext-sodium": "If you use Encryption SodiumHandler",
         "ext-sqlite3": "If you use SQLite3",
         "ext-sqlsrv": "If you use SQL Server",
         "ext-xdebug": "If you use CIUnitTestCase::assertHeaderEmitted()"

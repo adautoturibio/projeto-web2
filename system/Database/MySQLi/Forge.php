@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -116,11 +114,11 @@ class Forge extends BaseForge
             }
         }
 
-        if ($this->db->charset !== '' && ! strpos($sql, 'CHARACTER SET') && ! strpos($sql, 'CHARSET')) {
+        if (! empty($this->db->charset) && ! strpos($sql, 'CHARACTER SET') && ! strpos($sql, 'CHARSET')) {
             $sql .= ' DEFAULT CHARACTER SET = ' . $this->db->escapeString($this->db->charset);
         }
 
-        if ($this->db->DBCollat !== '' && ! strpos($sql, 'COLLATE')) {
+        if (! empty($this->db->DBCollat) && ! strpos($sql, 'COLLATE')) {
             $sql .= ' COLLATE = ' . $this->db->escapeString($this->db->DBCollat);
         }
 
@@ -130,59 +128,57 @@ class Forge extends BaseForge
     /**
      * ALTER TABLE
      *
-     * @param string       $alterType       ALTER type
-     * @param string       $table           Table name
-     * @param array|string $processedFields Processed column definitions
-     *                                      or column names to DROP
+     * @param string       $alterType ALTER type
+     * @param string       $table     Table name
+     * @param array|string $field     Column definition
      *
-     * @return         list<string>|string                            SQL string
-     * @phpstan-return ($alterType is 'DROP' ? string : list<string>)
+     * @return string|string[]
      */
-    protected function _alterTable(string $alterType, string $table, $processedFields)
+    protected function _alterTable(string $alterType, string $table, $field)
     {
         if ($alterType === 'DROP') {
-            return parent::_alterTable($alterType, $table, $processedFields);
+            return parent::_alterTable($alterType, $table, $field);
         }
 
         $sql = 'ALTER TABLE ' . $this->db->escapeIdentifiers($table);
 
-        foreach ($processedFields as $i => $field) {
-            if ($field['_literal'] !== false) {
-                $processedFields[$i] = ($alterType === 'ADD') ? "\n\tADD " . $field['_literal'] : "\n\tMODIFY " . $field['_literal'];
+        foreach ($field as $i => $data) {
+            if ($data['_literal'] !== false) {
+                $field[$i] = ($alterType === 'ADD') ? "\n\tADD " . $data['_literal'] : "\n\tMODIFY " . $data['_literal'];
             } else {
                 if ($alterType === 'ADD') {
-                    $processedFields[$i]['_literal'] = "\n\tADD ";
+                    $field[$i]['_literal'] = "\n\tADD ";
                 } else {
-                    $processedFields[$i]['_literal'] = empty($field['new_name']) ? "\n\tMODIFY " : "\n\tCHANGE ";
+                    $field[$i]['_literal'] = empty($data['new_name']) ? "\n\tMODIFY " : "\n\tCHANGE ";
                 }
 
-                $processedFields[$i] = $processedFields[$i]['_literal'] . $this->_processColumn($processedFields[$i]);
+                $field[$i] = $field[$i]['_literal'] . $this->_processColumn($field[$i]);
             }
         }
 
-        return [$sql . implode(',', $processedFields)];
+        return [$sql . implode(',', $field)];
     }
 
     /**
      * Process column
      */
-    protected function _processColumn(array $processedField): string
+    protected function _processColumn(array $field): string
     {
-        $extraClause = isset($processedField['after']) ? ' AFTER ' . $this->db->escapeIdentifiers($processedField['after']) : '';
+        $extraClause = isset($field['after']) ? ' AFTER ' . $this->db->escapeIdentifiers($field['after']) : '';
 
-        if (empty($extraClause) && isset($processedField['first']) && $processedField['first'] === true) {
+        if (empty($extraClause) && isset($field['first']) && $field['first'] === true) {
             $extraClause = ' FIRST';
         }
 
-        return $this->db->escapeIdentifiers($processedField['name'])
-                . (empty($processedField['new_name']) ? '' : ' ' . $this->db->escapeIdentifiers($processedField['new_name']))
-                . ' ' . $processedField['type'] . $processedField['length']
-                . $processedField['unsigned']
-                . $processedField['null']
-                . $processedField['default']
-                . $processedField['auto_increment']
-                . $processedField['unique']
-                . (empty($processedField['comment']) ? '' : ' COMMENT ' . $processedField['comment'])
+        return $this->db->escapeIdentifiers($field['name'])
+                . (empty($field['new_name']) ? '' : ' ' . $this->db->escapeIdentifiers($field['new_name']))
+                . ' ' . $field['type'] . $field['length']
+                . $field['unsigned']
+                . $field['null']
+                . $field['default']
+                . $field['auto_increment']
+                . $field['unique']
+                . (empty($field['comment']) ? '' : ' COMMENT ' . $field['comment'])
                 . $extraClause;
     }
 

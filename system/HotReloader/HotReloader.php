@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -20,10 +18,6 @@ final class HotReloader
 {
     public function run(): void
     {
-        if (session_status() === PHP_SESSION_ACTIVE) {
-            session_write_close();
-        }
-
         ini_set('zlib.output_compression', 'Off');
 
         header('Cache-Control: no-store');

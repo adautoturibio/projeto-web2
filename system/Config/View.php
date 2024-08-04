@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -18,8 +16,8 @@ use CodeIgniter\View\ViewDecoratorInterface;
 /**
  * View configuration
  *
- * @phpstan-type parser_callable (callable(mixed): mixed)
- * @phpstan-type parser_callable_string (callable(mixed): mixed)&string
+ * @phpstan-type ParserCallable (callable(mixed): mixed)
+ * @phpstan-type ParserCallableString (callable(mixed): mixed)&string
  */
 class View extends BaseConfig
 {
@@ -41,8 +39,8 @@ class View extends BaseConfig
      *
      * @psalm-suppress UndefinedDocblockClass
      *
-     * @var         array<string, string>
-     * @phpstan-var array<string, parser_callable_string>
+     * @var array<string, string>
+     * @phpstan-var array<string, ParserCallableString>
      */
     public $filters = [];
 
@@ -53,18 +51,16 @@ class View extends BaseConfig
      *
      * @psalm-suppress UndefinedDocblockClass
      *
-     * @var         array<string, callable|list<string>|string>
-     * @phpstan-var array<string, list<parser_callable_string>|parser_callable_string|parser_callable>
+     * @var array<string, array<string>|callable|string>
+     * @phpstan-var array<string, array<ParserCallableString>|ParserCallableString|ParserCallable>
      */
     public $plugins = [];
 
     /**
      * Built-in View filters.
      *
-     * @psalm-suppress UndefinedDocblockClass
-     *
-     * @var         array<string, string>
-     * @phpstan-var array<string, parser_callable_string>
+     * @var array<string, string>
+     * @phpstan-var array<string, ParserCallableString>
      */
     protected $coreFilters = [
         'abs'            => '\abs',
@@ -93,10 +89,8 @@ class View extends BaseConfig
     /**
      * Built-in View plugins.
      *
-     * @psalm-suppress UndefinedDocblockClass
-     *
-     * @var         array<string, callable|list<string>|string>
-     * @phpstan-var array<string, array<parser_callable_string>|parser_callable_string|parser_callable>
+     * @var array<string, array<string>|callable|string>
+     * @phpstan-var array<string, array<ParserCallableString>|ParserCallableString|ParserCallable>
      */
     protected $corePlugins = [
         'csp_script_nonce'  => '\CodeIgniter\View\Plugins::cspScriptNonce',
@@ -118,7 +112,7 @@ class View extends BaseConfig
      *
      * All classes must implement CodeIgniter\View\ViewDecoratorInterface
      *
-     * @var list<class-string<ViewDecoratorInterface>>
+     * @var class-string<ViewDecoratorInterface>[]
      */
     public array $decorators = [];
 

@@ -19,6 +19,7 @@ body {
 }
 h1 {
     font-weight: lighter;
+    letter-spacing: 0.8;
     font-size: 3rem;
     color: var(--dark-text-color);
     margin: 0;
@@ -43,7 +44,7 @@ p.lead {
     color: var(--dark-text-color);
 }
 .header .container {
-    padding: 1rem;
+    padding: 1rem 1.75rem 1.75rem 1.75rem;
 }
 .header h1 {
     font-size: 2.5rem;
@@ -64,11 +65,14 @@ p.lead {
     display: inline;
 }
 
-.environment {
+.footer {
     background: var(--dark-bg-color);
     color: var(--light-text-color);
+}
+.footer .container {
+    border-top: 1px solid #e7e7e7;
+    margin-top: 1rem;
     text-align: center;
-    padding: 0.2rem;
 }
 
 .source {
@@ -108,7 +112,7 @@ p.lead {
 }
 .tabs a:link,
 .tabs a:visited {
-    padding: 0 1rem;
+    padding: 0rem 1rem;
     line-height: 2.7;
     text-decoration: none;
     color: var(--dark-text-color);
@@ -147,6 +151,9 @@ p.lead {
     border: 1px solid #bcdff1;
     border-radius: 5px;
     color: #31708f;
+}
+ul, ol {
+    line-height: 1.8;
 }
 
 table {

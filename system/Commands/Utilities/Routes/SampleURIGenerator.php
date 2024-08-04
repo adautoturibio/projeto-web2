@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -13,8 +11,8 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Commands\Utilities\Routes;
 
+use CodeIgniter\Config\Services;
 use CodeIgniter\Router\RouteCollection;
-use Config\App;
 
 /**
  * Generate a sample URI path from route key regex.
@@ -23,7 +21,7 @@ use Config\App;
  */
 final class SampleURIGenerator
 {
-    private readonly RouteCollection $routes;
+    private RouteCollection $routes;
 
     /**
      * Sample URI path for placeholder.
@@ -41,7 +39,7 @@ final class SampleURIGenerator
 
     public function __construct(?RouteCollection $routes = null)
     {
-        $this->routes = $routes ?? service('routes');
+        $this->routes = $routes ?? Services::routes();
     }
 
     /**
@@ -52,14 +50,6 @@ final class SampleURIGenerator
     public function get(string $routeKey): string
     {
         $sampleUri = $routeKey;
-
-        if (str_contains($routeKey, '{locale}')) {
-            $sampleUri = str_replace(
-                '{locale}',
-                config(App::class)->defaultLocale,
-                $routeKey
-            );
-        }
 
         foreach ($this->routes->getPlaceholders() as $placeholder => $regex) {
             $sample = $this->samples[$placeholder] ?? '::unknown::';

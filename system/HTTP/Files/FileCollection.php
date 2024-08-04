@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -59,7 +57,7 @@ class FileCollection
         $this->populateFiles();
 
         if ($this->hasFile($name)) {
-            if (str_contains($name, '.')) {
+            if (strpos($name, '.') !== false) {
                 $name         = explode('.', $name);
                 $uploadedFile = $this->getValueDotNotationSyntax($name, $this->files);
 
@@ -79,14 +77,14 @@ class FileCollection
     /**
      * Verify if a file exist in the collection of uploaded files and is have been uploaded with multiple option.
      *
-     * @return list<UploadedFile>|null
+     * @return array|null
      */
     public function getFileMultiple(string $name)
     {
         $this->populateFiles();
 
         if ($this->hasFile($name)) {
-            if (str_contains($name, '.')) {
+            if (strpos($name, '.') !== false) {
                 $name         = explode('.', $name);
                 $uploadedFile = $this->getValueDotNotationSyntax($name, $this->files);
 
@@ -115,7 +113,7 @@ class FileCollection
     {
         $this->populateFiles();
 
-        if (str_contains($fileID, '.')) {
+        if (strpos($fileID, '.') !== false) {
             $segments = explode('.', $fileID);
 
             $el = $this->files;
@@ -150,7 +148,7 @@ class FileCollection
 
         $this->files = [];
 
-        if ($_FILES === []) {
+        if (empty($_FILES)) {
             return;
         }
 
@@ -165,7 +163,7 @@ class FileCollection
      * Given a file array, will create UploadedFile instances. Will
      * loop over an array and create objects for each.
      *
-     * @return list<UploadedFile>|UploadedFile
+     * @return UploadedFile|UploadedFile[]
      */
     protected function createFileObject(array $array)
     {
@@ -187,7 +185,7 @@ class FileCollection
             $array['tmp_name'] ?? null,
             $array['name'] ?? null,
             $array['type'] ?? null,
-            ($array['size'] ?? null) === null ? null : (int) $array['size'],
+            $array['size'] ?? null,
             $array['error'] ?? null,
             $array['full_path'] ?? null
         );
@@ -247,7 +245,7 @@ class FileCollection
      * @param array $index The index sequence we are navigating down
      * @param array $value The portion of the array to process
      *
-     * @return list<UploadedFile>|UploadedFile|null
+     * @return UploadedFile|null
      */
     protected function getValueDotNotationSyntax(array $index, array $value)
     {

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -148,7 +146,7 @@ class Builder extends BaseBuilder
             $this->set($set);
         }
 
-        if ($this->QBSet === []) {
+        if (! $this->QBSet) {
             if ($this->db->DBDebug) {
                 throw new DatabaseException('You must use the "set" method to update an entry.');
             }
@@ -159,7 +157,7 @@ class Builder extends BaseBuilder
         $table = $this->QBFrom[0];
         $set   = $this->binds;
 
-        array_walk($set, static function (array &$item): void {
+        array_walk($set, static function (array &$item) {
             $item = $item[0];
         });
 
@@ -231,7 +229,7 @@ class Builder extends BaseBuilder
      */
     public function delete($where = '', ?int $limit = null, bool $resetData = true)
     {
-        if ($limit !== null && $limit !== 0 || ! empty($this->QBLimit)) {
+        if (! empty($limit) || ! empty($this->QBLimit)) {
             throw new DatabaseException('PostgreSQL does not allow LIMITs on DELETE queries.');
         }
 
@@ -315,141 +313,6 @@ class Builder extends BaseBuilder
     }
 
     /**
-     * Generates a platform-specific batch update string from the supplied data
-     *
-     * @used-by batchExecute()
-     *
-     * @param string                 $table  Protected table name
-     * @param list<string>           $keys   QBKeys
-     * @param list<list<int|string>> $values QBSet
-     */
-    protected function _updateBatch(string $table, array $keys, array $values): string
-    {
-        $sql = $this->QBOptions['sql'] ?? '';
-
-        // if this is the first iteration of batch then we need to build skeleton sql
-        if ($sql === '') {
-            $constraints = $this->QBOptions['constraints'] ?? [];
-
-            if ($constraints === []) {
-                if ($this->db->DBDebug) {
-                    throw new DatabaseException('You must specify a constraint to match on for batch updates.'); // @codeCoverageIgnore
-                }
-
-                return ''; // @codeCoverageIgnore
-            }
-
-            $updateFields = $this->QBOptions['updateFields'] ??
-                $this->updateFields($keys, false, $constraints)->QBOptions['updateFields'] ??
-                [];
-
-            $alias = $this->QBOptions['alias'] ?? '_u';
-
-            $sql = 'UPDATE ' . $this->compileIgnore('update') . $table . "\n";
-
-            $sql .= "SET\n";
-
-            $that = $this;
-            $sql .= implode(
-                ",\n",
-                array_map(
-                    static fn ($key, $value) => $key . ($value instanceof RawSql ?
-                            ' = ' . $value :
-                            ' = ' . $that->cast($alias . '.' . $value, $that->getFieldType($table, $key))),
-                    array_keys($updateFields),
-                    $updateFields
-                )
-            ) . "\n";
-
-            $sql .= "FROM (\n{:_table_:}";
-
-            $sql .= ') ' . $alias . "\n";
-
-            $sql .= 'WHERE ' . implode(
-                ' AND ',
-                array_map(
-                    static function ($key, $value) use ($table, $alias, $that) {
-                        if ($value instanceof RawSql && is_string($key)) {
-                            return $table . '.' . $key . ' = ' . $value;
-                        }
-
-                        if ($value instanceof RawSql) {
-                            return $value;
-                        }
-
-                        return $table . '.' . $value . ' = '
-                            . $that->cast($alias . '.' . $value, $that->getFieldType($table, $value));
-                    },
-                    array_keys($constraints),
-                    $constraints
-                )
-            );
-
-            $this->QBOptions['sql'] = $sql;
-        }
-
-        if (isset($this->QBOptions['setQueryAsData'])) {
-            $data = $this->QBOptions['setQueryAsData'];
-        } else {
-            $data = implode(
-                " UNION ALL\n",
-                array_map(
-                    static fn ($value) => 'SELECT ' . implode(', ', array_map(
-                        static fn ($key, $index) => $index . ' ' . $key,
-                        $keys,
-                        $value
-                    )),
-                    $values
-                )
-            ) . "\n";
-        }
-
-        return str_replace('{:_table_:}', $data, $sql);
-    }
-
-    /**
-     * Returns cast expression.
-     *
-     * @TODO move this to BaseBuilder in 4.5.0
-     *
-     * @param float|int|string $expression
-     */
-    private function cast($expression, ?string $type): string
-    {
-        return ($type === null) ? $expression : 'CAST(' . $expression . ' AS ' . strtoupper($type) . ')';
-    }
-
-    /**
-     * Returns the filed type from database meta data.
-     *
-     * @param string $table     Protected table name.
-     * @param string $fieldName Field name. May be protected.
-     */
-    private function getFieldType(string $table, string $fieldName): ?string
-    {
-        $fieldName = trim($fieldName, $this->db->escapeChar);
-
-        if (! isset($this->QBOptions['fieldTypes'][$table])) {
-            $this->QBOptions['fieldTypes'][$table] = [];
-
-            foreach ($this->db->getFieldData($table) as $field) {
-                $type = $field->type;
-
-                // If `character` (or `char`) lacks a specifier, it is equivalent
-                // to `character(1)`.
-                // See https://www.postgresql.org/docs/current/datatype-character.html
-                if ($field->type === 'character') {
-                    $type = $field->type . '(' . $field->max_length . ')';
-                }
-
-                $this->QBOptions['fieldTypes'][$table][$field->name] = $type;
-            }
-        }
-
-        return $this->QBOptions['fieldTypes'][$table][$fieldName] ?? null;
-    }
-
-    /**
      * Generates a platform-specific upsertBatch string from the supplied data
      *
      * @throws DatabaseException
@@ -492,11 +355,11 @@ class Builder extends BaseBuilder
             // autoincrement identity field must use DEFAULT and not NULL
             // this could be removed in favour of leaving to developer but does make things easier and function like other DBMS
             foreach ($constraints as $constraint) {
-                $key = array_search(trim((string) $constraint, '"'), $fieldNames, true);
+                $key = array_search(trim($constraint, '"'), $fieldNames, true);
 
                 if ($key !== false) {
                     foreach ($values as $arrayKey => $value) {
-                        if (strtoupper((string) $value[$key]) === 'NULL') {
+                        if (strtoupper($value[$key]) === 'NULL') {
                             $values[$arrayKey][$key] = 'DEFAULT';
                         }
                     }
@@ -573,25 +436,18 @@ class Builder extends BaseBuilder
 
             $sql .= ') ' . $alias . "\n";
 
-            $that = $this;
             $sql .= 'WHERE ' . implode(
                 ' AND ',
                 array_map(
-                    static function ($key, $value) use ($table, $alias, $that) {
-                        if ($value instanceof RawSql) {
-                            return $value;
-                        }
-
-                        if (is_string($key)) {
-                            return $table . '.' . $key . ' = '
-                                . $that->cast(
-                                    $alias . '.' . $value,
-                                    $that->getFieldType($table, $key)
-                                );
-                        }
-
-                        return $table . '.' . $value . ' = ' . $alias . '.' . $value;
-                    },
+                    static fn ($key, $value) => (
+                        $value instanceof RawSql ?
+                        $value :
+                        (
+                            is_string($key) ?
+                            $table . '.' . $key . ' = ' . $alias . '.' . $value :
+                            $table . '.' . $value . ' = ' . $alias . '.' . $value
+                        )
+                    ),
                     array_keys($constraints),
                     $constraints
                 )

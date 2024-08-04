@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -28,31 +26,6 @@ use Config\ContentSecurityPolicy as ContentSecurityPolicyConfig;
  */
 class ContentSecurityPolicy
 {
-    /**
-     * CSP directives
-     *
-     * @var array<string, string>
-     */
-    protected array $directives = [
-        'base-uri'        => 'baseURI',
-        'child-src'       => 'childSrc',
-        'connect-src'     => 'connectSrc',
-        'default-src'     => 'defaultSrc',
-        'font-src'        => 'fontSrc',
-        'form-action'     => 'formAction',
-        'frame-ancestors' => 'frameAncestors',
-        'frame-src'       => 'frameSrc',
-        'img-src'         => 'imageSrc',
-        'media-src'       => 'mediaSrc',
-        'object-src'      => 'objectSrc',
-        'plugin-types'    => 'pluginTypes',
-        'script-src'      => 'scriptSrc',
-        'style-src'       => 'styleSrc',
-        'manifest-src'    => 'manifestSrc',
-        'sandbox'         => 'sandbox',
-        'report-uri'      => 'reportURI',
-    ];
-
     /**
      * Used for security enforcement
      *
@@ -140,6 +113,20 @@ class ContentSecurityPolicy
     /**
      * Used for security enforcement
      *
+     * @var string
+     */
+    protected $reportURI;
+
+    /**
+     * Used for security enforcement
+     *
+     * @var array|string
+     */
+    protected $sandbox = [];
+
+    /**
+     * Used for security enforcement
+     *
      * @var array|string
      */
     protected $scriptSrc = [];
@@ -157,20 +144,6 @@ class ContentSecurityPolicy
      * @var array|string
      */
     protected $manifestSrc = [];
-
-    /**
-     * Used for security enforcement
-     *
-     * @var array|string
-     */
-    protected $sandbox = [];
-
-    /**
-     * Used for security enforcement
-     *
-     * @var string|null
-     */
-    protected $reportURI;
 
     /**
      * Used for security enforcement
@@ -670,7 +643,7 @@ class ContentSecurityPolicy
     /**
      * DRY method to add an string or array to a class property.
      *
-     * @param list<string>|string $options
+     * @param array|string $options
      *
      * @return void
      */
@@ -731,6 +704,26 @@ class ContentSecurityPolicy
         $response->setHeader('Content-Security-Policy', []);
         $response->setHeader('Content-Security-Policy-Report-Only', []);
 
+        $directives = [
+            'base-uri'        => 'baseURI',
+            'child-src'       => 'childSrc',
+            'connect-src'     => 'connectSrc',
+            'default-src'     => 'defaultSrc',
+            'font-src'        => 'fontSrc',
+            'form-action'     => 'formAction',
+            'frame-ancestors' => 'frameAncestors',
+            'frame-src'       => 'frameSrc',
+            'img-src'         => 'imageSrc',
+            'media-src'       => 'mediaSrc',
+            'object-src'      => 'objectSrc',
+            'plugin-types'    => 'pluginTypes',
+            'script-src'      => 'scriptSrc',
+            'style-src'       => 'styleSrc',
+            'manifest-src'    => 'manifestSrc',
+            'sandbox'         => 'sandbox',
+            'report-uri'      => 'reportURI',
+        ];
+
         // inject default base & default URIs if needed
         if (empty($this->baseURI)) {
             $this->baseURI = 'self';
@@ -740,7 +733,7 @@ class ContentSecurityPolicy
             $this->defaultSrc = 'self';
         }
 
-        foreach ($this->directives as $name => $property) {
+        foreach ($directives as $name => $property) {
             if (! empty($this->{$property})) {
                 $this->addToHeader($name, $this->{$property});
             }
@@ -797,12 +790,12 @@ class ContentSecurityPolicy
         $reportSources = [];
 
         foreach ($values as $value => $reportOnly) {
-            if (is_numeric($value) && is_string($reportOnly) && ($reportOnly !== '')) {
+            if (is_numeric($value) && is_string($reportOnly) && ! empty($reportOnly)) {
                 $value      = $reportOnly;
                 $reportOnly = $this->reportOnly;
             }
 
-            if (str_starts_with($value, 'nonce-')) {
+            if (strpos($value, 'nonce-') === 0) {
                 $value = "'{$value}'";
             }
 
@@ -813,28 +806,12 @@ class ContentSecurityPolicy
             }
         }
 
-        if ($sources !== []) {
+        if (! empty($sources)) {
             $this->tempHeaders[$name] = implode(' ', $sources);
         }
 
-        if ($reportSources !== []) {
+        if (! empty($reportSources)) {
             $this->reportOnlyHeaders[$name] = implode(' ', $reportSources);
         }
-    }
-
-    /**
-     * Clear the directive.
-     *
-     * @param string $directive CSP directive
-     */
-    public function clearDirective(string $directive): void
-    {
-        if ($directive === 'report-uris') {
-            $this->{$this->directives[$directive]} = null;
-
-            return;
-        }
-
-        $this->{$this->directives[$directive]} = [];
     }
 }

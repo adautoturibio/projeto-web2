@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -16,6 +14,7 @@ namespace CodeIgniter\HTTP\Exceptions;
 use CodeIgniter\Exceptions\HTTPExceptionInterface;
 use CodeIgniter\HTTP\ResponsableInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use Config\Services;
 use Exception;
 use InvalidArgumentException;
 use LogicException;
@@ -70,13 +69,13 @@ class RedirectException extends Exception implements ResponsableInterface, HTTPE
     public function getResponse(): ResponseInterface
     {
         if (null === $this->response) {
-            $this->response = service('response')
+            $this->response = Services::response()
                 ->redirect(base_url($this->getMessage()), 'auto', $this->getCode());
         }
 
-        service('logger')->info(
+        Services::logger()->info(
             'REDIRECTED ROUTE at '
-             . ($this->response->getHeaderLine('Location') ?: substr($this->response->getHeaderLine('Refresh'), 6))
+            . ($this->response->getHeaderLine('Location') ?: substr($this->response->getHeaderLine('Refresh'), 6))
         );
 
         return $this->response;

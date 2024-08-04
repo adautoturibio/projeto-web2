@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -43,9 +41,10 @@ class Config extends BaseConfig
     /**
      * Returns the database connection
      *
-     * @param array|BaseConnection|non-empty-string|null $group     The name of the connection group to use,
-     *                                                              or an array of configuration settings.
-     * @param bool                                       $getShared Whether to return a shared instance of the connection.
+     * @param array|BaseConnection|string|null $group The name of the connection group to use,
+     *                                                or an array of configuration settings.
+     * @phpstan-param array|BaseConnection|non-empty-string|null $group
+     * @param bool $getShared Whether to return a shared instance of the connection.
      *
      * @return BaseConnection
      */
@@ -69,7 +68,7 @@ class Config extends BaseConfig
             assert(is_string($group));
 
             if (! isset($dbConfig->{$group})) {
-                throw new InvalidArgumentException('"' . $group . '" is not a valid database connection group.');
+                throw new InvalidArgumentException($group . ' is not a valid database connection group.');
             }
 
             $config = $dbConfig->{$group};
@@ -128,7 +127,7 @@ class Config extends BaseConfig
     /**
      * Returns a new instance of the Database Seeder.
      *
-     * @param non-empty-string|null $group
+     * @phpstan-param null|non-empty-string $group
      *
      * @return Seeder
      */

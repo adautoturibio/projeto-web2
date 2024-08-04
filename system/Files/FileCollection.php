@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -34,7 +32,7 @@ class FileCollection implements Countable, IteratorAggregate
     /**
      * The current list of file paths.
      *
-     * @var list<string>
+     * @var string[]
      */
     protected $files = [];
 
@@ -77,24 +75,24 @@ class FileCollection implements Countable, IteratorAggregate
     /**
      * Removes files that are not part of the given directory (recursive).
      *
-     * @param list<string> $files
+     * @param string[] $files
      *
-     * @return list<string>
+     * @return string[]
      */
     final protected static function filterFiles(array $files, string $directory): array
     {
         $directory = self::resolveDirectory($directory);
 
-        return array_filter($files, static fn (string $value): bool => str_starts_with($value, $directory));
+        return array_filter($files, static fn (string $value): bool => strpos($value, $directory) === 0);
     }
 
     /**
      * Returns any files whose `basename` matches the given pattern.
      *
-     * @param list<string> $files
-     * @param string       $pattern Regex or pseudo-regex string
+     * @param string[] $files
+     * @param string   $pattern Regex or pseudo-regex string
      *
-     * @return list<string>
+     * @return string[]
      */
     final protected static function matchFiles(array $files, string $pattern): array
     {
@@ -105,7 +103,7 @@ class FileCollection implements Countable, IteratorAggregate
                 ['\#', '\.', '.*', '.'],
                 $pattern
             );
-            $pattern = "#\\A{$pattern}\\z#";
+            $pattern = "#{$pattern}#";
         }
 
         return array_filter($files, static fn ($value) => (bool) preg_match($pattern, basename($value)));
@@ -118,7 +116,7 @@ class FileCollection implements Countable, IteratorAggregate
     /**
      * Loads the Filesystem helper and adds any initial files.
      *
-     * @param list<string> $files
+     * @param string[] $files
      */
     public function __construct(array $files = [])
     {
@@ -138,7 +136,7 @@ class FileCollection implements Countable, IteratorAggregate
     /**
      * Optimizes and returns the current file list.
      *
-     * @return list<string>
+     * @return string[]
      */
     public function get(): array
     {
@@ -152,7 +150,7 @@ class FileCollection implements Countable, IteratorAggregate
      * Sets the file list directly, files are still subject to verification.
      * This works as a "reset" method with [].
      *
-     * @param list<string> $files The new file list to use
+     * @param string[] $files The new file list to use
      *
      * @return $this
      */
@@ -166,7 +164,7 @@ class FileCollection implements Countable, IteratorAggregate
     /**
      * Adds an array/single file or directory to the list.
      *
-     * @param list<string>|string $paths
+     * @param string|string[] $paths
      *
      * @return $this
      */
@@ -182,7 +180,7 @@ class FileCollection implements Countable, IteratorAggregate
             try {
                 // Test for a directory
                 self::resolveDirectory($path);
-            } catch (FileException) {
+            } catch (FileException $e) {
                 $this->addFile($path);
 
                 continue;
@@ -201,7 +199,7 @@ class FileCollection implements Countable, IteratorAggregate
     /**
      * Verifies and adds files to the list.
      *
-     * @param list<string> $files
+     * @param string[] $files
      *
      * @return $this
      */
@@ -229,7 +227,7 @@ class FileCollection implements Countable, IteratorAggregate
     /**
      * Removes files from the list.
      *
-     * @param list<string> $files
+     * @param string[] $files
      *
      * @return $this
      */
@@ -258,7 +256,7 @@ class FileCollection implements Countable, IteratorAggregate
      * Verifies and adds files from each
      * directory to the list.
      *
-     * @param list<string> $directories
+     * @param string[] $directories
      *
      * @return $this
      */

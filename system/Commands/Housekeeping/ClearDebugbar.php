@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -57,7 +55,7 @@ class ClearDebugbar extends BaseCommand
     {
         helper('filesystem');
 
-        if (! delete_files(WRITEPATH . 'debugbar', false, true)) {
+        if (! delete_files(WRITEPATH . 'debugbar')) {
             // @codeCoverageIgnoreStart
             CLI::error('Error deleting the debugbar JSON files.');
             CLI::newLine();

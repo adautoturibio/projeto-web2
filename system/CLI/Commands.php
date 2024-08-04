@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -13,8 +11,7 @@ declare(strict_types=1);
 
 namespace CodeIgniter\CLI;
 
-use CodeIgniter\Autoloader\FileLocatorInterface;
-use CodeIgniter\Events\Events;
+use CodeIgniter\Autoloader\FileLocator;
 use CodeIgniter\Log\Logger;
 use ReflectionClass;
 use ReflectionException;
@@ -52,7 +49,7 @@ class Commands
     /**
      * Runs a command given
      *
-     * @return int|void Exit code
+     * @return int|void
      */
     public function run(string $command, array $params)
     {
@@ -65,13 +62,7 @@ class Commands
         $className = $this->commands[$command]['class'];
         $class     = new $className($this->logger, $this);
 
-        Events::trigger('pre_command');
-
-        $exit = $class->run($params);
-
-        Events::trigger('post_command');
-
-        return $exit;
+        return $class->run($params);
     }
 
     /**
@@ -96,7 +87,7 @@ class Commands
             return;
         }
 
-        /** @var FileLocatorInterface $locator */
+        /** @var FileLocator $locator */
         $locator = service('locator');
         $files   = $locator->listFiles('Commands/');
 
@@ -109,9 +100,9 @@ class Commands
         // Loop over each file checking to see if a command with that
         // alias exists in the class.
         foreach ($files as $file) {
-            $className = $locator->findQualifiedNameFromPath($file);
+            $className = $locator->getClassname($file);
 
-            if ($className === false || ! class_exists($className)) {
+            if ($className === '' || ! class_exists($className)) {
                 continue;
             }
 
@@ -125,7 +116,7 @@ class Commands
                 /** @var BaseCommand $class */
                 $class = new $className($this->logger, $this);
 
-                if (isset($class->group) && ! isset($this->commands[$class->name])) {
+                if (isset($class->group)) {
                     $this->commands[$class->name] = [
                         'class'       => $className,
                         'file'        => $file,
@@ -183,7 +174,7 @@ class Commands
         foreach (array_keys($collection) as $commandName) {
             $lev = levenshtein($name, $commandName);
 
-            if ($lev <= strlen($commandName) / 3 || str_contains($commandName, $name)) {
+            if ($lev <= strlen($commandName) / 3 || strpos($commandName, $name) !== false) {
                 $alternatives[$commandName] = $lev;
             }
         }

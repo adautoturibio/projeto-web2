@@ -45,28 +45,28 @@ class ContentSecurityPolicy extends BaseConfig
     /**
      * Will default to self if not overridden
      *
-     * @var list<string>|string|null
+     * @var string|string[]|null
      */
     public $defaultSrc;
 
     /**
      * Lists allowed scripts' URLs.
      *
-     * @var list<string>|string
+     * @var string|string[]
      */
     public $scriptSrc = 'self';
 
     /**
      * Lists allowed stylesheets' URLs.
      *
-     * @var list<string>|string
+     * @var string|string[]
      */
     public $styleSrc = 'self';
 
     /**
      * Defines the origins from which images can be loaded.
      *
-     * @var list<string>|string
+     * @var string|string[]
      */
     public $imageSrc = 'self';
 
@@ -75,14 +75,14 @@ class ContentSecurityPolicy extends BaseConfig
      *
      * Will default to self if not overridden
      *
-     * @var list<string>|string|null
+     * @var string|string[]|null
      */
     public $baseURI;
 
     /**
      * Lists the URLs for workers and embedded frame contents
      *
-     * @var list<string>|string
+     * @var string|string[]
      */
     public $childSrc = 'self';
 
@@ -90,21 +90,21 @@ class ContentSecurityPolicy extends BaseConfig
      * Limits the origins that you can connect to (via XHR,
      * WebSockets, and EventSource).
      *
-     * @var list<string>|string
+     * @var string|string[]
      */
     public $connectSrc = 'self';
 
     /**
      * Specifies the origins that can serve web fonts.
      *
-     * @var list<string>|string
+     * @var string|string[]
      */
     public $fontSrc;
 
     /**
      * Lists valid endpoints for submission from `<form>` tags.
      *
-     * @var list<string>|string
+     * @var string|string[]
      */
     public $formAction = 'self';
 
@@ -114,7 +114,7 @@ class ContentSecurityPolicy extends BaseConfig
      * and `<applet>` tags. This directive can't be used in
      * `<meta>` tags and applies only to non-HTML resources.
      *
-     * @var list<string>|string|null
+     * @var string|string[]|null
      */
     public $frameAncestors;
 
@@ -122,40 +122,40 @@ class ContentSecurityPolicy extends BaseConfig
      * The frame-src directive restricts the URLs which may
      * be loaded into nested browsing contexts.
      *
-     * @var list<string>|string|null
+     * @var array|string|null
      */
     public $frameSrc;
 
     /**
      * Restricts the origins allowed to deliver video and audio.
      *
-     * @var list<string>|string|null
+     * @var string|string[]|null
      */
     public $mediaSrc;
 
     /**
      * Allows control over Flash and other plugins.
      *
-     * @var list<string>|string
+     * @var string|string[]
      */
     public $objectSrc = 'self';
 
     /**
-     * @var list<string>|string|null
+     * @var string|string[]|null
      */
     public $manifestSrc;
 
     /**
      * Limits the kinds of plugins a page may invoke.
      *
-     * @var list<string>|string|null
+     * @var string|string[]|null
      */
     public $pluginTypes;
 
     /**
      * List of actions allowed.
      *
-     * @var list<string>|string|null
+     * @var string|string[]|null
      */
     public $sandbox;
 

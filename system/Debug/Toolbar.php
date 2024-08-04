@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -20,7 +18,6 @@ use CodeIgniter\Debug\Toolbar\Collectors\History;
 use CodeIgniter\Format\JSONFormatter;
 use CodeIgniter\Format\XMLFormatter;
 use CodeIgniter\HTTP\DownloadResponse;
-use CodeIgniter\HTTP\Header;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -46,7 +43,7 @@ class Toolbar
     /**
      * Collectors to be used and displayed.
      *
-     * @var list<BaseCollector>
+     * @var BaseCollector[]
      */
     protected $collectors = [];
 
@@ -82,7 +79,7 @@ class Toolbar
         $data = [];
         // Data items used within the view.
         $data['url']             = current_url();
-        $data['method']          = $request->getMethod();
+        $data['method']          = strtoupper($request->getMethod());
         $data['isAJAX']          = $request->isAJAX();
         $data['startTime']       = $startTime;
         $data['totalTime']       = $totalTime * 1000;
@@ -124,7 +121,7 @@ class Toolbar
             $data['vars']['varData'][esc($heading)] = $varData;
         }
 
-        if (isset($_SESSION)) {
+        if (! empty($_SESSION)) {
             foreach ($_SESSION as $key => $value) {
                 // Replace the binary data with string to avoid json_encode failure.
                 if (is_string($value) && preg_match('~[^\x20-\x7E\t\r\n]~', $value)) {
@@ -143,17 +140,8 @@ class Toolbar
             $data['vars']['post'][esc($name)] = is_array($value) ? '<pre>' . esc(print_r($value, true)) . '</pre>' : esc($value);
         }
 
-        foreach ($request->headers() as $name => $value) {
-            if ($value instanceof Header) {
-                $data['vars']['headers'][esc($name)] = esc($value->getValueLine());
-            } else {
-                foreach ($value as $i => $header) {
-                    $index = $i + 1;
-                    $data['vars']['headers'][esc($name)] ??= '';
-                    $data['vars']['headers'][esc($name)] .= ' (' . $index . ') '
-                        . esc($header->getValueLine());
-                }
-            }
+        foreach ($request->headers() as $header) {
+            $data['vars']['headers'][esc($header->getName())] = esc($header->getValueLine());
         }
 
         foreach ($request->getCookie() as $name => $value) {
@@ -169,17 +157,8 @@ class Toolbar
             'headers'     => [],
         ];
 
-        foreach ($response->headers() as $name => $value) {
-            if ($value instanceof Header) {
-                $data['vars']['response']['headers'][esc($name)] = esc($value->getValueLine());
-            } else {
-                foreach ($value as $i => $header) {
-                    $index = $i + 1;
-                    $data['vars']['response']['headers'][esc($name)] ??= '';
-                    $data['vars']['response']['headers'][esc($name)] .= ' (' . $index . ') '
-                        . esc($header->getValueLine());
-                }
-            }
+        foreach ($response->headers() as $header) {
+            $data['vars']['response']['headers'][esc($header->getName())] = esc($header->getValueLine());
         }
 
         $data['config'] = Config::display();
@@ -218,12 +197,12 @@ class Toolbar
             $open = $row['name'] === 'Controller';
 
             if ($hasChildren || $isQuery) {
-                $output .= '<tr class="timeline-parent' . ($open ? ' timeline-parent-open' : '') . '" id="timeline-' . $styleCount . '_parent" data-toggle="childrows" data-child="timeline-' . $styleCount . '">';
+                $output .= '<tr class="timeline-parent' . ($open ? ' timeline-parent-open' : '') . '" id="timeline-' . $styleCount . '_parent" onclick="ciDebugBar.toggleChildRows(\'timeline-' . $styleCount . '\');">';
             } else {
                 $output .= '<tr>';
             }
 
-            $output .= '<td class="' . ($isChild ? 'debug-bar-width30' : '') . ' debug-bar-level-' . $level . '" >' . ($hasChildren || $isQuery ? '<nav></nav>' : '') . $row['name'] . '</td>';
+            $output .= '<td class="' . ($isChild ? 'debug-bar-width30' : '') . '" style="--level: ' . $level . ';">' . ($hasChildren || $isQuery ? '<nav></nav>' : '') . $row['name'] . '</td>';
             $output .= '<td class="' . ($isChild ? 'debug-bar-width10' : '') . '">' . $row['component'] . '</td>';
             $output .= '<td class="' . ($isChild ? 'debug-bar-width10 ' : '') . 'debug-bar-alignRight">' . number_format($row['duration'] * 1000, 2) . ' ms</td>';
             $output .= "<td class='debug-bar-noverflow' colspan='{$segmentCount}'>";
@@ -241,7 +220,7 @@ class Toolbar
 
             // Add children if any
             if ($hasChildren || $isQuery) {
-                $output .= '<tr class="child-row ' . ($open ? '' : ' debug-bar-ndisplay') . '" id="timeline-' . ($styleCount - 1) . '_children" >';
+                $output .= '<tr class="child-row" id="timeline-' . ($styleCount - 1) . '_children" style="' . ($open ? '' : 'display: none;') . '">';
                 $output .= '<td colspan="' . ($segmentCount + 3) . '" class="child-container">';
                 $output .= '<table class="timeline">';
                 $output .= '<tbody>';
@@ -249,7 +228,7 @@ class Toolbar
                 if ($isQuery) {
                     // Output query string if query
                     $output .= '<tr>';
-                    $output .= '<td class="query-container debug-bar-level-' . ($level + 1) . '" >' . $row['query'] . '</td>';
+                    $output .= '<td class="query-container" style="--level: ' . ($level + 1) . ';">' . $row['query'] . '</td>';
                     $output .= '</tr>';
                 } else {
                     // Recursively render children
@@ -294,7 +273,7 @@ class Toolbar
         array_multisort(...$sortArray);
 
         // Add end time to each element
-        array_walk($data, static function (&$row): void {
+        array_walk($data, static function (&$row) {
             $row['end'] = $row['start'] + $row['duration'];
         });
 
@@ -313,7 +292,7 @@ class Toolbar
         $element = array_shift($elements);
 
         // If we have children behind us, collect and attach them to us
-        while ($elements !== [] && $elements[array_key_first($elements)]['end'] <= $element['end']) {
+        while (! empty($elements) && $elements[array_key_first($elements)]['end'] <= $element['end']) {
             $element['children'][] = array_shift($elements);
         }
 
@@ -323,7 +302,7 @@ class Toolbar
         }
 
         // If we have no younger siblings, we can return
-        if ($elements === []) {
+        if (empty($elements)) {
             return [$element];
         }
 
@@ -365,7 +344,7 @@ class Toolbar
     }
 
     /**
-     * Prepare for debugging.
+     * Prepare for debugging..
      *
      * @return void
      */
@@ -375,11 +354,10 @@ class Toolbar
          * @var IncomingRequest|null $request
          */
         if (CI_DEBUG && ! is_cli()) {
-            $app = service('codeigniter');
+            $app = Services::codeigniter();
 
-            $request ??= service('request');
-            /** @var ResponseInterface $response */
-            $response ??= service('response');
+            $request ??= Services::request();
+            $response ??= Services::response();
 
             // Disable the toolbar for downloads
             if ($response instanceof DownloadResponse) {
@@ -411,7 +389,7 @@ class Toolbar
             // Non-HTML formats should not include the debugbar
             // then we send headers saying where to find the debug data
             // for this response
-            if ($request->isAJAX() || ! str_contains($format, 'html')) {
+            if ($request->isAJAX() || strpos($format, 'html') === false) {
                 $response->setHeader('Debugbar-Time', "{$time}")
                     ->setHeader('Debugbar-Link', site_url("?debugbar_time={$time}"));
 
@@ -434,7 +412,7 @@ class Toolbar
                 . $kintScript
                 . PHP_EOL;
 
-            if (str_contains((string) $response->getBody(), '<head>')) {
+            if (strpos($response->getBody(), '<head>') !== false) {
                 $response->setBody(
                     preg_replace(
                         '/<head>/',
@@ -457,6 +435,7 @@ class Toolbar
      * @codeCoverageIgnore
      *
      * @return void
+     * @phpstan-return never|void
      */
     public function respond()
     {
@@ -464,7 +443,7 @@ class Toolbar
             return;
         }
 
-        $request = service('request');
+        $request = Services::request();
 
         // If the request contains '?debugbar then we're
         // simply returning the loading script
@@ -513,7 +492,7 @@ class Toolbar
     {
         $data = json_decode($data, true);
 
-        if ($this->config->maxHistory !== 0 && preg_match('/\d+\.\d{6}/s', (string) service('request')->getGet('debugbar_time'), $debugbarTime)) {
+        if ($this->config->maxHistory !== 0 && preg_match('/\d+\.\d{6}/s', (string) Services::request()->getGet('debugbar_time'), $debugbarTime)) {
             $history = new History();
             $history->setFiles(
                 $debugbarTime[0],

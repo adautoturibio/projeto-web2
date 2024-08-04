@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -55,7 +53,7 @@ class ScaffoldGenerator extends BaseCommand
     /**
      * The Command's Arguments
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $arguments = [
         'name' => 'The class name',
@@ -64,7 +62,7 @@ class ScaffoldGenerator extends BaseCommand
     /**
      * The Command's Options
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $options = [
         '--bare'      => 'Add the "--bare" option to controller component.',

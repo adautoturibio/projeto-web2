@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -14,6 +12,7 @@ declare(strict_types=1);
 namespace CodeIgniter\View;
 
 use CodeIgniter\HTTP\URI;
+use Config\Services;
 
 /**
  * View plugins
@@ -33,7 +32,7 @@ class Plugins
     /**
      * Wrap helper function to use as view plugin.
      *
-     * @return string|URI
+     * @return mixed|string|URI
      */
     public static function previousURL()
     {
@@ -42,8 +41,6 @@ class Plugins
 
     /**
      * Wrap helper function to use as view plugin.
-     *
-     * @param array{email?: string, title?: string, attributes?: array<string, string>|object|string} $params
      */
     public static function mailto(array $params = []): string
     {
@@ -56,8 +53,6 @@ class Plugins
 
     /**
      * Wrap helper function to use as view plugin.
-     *
-     * @param array{email?: string, title?: string, attributes?: array<string, string>|object|string} $params
      */
     public static function safeMailto(array $params = []): string
     {
@@ -70,8 +65,6 @@ class Plugins
 
     /**
      * Wrap helper function to use as view plugin.
-     *
-     * @param array<int|string, string>|list<string> $params
      */
     public static function lang(array $params = []): string
     {
@@ -82,13 +75,11 @@ class Plugins
 
     /**
      * Wrap helper function to use as view plugin.
-     *
-     * @param array{field?: string} $params
      */
-    public static function validationErrors(array $params = []): string
+    public static function ValidationErrors(array $params = []): string
     {
-        $validator = service('validation');
-        if ($params === []) {
+        $validator = Services::validation();
+        if (empty($params)) {
             return $validator->listErrors();
         }
 
@@ -97,8 +88,6 @@ class Plugins
 
     /**
      * Wrap helper function to use as view plugin.
-     *
-     * @param list<string> $params
      *
      * @return false|string
      */
@@ -109,8 +98,6 @@ class Plugins
 
     /**
      * Wrap helper function to use as view plugin.
-     *
-     * @param list<string> $params
      */
     public static function siteURL(array $params = []): string
     {

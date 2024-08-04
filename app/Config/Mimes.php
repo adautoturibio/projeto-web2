@@ -22,8 +22,6 @@ class Mimes
 {
     /**
      * Map of extensions to mime types.
-     *
-     * @var array<string, list<string>|string>
      */
     public static array $mimes = [
         'hqx' => [

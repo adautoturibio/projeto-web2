@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -22,13 +20,11 @@ if (! function_exists('now')) {
      * Returns Time::now()->getTimestamp() based on the timezone parameter or on the
      * app_timezone() setting
      *
-     * @param non-empty-string|null $timezone
-     *
      * @throws Exception
      */
     function now(?string $timezone = null): int
     {
-        $timezone = ($timezone === null || $timezone === '') ? app_timezone() : $timezone;
+        $timezone = empty($timezone) ? app_timezone() : $timezone;
 
         if ($timezone === 'local' || $timezone === date_default_timezone_get()) {
             return Time::now()->getTimestamp();

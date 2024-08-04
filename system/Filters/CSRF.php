@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -18,6 +16,7 @@ use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Security\Exceptions\SecurityException;
+use Config\Services;
 
 /**
  * CSRF filter.
@@ -39,7 +38,7 @@ class CSRF implements FilterInterface
      * sent back to the client, allowing for error pages,
      * redirects, etc.
      *
-     * @param list<string>|null $arguments
+     * @param array|null $arguments
      *
      * @return RedirectResponse|void
      *
@@ -51,7 +50,7 @@ class CSRF implements FilterInterface
             return;
         }
 
-        $security = service('security');
+        $security = Services::security();
 
         try {
             $security->verify($request);
@@ -67,7 +66,7 @@ class CSRF implements FilterInterface
     /**
      * We don't have anything to do here.
      *
-     * @param list<string>|null $arguments
+     * @param array|null $arguments
      *
      * @return void
      */

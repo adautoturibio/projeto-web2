@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -27,21 +25,21 @@ class Table
     /**
      * Data for table rows
      *
-     * @var list<array<string, string>>|list<list<array<string, string>>>
+     * @var array
      */
     public $rows = [];
 
     /**
      * Data for table heading
      *
-     * @var array<int, mixed>
+     * @var array
      */
     public $heading = [];
 
     /**
      * Data for table footing
      *
-     * @var array<int, mixed>
+     * @var array
      */
     public $footing = [];
 
@@ -62,7 +60,7 @@ class Table
     /**
      * Table layout template
      *
-     * @var array<string, string>
+     * @var array
      */
     public $template;
 
@@ -95,7 +93,7 @@ class Table
     /**
      * Set the template from the table config file if it exists
      *
-     * @param array<string, string> $config (default: array())
+     * @param array $config (default: array())
      */
     public function __construct($config = [])
     {
@@ -108,8 +106,7 @@ class Table
     /**
      * Set the template
      *
-     * @param         array<string, string>        $template
-     * @phpstan-param array<string, string>|string $template
+     * @param array $template
      *
      * @return bool
      */
@@ -158,10 +155,10 @@ class Table
      * columns. This allows a single array with many elements to be
      * displayed in a table that has a fixed column count.
      *
-     * @param list<string> $array
-     * @param int          $columnLimit
+     * @param array $array
+     * @param int   $columnLimit
      *
-     * @return array<int, mixed>|false
+     * @return array|false
      */
     public function makeColumns($array = [], $columnLimit = 0)
     {
@@ -220,7 +217,7 @@ class Table
     {
         $tmpRow = $this->_prepArgs(func_get_args());
 
-        if ($this->syncRowsWithHeading && $this->heading !== []) {
+        if ($this->syncRowsWithHeading && ! empty($this->heading)) {
             // each key has an index
             $keyIndex = array_flip(array_keys($this->heading));
 
@@ -261,16 +258,14 @@ class Table
      *
      * Ensures a standard associative array format for all cell data
      *
-     * @param array<int, mixed> $args
-     *
-     * @return array<string, array<string, mixed>>|list<array<string, mixed>>
+     * @return array
      */
     protected function _prepArgs(array $args)
     {
         // If there is no $args[0], skip this and treat as an associative array
         // This can happen if there is only a single key, for example this is passed to table->generate
         // array(array('foo'=>'bar'))
-        if (isset($args[0]) && count($args) === 1 && is_array($args[0])) {
+        if (isset($args[0]) && count($args) === 1 && is_array($args[0]) && ! isset($args[0]['data'])) {
             $args = $args[0];
         }
 
@@ -300,7 +295,7 @@ class Table
     /**
      * Generate the table
      *
-     * @param array<int, mixed>|BaseResult|null $tableData
+     * @param array|BaseResult|null $tableData
      *
      * @return string
      */
@@ -308,7 +303,7 @@ class Table
     {
         // The table data can optionally be passed to this function
         // either as a database result object or an array
-        if ($tableData !== null && $tableData !== []) {
+        if (! empty($tableData)) {
             if ($tableData instanceof BaseResult) {
                 $this->_setFromDBResult($tableData);
             } elseif (is_array($tableData)) {
@@ -317,7 +312,7 @@ class Table
         }
 
         // Is there anything to display? No? Smite them!
-        if ($this->heading === [] && $this->rows === []) {
+        if (empty($this->heading) && empty($this->rows)) {
             return 'Undefined table data';
         }
 
@@ -338,7 +333,7 @@ class Table
         }
 
         // Is there a table heading to display?
-        if ($this->heading !== []) {
+        if (! empty($this->heading)) {
             $headerTag = null;
 
             if (preg_match('/(<)(td|th)(?=\h|>)/i', $this->template['heading_cell_start'], $matches) === 1) {
@@ -363,14 +358,14 @@ class Table
         }
 
         // Build the table rows
-        if ($this->rows !== []) {
+        if (! empty($this->rows)) {
             $out .= $this->template['tbody_open'] . $this->newline;
 
             $i = 1;
 
             foreach ($this->rows as $row) {
                 // We use modulus to alternate the row colors
-                $name = fmod($i++, 2) !== 0.0 ? '' : 'alt_';
+                $name = fmod($i++, 2) ? '' : 'alt_';
 
                 $out .= $this->template['row_' . $name . 'start'] . $this->newline;
 
@@ -386,7 +381,7 @@ class Table
                     $cell = $cell['data'] ?? '';
                     $out .= $temp;
 
-                    if ($cell === '') {
+                    if ($cell === '' || $cell === null) {
                         $out .= $this->emptyCells;
                     } elseif (isset($this->function)) {
                         $out .= ($this->function)($cell);
@@ -404,7 +399,7 @@ class Table
         }
 
         // Any table footing to display?
-        if ($this->footing !== []) {
+        if (! empty($this->footing)) {
             $footerTag = null;
 
             if (preg_match('/(<)(td|th)(?=\h|>)/i', $this->template['footing_cell_start'], $matches)) {
@@ -463,7 +458,7 @@ class Table
     protected function _setFromDBResult($object)
     {
         // First generate the headings from the table column names
-        if ($this->autoHeading && $this->heading === []) {
+        if ($this->autoHeading && empty($this->heading)) {
             $this->heading = $this->_prepArgs($object->getFieldNames());
         }
 
@@ -475,13 +470,13 @@ class Table
     /**
      * Set table data from an array
      *
-     * @param array<int, mixed> $data
+     * @param array $data
      *
      * @return void
      */
     protected function _setFromArray($data)
     {
-        if ($this->autoHeading && $this->heading === []) {
+        if ($this->autoHeading && empty($this->heading)) {
             $this->heading = $this->_prepArgs(array_shift($data));
         }
 
@@ -513,7 +508,7 @@ class Table
     /**
      * Default Template
      *
-     * @return array<string, string>
+     * @return array
      */
     protected function _defaultTemplate()
     {

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -17,8 +15,7 @@ if (! function_exists('number_to_size')) {
     /**
      * Formats a numbers as bytes, based on size, and adds the appropriate suffix
      *
-     * @param int|string            $num    Will be cast as int
-     * @param non-empty-string|null $locale [optional]
+     * @param int|string $num Will be cast as int
      *
      * @return bool|string
      */
@@ -27,15 +24,15 @@ if (! function_exists('number_to_size')) {
         // Strip any formatting & ensure numeric input
         try {
             // @phpstan-ignore-next-line
-            $num = 0 + str_replace(',', '', (string) $num);
-        } catch (ErrorException) {
+            $num = 0 + str_replace(',', '', $num);
+        } catch (ErrorException $ee) {
             // Catch "Warning:  A non-numeric value encountered"
             return false;
         }
 
         // ignore sub part
         $generalLocale = $locale;
-        if ($locale !== null && $locale !== '' && ($underscorePos = strpos($locale, '_'))) {
+        if (! empty($locale) && ($underscorePos = strpos($locale, '_'))) {
             $generalLocale = substr($locale, 0, $underscorePos);
         }
 
@@ -71,9 +68,9 @@ if (! function_exists('number_to_amount')) {
      *
      * @see https://simple.wikipedia.org/wiki/Names_for_large_numbers
      *
-     * @param int|string            $num       Will be cast as int
-     * @param int                   $precision [optional] The optional number of decimal digits to round to.
-     * @param non-empty-string|null $locale    [optional]
+     * @param int|string  $num       Will be cast as int
+     * @param int         $precision [optional] The optional number of decimal digits to round to.
+     * @param string|null $locale    [optional]
      *
      * @return bool|string
      */
@@ -82,9 +79,8 @@ if (! function_exists('number_to_amount')) {
         // Strip any formatting & ensure numeric input
         try {
             // @phpstan-ignore-next-line
-            $num = 0 + str_replace(',', '', (string) $num);
-        } catch (ErrorException) {
-            // Catch "Warning:  A non-numeric value encountered"
+            $num = 0 + str_replace(',', '', $num);
+        } catch (ErrorException $ee) {
             return false;
         }
 
@@ -92,7 +88,7 @@ if (! function_exists('number_to_amount')) {
 
         // ignore sub part
         $generalLocale = $locale;
-        if ($locale !== null && $locale !== '' && ($underscorePos = strpos($locale, '_'))) {
+        if (! empty($locale) && ($underscorePos = strpos($locale, '_'))) {
             $generalLocale = substr($locale, 0, $underscorePos);
         }
 
@@ -146,7 +142,7 @@ if (! function_exists('format_number')) {
 
         // Try to format it per the locale
         if ($type === NumberFormatter::CURRENCY) {
-            $formatter->setAttribute(NumberFormatter::FRACTION_DIGITS, (float) $options['fraction']);
+            $formatter->setAttribute(NumberFormatter::FRACTION_DIGITS, $options['fraction']);
             $output = $formatter->formatCurrency($num, $options['currency']);
         } else {
             // In order to specify a precision, we'll have to modify

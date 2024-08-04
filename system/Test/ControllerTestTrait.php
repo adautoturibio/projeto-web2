@@ -100,13 +100,13 @@ trait ControllerTestTrait
         }
 
         if (! $this->uri instanceof URI) {
-            $factory   = Services::siteurifactory($this->appConfig, service('superglobals'), false);
+            $factory   = Services::siteurifactory($this->appConfig, Services::superglobals(), false);
             $this->uri = $factory->createFromGlobals();
         }
 
         if (empty($this->request)) {
             // Do some acrobatics, so we can use the Request service with our own URI
-            $tempUri = service('uri');
+            $tempUri = Services::uri();
             Services::injectMock('uri', $this->uri);
 
             $this->withRequest(Services::incomingrequest($this->appConfig, false));
@@ -120,7 +120,7 @@ trait ControllerTestTrait
         }
 
         if (empty($this->logger)) {
-            $this->logger = service('logger');
+            $this->logger = Services::logger();
         }
     }
 
@@ -161,8 +161,6 @@ trait ControllerTestTrait
 
         try {
             ob_start();
-            // The controller method param types may not be string.
-            // So cannot set `declare(strict_types=1)` in this file.
             $response = $this->controller->{$method}(...$params);
         } catch (Throwable $e) {
             $code = $e->getCode();
@@ -204,7 +202,7 @@ trait ControllerTestTrait
             // getStatusCode() throws for empty codes
             try {
                 $response->getStatusCode();
-            } catch (HTTPException) {
+            } catch (HTTPException $e) {
                 // If no code has been set then assume success
                 $response->setStatusCode(200);
             }
@@ -217,7 +215,7 @@ trait ControllerTestTrait
     /**
      * Set controller's config, with method chaining.
      *
-     * @param App $appConfig
+     * @param mixed $appConfig
      *
      * @return $this
      */
@@ -231,7 +229,7 @@ trait ControllerTestTrait
     /**
      * Set controller's request, with method chaining.
      *
-     * @param IncomingRequest $request
+     * @param mixed $request
      *
      * @return $this
      */
@@ -262,7 +260,7 @@ trait ControllerTestTrait
     /**
      * Set controller's logger, with method chaining.
      *
-     * @param LoggerInterface $logger
+     * @param mixed $logger
      *
      * @return $this
      */
@@ -280,7 +278,7 @@ trait ControllerTestTrait
      */
     public function withUri(string $uri)
     {
-        $factory   = service('siteurifactory');
+        $factory   = Services::siteurifactory();
         $this->uri = $factory->createFromString($uri);
         Services::injectMock('uri', $this->uri);
 

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -26,8 +24,13 @@ use Config\App;
  */
 final class SiteURIFactory
 {
-    public function __construct(private readonly App $appConfig, private readonly Superglobals $superglobals)
+    private App $appConfig;
+    private Superglobals $superglobals;
+
+    public function __construct(App $appConfig, Superglobals $superglobals)
     {
+        $this->appConfig    = $appConfig;
+        $this->superglobals = $superglobals;
     }
 
     /**
@@ -92,11 +95,20 @@ final class SiteURIFactory
             $protocol = $this->appConfig->uriProtocol;
         }
 
-        $routePath = match ($protocol) {
-            'REQUEST_URI'  => $this->parseRequestURI(),
-            'QUERY_STRING' => $this->parseQueryString(),
-            default        => $this->superglobals->server($protocol) ?? $this->parseRequestURI(),
-        };
+        switch ($protocol) {
+            case 'REQUEST_URI':
+                $routePath = $this->parseRequestURI();
+                break;
+
+            case 'QUERY_STRING':
+                $routePath = $this->parseQueryString();
+                break;
+
+            case 'PATH_INFO':
+            default:
+                $routePath = $this->superglobals->server($protocol) ?? $this->parseRequestURI();
+                break;
+        }
 
         return ($routePath === '/' || $routePath === '') ? '/' : ltrim($routePath, '/');
     }
@@ -149,7 +161,7 @@ final class SiteURIFactory
         // This section ensures that even on servers that require the URI to
         // contain the query string (Nginx) a correct URI is found, and also
         // fixes the QUERY_STRING Server var and $_GET array.
-        if (trim($path, '/') === '' && str_starts_with($query, '/')) {
+        if (trim($path, '/') === '' && strncmp($query, '/', 1) === 0) {
             $parts    = explode('?', $query, 2);
             $path     = $parts[0];
             $newQuery = $query[1] ?? '';
@@ -181,7 +193,7 @@ final class SiteURIFactory
             return '/';
         }
 
-        if (str_starts_with($query, '/')) {
+        if (strncmp($query, '/', 1) === 0) {
             $parts    = explode('?', $query, 2);
             $path     = $parts[0];
             $newQuery = $parts[1] ?? '';

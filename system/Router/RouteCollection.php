@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -14,9 +12,7 @@ declare(strict_types=1);
 namespace CodeIgniter\Router;
 
 use Closure;
-use CodeIgniter\Autoloader\FileLocatorInterface;
-use CodeIgniter\HTTP\Method;
-use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Autoloader\FileLocator;
 use CodeIgniter\Router\Exceptions\RouterException;
 use Config\App;
 use Config\Modules;
@@ -91,7 +87,7 @@ class RouteCollection implements RouteCollectionInterface
      * A callable that will be shown
      * when the route cannot be matched.
      *
-     * @var (Closure(string): (ResponseInterface|string|void))|string
+     * @var Closure|string
      */
     protected $override404;
 
@@ -140,17 +136,16 @@ class RouteCollection implements RouteCollectionInterface
      * ]
      */
     protected $routes = [
-        '*'             => [],
-        Method::OPTIONS => [],
-        Method::GET     => [],
-        Method::HEAD    => [],
-        Method::POST    => [],
-        Method::PATCH   => [],
-        Method::PUT     => [],
-        Method::DELETE  => [],
-        Method::TRACE   => [],
-        Method::CONNECT => [],
-        'CLI'           => [],
+        '*'       => [],
+        'options' => [],
+        'get'     => [],
+        'head'    => [],
+        'post'    => [],
+        'put'     => [],
+        'delete'  => [],
+        'trace'   => [],
+        'connect' => [],
+        'cli'     => [],
     ];
 
     /**
@@ -165,17 +160,16 @@ class RouteCollection implements RouteCollectionInterface
      * ]
      */
     protected $routesNames = [
-        '*'             => [],
-        Method::OPTIONS => [],
-        Method::GET     => [],
-        Method::HEAD    => [],
-        Method::POST    => [],
-        Method::PATCH   => [],
-        Method::PUT     => [],
-        Method::DELETE  => [],
-        Method::TRACE   => [],
-        Method::CONNECT => [],
-        'CLI'           => [],
+        '*'       => [],
+        'options' => [],
+        'get'     => [],
+        'head'    => [],
+        'post'    => [],
+        'put'     => [],
+        'delete'  => [],
+        'trace'   => [],
+        'connect' => [],
+        'cli'     => [],
     ];
 
     /**
@@ -196,7 +190,7 @@ class RouteCollection implements RouteCollectionInterface
     /**
      * The current method that the script is being called by.
      *
-     * @var string HTTP verb like `GET`,`POST` or `*` or `CLI`
+     * @var string HTTP verb (lower case) like `get`,`post` or `*`
      */
     protected $HTTPVerb = '*';
 
@@ -204,9 +198,19 @@ class RouteCollection implements RouteCollectionInterface
      * The default list of HTTP methods (and CLI for command line usage)
      * that is allowed if no other method is provided.
      *
-     * @var list<string>
+     * @var array
      */
-    public $defaultHTTPMethods = Router::HTTP_METHODS;
+    protected $defaultHTTPMethods = [
+        'options',
+        'get',
+        'head',
+        'post',
+        'put',
+        'delete',
+        'trace',
+        'connect',
+        'cli',
+    ];
 
     /**
      * The name of the current group, if any.
@@ -240,7 +244,7 @@ class RouteCollection implements RouteCollectionInterface
     /**
      * Handle to the file locator to use.
      *
-     * @var FileLocatorInterface
+     * @var FileLocator
      */
     protected $fileLocator;
 
@@ -278,7 +282,7 @@ class RouteCollection implements RouteCollectionInterface
     /**
      * Constructor
      */
-    public function __construct(FileLocatorInterface $locator, Modules $moduleConfig, Routing $routing)
+    public function __construct(FileLocator $locator, Modules $moduleConfig, Routing $routing)
     {
         $this->fileLocator  = $locator;
         $this->moduleConfig = $moduleConfig;
@@ -493,7 +497,7 @@ class RouteCollection implements RouteCollectionInterface
      * Returns the 404 Override setting, which can be null, a closure
      * or the controller/string.
      *
-     * @return (Closure(string): (ResponseInterface|string|void))|string|null
+     * @return Closure|string|null
      */
     public function get404Override()
     {
@@ -556,12 +560,11 @@ class RouteCollection implements RouteCollectionInterface
     /**
      * Returns the raw array of available routes.
      *
-     * @param non-empty-string|null $verb            HTTP verb like `GET`,`POST` or `*` or `CLI`.
-     * @param bool                  $includeWildcard Whether to include '*' routes.
+     * @param bool $includeWildcard Whether to include '*' routes.
      */
     public function getRoutes(?string $verb = null, bool $includeWildcard = true): array
     {
-        if ($verb === null || $verb === '') {
+        if (empty($verb)) {
             $verb = $this->getHTTPVerb();
         }
 
@@ -602,8 +605,6 @@ class RouteCollection implements RouteCollectionInterface
     /**
      * Returns one or all routes options
      *
-     * @param string|null $verb HTTP verb like `GET`,`POST` or `*` or `CLI`.
-     *
      * @return array<string, int|string> [key => value]
      */
     public function getRoutesOptions(?string $from = null, ?string $verb = null): array
@@ -631,19 +632,7 @@ class RouteCollection implements RouteCollectionInterface
      */
     public function setHTTPVerb(string $verb)
     {
-        if ($verb !== '*' && $verb === strtolower($verb)) {
-            @trigger_error(
-                'Passing lowercase HTTP method "' . $verb . '" is deprecated.'
-                . ' Use uppercase HTTP method like "' . strtoupper($verb) . '".',
-                E_USER_DEPRECATED
-            );
-        }
-
-        /**
-         * @deprecated 4.5.0
-         * @TODO Remove strtoupper() in the future.
-         */
-        $this->HTTPVerb = strtoupper($verb);
+        $this->HTTPVerb = strtolower($verb);
 
         return $this;
     }
@@ -668,7 +657,7 @@ class RouteCollection implements RouteCollectionInterface
      * Example:
      *      $routes->add('news', 'Posts::index');
      *
-     * @param array|(Closure(mixed...): (ResponseInterface|string|void))|string $to
+     * @param array|Closure|string $to
      */
     public function add(string $from, $to, ?array $options = null): RouteCollectionInterface
     {
@@ -695,10 +684,10 @@ class RouteCollection implements RouteCollectionInterface
             $routeName  = $to;
             $routeKey   = $this->routesNames['*'][$routeName];
             $redirectTo = [$routeKey => $this->routes['*'][$routeKey]['handler']];
-        } elseif (array_key_exists($to, $this->routesNames[Method::GET])) {
+        } elseif (array_key_exists($to, $this->routesNames['get'])) {
             $routeName  = $to;
-            $routeKey   = $this->routesNames[Method::GET][$routeName];
-            $redirectTo = [$routeKey => $this->routes[Method::GET][$routeKey]['handler']];
+            $routeKey   = $this->routesNames['get'][$routeName];
+            $redirectTo = [$routeKey => $this->routes['get'][$routeKey]['handler']];
         } else {
             // The named route is not found.
             $redirectTo = $to;
@@ -776,24 +765,12 @@ class RouteCollection implements RouteCollectionInterface
         // To register a route, we'll set a flag so that our router
         // will see the group name.
         // If the group name is empty, we go on using the previously built group name.
-        $this->group = $name !== '' ? trim($oldGroup . '/' . $name, '/') : $oldGroup;
+        $this->group = $name ? trim($oldGroup . '/' . $name, '/') : $oldGroup;
 
         $callback = array_pop($params);
 
         if ($params && is_array($params[0])) {
-            $options = array_shift($params);
-
-            if (isset($options['filter'])) {
-                // Merge filters.
-                $currentFilter     = (array) ($this->currentOptions['filter'] ?? []);
-                $options['filter'] = array_merge($currentFilter, (array) $options['filter']);
-            }
-
-            // Merge options other than filters.
-            $this->currentOptions = array_merge(
-                $this->currentOptions ?? [],
-                $options
-            );
+            $this->currentOptions = array_shift($params);
         }
 
         if (is_callable($callback)) {
@@ -853,7 +830,7 @@ class RouteCollection implements RouteCollectionInterface
         // In order to allow customization of the route the
         // resources are sent to, we need to have a new name
         // to store the values in.
-        $newName = implode('\\', array_map(ucfirst(...), explode('/', $name)));
+        $newName = implode('\\', array_map('ucfirst', explode('/', $name)));
 
         // If a new controller is specified, then we replace the
         // $name value with the name of the new controller.
@@ -947,7 +924,7 @@ class RouteCollection implements RouteCollectionInterface
         // In order to allow customization of the route the
         // resources are sent to, we need to have a new name
         // to store the values in.
-        $newName = implode('\\', array_map(ucfirst(...), explode('/', $name)));
+        $newName = implode('\\', array_map('ucfirst', explode('/', $name)));
 
         // If a new controller is specified, then we replace the
         // $name value with the name of the new controller.
@@ -1012,29 +989,17 @@ class RouteCollection implements RouteCollectionInterface
      * Specifies a single route to match for multiple HTTP Verbs.
      *
      * Example:
-     *  $route->match( ['GET', 'POST'], 'users/(:num)', 'users/$1);
+     *  $route->match( ['get', 'post'], 'users/(:num)', 'users/$1);
      *
-     * @param array|(Closure(mixed...): (ResponseInterface|string|void))|string $to
+     * @param array|Closure|string $to
      */
     public function match(array $verbs = [], string $from = '', $to = '', ?array $options = null): RouteCollectionInterface
     {
-        if ($from === '' || empty($to)) {
+        if (empty($from) || empty($to)) {
             throw new InvalidArgumentException('You must supply the parameters: from, to.');
         }
 
         foreach ($verbs as $verb) {
-            if ($verb === strtolower($verb)) {
-                @trigger_error(
-                    'Passing lowercase HTTP method "' . $verb . '" is deprecated.'
-                    . ' Use uppercase HTTP method like "' . strtoupper($verb) . '".',
-                    E_USER_DEPRECATED
-                );
-            }
-
-            /**
-             * @TODO We should use correct uppercase verb.
-             * @deprecated 4.5.0
-             */
             $verb = strtolower($verb);
 
             $this->{$verb}($from, $to, $options);
@@ -1046,11 +1011,11 @@ class RouteCollection implements RouteCollectionInterface
     /**
      * Specifies a route that is only available to GET requests.
      *
-     * @param array|(Closure(mixed...): (ResponseInterface|string|void))|string $to
+     * @param array|Closure|string $to
      */
     public function get(string $from, $to, ?array $options = null): RouteCollectionInterface
     {
-        $this->create(Method::GET, $from, $to, $options);
+        $this->create('get', $from, $to, $options);
 
         return $this;
     }
@@ -1058,11 +1023,11 @@ class RouteCollection implements RouteCollectionInterface
     /**
      * Specifies a route that is only available to POST requests.
      *
-     * @param array|(Closure(mixed...): (ResponseInterface|string|void))|string $to
+     * @param array|Closure|string $to
      */
     public function post(string $from, $to, ?array $options = null): RouteCollectionInterface
     {
-        $this->create(Method::POST, $from, $to, $options);
+        $this->create('post', $from, $to, $options);
 
         return $this;
     }
@@ -1070,11 +1035,11 @@ class RouteCollection implements RouteCollectionInterface
     /**
      * Specifies a route that is only available to PUT requests.
      *
-     * @param array|(Closure(mixed...): (ResponseInterface|string|void))|string $to
+     * @param array|Closure|string $to
      */
     public function put(string $from, $to, ?array $options = null): RouteCollectionInterface
     {
-        $this->create(Method::PUT, $from, $to, $options);
+        $this->create('put', $from, $to, $options);
 
         return $this;
     }
@@ -1082,11 +1047,11 @@ class RouteCollection implements RouteCollectionInterface
     /**
      * Specifies a route that is only available to DELETE requests.
      *
-     * @param array|(Closure(mixed...): (ResponseInterface|string|void))|string $to
+     * @param array|Closure|string $to
      */
     public function delete(string $from, $to, ?array $options = null): RouteCollectionInterface
     {
-        $this->create(Method::DELETE, $from, $to, $options);
+        $this->create('delete', $from, $to, $options);
 
         return $this;
     }
@@ -1094,11 +1059,11 @@ class RouteCollection implements RouteCollectionInterface
     /**
      * Specifies a route that is only available to HEAD requests.
      *
-     * @param array|(Closure(mixed...): (ResponseInterface|string|void))|string $to
+     * @param array|Closure|string $to
      */
     public function head(string $from, $to, ?array $options = null): RouteCollectionInterface
     {
-        $this->create(Method::HEAD, $from, $to, $options);
+        $this->create('head', $from, $to, $options);
 
         return $this;
     }
@@ -1106,11 +1071,11 @@ class RouteCollection implements RouteCollectionInterface
     /**
      * Specifies a route that is only available to PATCH requests.
      *
-     * @param array|(Closure(mixed...): (ResponseInterface|string|void))|string $to
+     * @param array|Closure|string $to
      */
     public function patch(string $from, $to, ?array $options = null): RouteCollectionInterface
     {
-        $this->create(Method::PATCH, $from, $to, $options);
+        $this->create('patch', $from, $to, $options);
 
         return $this;
     }
@@ -1118,11 +1083,11 @@ class RouteCollection implements RouteCollectionInterface
     /**
      * Specifies a route that is only available to OPTIONS requests.
      *
-     * @param array|(Closure(mixed...): (ResponseInterface|string|void))|string $to
+     * @param array|Closure|string $to
      */
     public function options(string $from, $to, ?array $options = null): RouteCollectionInterface
     {
-        $this->create(Method::OPTIONS, $from, $to, $options);
+        $this->create('options', $from, $to, $options);
 
         return $this;
     }
@@ -1130,11 +1095,11 @@ class RouteCollection implements RouteCollectionInterface
     /**
      * Specifies a route that is only available to command-line requests.
      *
-     * @param array|(Closure(mixed...): (ResponseInterface|string|void))|string $to
+     * @param array|Closure|string $to
      */
     public function cli(string $from, $to, ?array $options = null): RouteCollectionInterface
     {
-        $this->create('CLI', $from, $to, $options);
+        $this->create('cli', $from, $to, $options);
 
         return $this;
     }
@@ -1145,14 +1110,14 @@ class RouteCollection implements RouteCollectionInterface
      */
     public function view(string $from, string $view, ?array $options = null): RouteCollectionInterface
     {
-        $to = static fn (...$data) => service('renderer')
+        $to = static fn (...$data) => Services::renderer()
             ->setData(['segments' => $data], 'raw')
             ->render($view, $options);
 
         $routeOptions = $options ?? [];
         $routeOptions = array_merge($routeOptions, ['view' => $view]);
 
-        $this->create(Method::GET, $from, $to, $routeOptions);
+        $this->create('get', $from, $to, $routeOptions);
 
         return $this;
     }
@@ -1208,8 +1173,8 @@ class RouteCollection implements RouteCollectionInterface
         // Add the default namespace if needed.
         $namespace = trim($this->defaultNamespace, '\\') . '\\';
         if (
-            ! str_starts_with($search, '\\')
-            && ! str_starts_with($search, $namespace)
+            substr($search, 0, 1) !== '\\'
+            && substr($search, 0, strlen($namespace)) !== $namespace
         ) {
             $search = $namespace . $search;
         }
@@ -1233,7 +1198,7 @@ class RouteCollection implements RouteCollectionInterface
 
                 // If there's any chance of a match, then it will
                 // be with $search at the beginning of the $to string.
-                if (! str_starts_with($to, $search)) {
+                if (strpos($to, $search) !== 0) {
                     continue;
                 }
 
@@ -1258,19 +1223,36 @@ class RouteCollection implements RouteCollectionInterface
      */
     protected function localizeRoute(string $route): string
     {
-        return strtr($route, ['{locale}' => service('request')->getLocale()]);
+        return strtr($route, ['{locale}' => Services::request()->getLocale()]);
     }
 
     /**
      * Checks a route (using the "from") to see if it's filtered or not.
-     *
-     * @param string|null $verb HTTP verb like `GET`,`POST` or `*` or `CLI`.
      */
     public function isFiltered(string $search, ?string $verb = null): bool
     {
         $options = $this->loadRoutesOptions($verb);
 
         return isset($options[$search]['filter']);
+    }
+
+    /**
+     * Returns the filter that should be applied for a single route, along
+     * with any parameters it might have. Parameters are found by splitting
+     * the parameter name on a colon to separate the filter name from the parameter list,
+     * and the splitting the result on commas. So:
+     *
+     *    'role:admin,manager'
+     *
+     * has a filter of "role", with parameters of ['admin', 'manager'].
+     *
+     * @deprecated Use getFiltersForRoute()
+     */
+    public function getFilterForRoute(string $search, ?string $verb = null): string
+    {
+        $options = $this->loadRoutesOptions($verb);
+
+        return $options[$search]['filter'] ?? '';
     }
 
     /**
@@ -1283,10 +1265,10 @@ class RouteCollection implements RouteCollectionInterface
      *
      * has a filter of "role", with parameters of ['admin', 'manager'].
      *
-     * @param string      $search routeKey
-     * @param string|null $verb   HTTP verb like `GET`,`POST` or `*` or `CLI`.
+     * @param string $search routeKey
      *
-     * @return list<string> filter_name or filter_name:arguments like 'role:admin,manager'
+     * @return array<int, string> filter_name or filter_name:arguments like 'role:admin,manager'
+     * @phpstan-return list<string>
      */
     public function getFiltersForRoute(string $search, ?string $verb = null): array
     {
@@ -1323,7 +1305,8 @@ class RouteCollection implements RouteCollectionInterface
          * Build our resulting string, inserting the $params in
          * the appropriate places.
          *
-         * @var list<string> $patterns
+         * @var array<int, string> $patterns
+         * @phpstan-var list<string> $patterns
          */
         $patterns = $matches[0];
 
@@ -1355,7 +1338,7 @@ class RouteCollection implements RouteCollectionInterface
         preg_match_all('/\(([^)]+)\)/', $from, $matches);
 
         if (empty($matches[0])) {
-            if (str_contains($from, '{locale}')) {
+            if (strpos($from, '{locale}') !== false) {
                 $locale = $params[0] ?? null;
             }
 
@@ -1374,7 +1357,8 @@ class RouteCollection implements RouteCollectionInterface
          * Build our resulting string, inserting the $params in
          * the appropriate places.
          *
-         * @var list<string> $placeholders
+         * @var array<int, string> $placeholders
+         * @phpstan-var list<string> $placeholders
          */
         $placeholders = $matches[0];
 
@@ -1390,14 +1374,14 @@ class RouteCollection implements RouteCollectionInterface
             // or maybe $placeholder is not a placeholder, but a regex.
             $pattern = $this->placeholders[$placeholderName] ?? $placeholder;
 
-            if (! preg_match('#^' . $pattern . '$#u', (string) $params[$index])) {
+            if (! preg_match('#^' . $pattern . '$#u', $params[$index])) {
                 throw RouterException::forInvalidParameterType();
             }
 
             // Ensure that the param we're inserting matches
             // the expected param type.
             $pos  = strpos($from, $placeholder);
-            $from = substr_replace($from, (string) $params[$index], $pos, strlen($placeholder));
+            $from = substr_replace($from, $params[$index], $pos, strlen($placeholder));
         }
 
         $from = $this->replaceLocale($from, $locale);
@@ -1410,7 +1394,7 @@ class RouteCollection implements RouteCollectionInterface
      */
     private function replaceLocale(string $route, ?string $locale = null): string
     {
-        if (! str_contains($route, '{locale}')) {
+        if (strpos($route, '{locale}') === false) {
             return $route;
         }
 
@@ -1423,7 +1407,7 @@ class RouteCollection implements RouteCollectionInterface
         }
 
         if ($locale === null) {
-            $locale = service('request')->getLocale();
+            $locale = Services::request()->getLocale();
         }
 
         return strtr($route, ['{locale}' => $locale]);
@@ -1434,7 +1418,7 @@ class RouteCollection implements RouteCollectionInterface
      * the request method(s) that this route will work for. They can be separated
      * by a pipe character "|" if there is more than one.
      *
-     * @param array|(Closure(mixed...): (ResponseInterface|string|void))|string $to
+     * @param array|Closure|string $to
      *
      * @return void
      */
@@ -1454,12 +1438,6 @@ class RouteCollection implements RouteCollectionInterface
         // When redirecting to named route, $to is an array like `['zombies' => '\Zombies::index']`.
         if (is_array($to) && isset($to[0])) {
             $to = $this->processArrayCallableSyntax($from, $to);
-        }
-
-        // Merge group filters.
-        if (isset($options['filter'])) {
-            $currentFilter     = (array) ($this->currentOptions['filter'] ?? []);
-            $options['filter'] = array_merge($currentFilter, (array) $options['filter']);
         }
 
         $options = array_merge($this->currentOptions ?? [], $options ?? []);
@@ -1521,7 +1499,7 @@ class RouteCollection implements RouteCollectionInterface
         // If is redirect, No processing
         if (! isset($options['redirect']) && is_string($to)) {
             // If no namespace found, add the default namespace
-            if (! str_contains($to, '\\') || strpos($to, '\\') > 0) {
+            if (strpos($to, '\\') === false || strpos($to, '\\') > 0) {
                 $namespace = $options['namespace'] ?? $this->defaultNamespace;
                 $to        = trim($namespace, '\\') . '\\' . $to;
             }
@@ -1619,7 +1597,7 @@ class RouteCollection implements RouteCollectionInterface
      * Compares the subdomain(s) passed in against the current subdomain
      * on this page request.
      *
-     * @param list<string>|string $subdomains
+     * @param string|string[] $subdomains
      */
     private function checkSubdomains($subdomains): bool
     {
@@ -1660,7 +1638,7 @@ class RouteCollection implements RouteCollectionInterface
         // on the URL else parse_url will mis-interpret
         // 'host' as the 'path'.
         $url = $this->httpHost;
-        if (! str_starts_with($url, 'http')) {
+        if (strpos($url, 'http') !== 0) {
             $url = 'http://' . $url;
         }
 
@@ -1713,7 +1691,8 @@ class RouteCollection implements RouteCollectionInterface
     /**
      * Load routes options based on verb
      *
-     * @return array<
+     * @return array<string, array<string, array|int|string>> [routeKey(or from) => [key => value]]
+     * @phpstan-return array<
      *     string,
      *     array{
      *         filter?: string|list<string>, namespace?: string, hostname?: string,
@@ -1759,29 +1738,13 @@ class RouteCollection implements RouteCollectionInterface
     /**
      * Get all controllers in Route Handlers
      *
-     * @param string|null $verb HTTP verb like `GET`,`POST` or `*` or `CLI`.
-     *                          `'*'` returns all controllers in any verb.
+     * @param string|null $verb HTTP verb. `'*'` returns all controllers in any verb.
      *
-     * @return list<string> controller name list
-     *
-     * @interal
+     * @return array<int, string> controller name list
+     * @phpstan-return list<string>
      */
     public function getRegisteredControllers(?string $verb = '*'): array
     {
-        if ($verb !== '*' && $verb === strtolower($verb)) {
-            @trigger_error(
-                'Passing lowercase HTTP method "' . $verb . '" is deprecated.'
-                . ' Use uppercase HTTP method like "' . strtoupper($verb) . '".',
-                E_USER_DEPRECATED
-            );
-        }
-
-        /**
-         * @deprecated 4.5.0
-         * @TODO Remove this in the future.
-         */
-        $verb = strtoupper($verb);
-
         $controllers = [];
 
         if ($verb === '*') {
@@ -1808,7 +1771,7 @@ class RouteCollection implements RouteCollectionInterface
     }
 
     /**
-     * @param (Closure(mixed...): (ResponseInterface|string|void))|string $handler Handler
+     * @param Closure|string $handler Handler
      *
      * @return string|null Controller classname
      */

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -187,7 +185,7 @@ class CreditCardRules
         }
 
         // If empty, it's not a card type we recognize, or invalid type.
-        if ($info === null) {
+        if (empty($info)) {
             return false;
         }
 
@@ -217,7 +215,7 @@ class CreditCardRules
         $validPrefix = false;
 
         foreach ($prefixes as $prefix) {
-            if (str_starts_with($ccNumber, $prefix)) {
+            if (strpos($ccNumber, $prefix) === 0) {
                 $validPrefix = true;
                 break;
             }

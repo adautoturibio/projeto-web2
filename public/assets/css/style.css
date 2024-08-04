@@ -1,0 +1,10 @@
+.text-justify{
+    text-align: justify;
+}
+
+.rodape {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+ }

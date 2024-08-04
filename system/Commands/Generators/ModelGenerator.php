@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -55,7 +53,7 @@ class ModelGenerator extends BaseCommand
     /**
      * The Command's Arguments
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $arguments = [
         'name' => 'The model class name.',
@@ -64,7 +62,7 @@ class ModelGenerator extends BaseCommand
     /**
      * The Command's Options
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $options = [
         '--table'     => 'Supply a table name. Default: "the lowercased plural of the class name".',
@@ -85,7 +83,7 @@ class ModelGenerator extends BaseCommand
         $this->template  = 'model.tpl.php';
 
         $this->classNameLang = 'CLI.generator.className.model';
-        $this->generateClass($params);
+        $this->execute($params);
     }
 
     /**
@@ -103,8 +101,9 @@ class ModelGenerator extends BaseCommand
             $baseClass = $match[1];
         }
 
-        $table  = is_string($table) ? $table : plural(strtolower($baseClass));
-        $return = is_string($return) ? $return : 'array';
+        $table   = is_string($table) ? $table : plural(strtolower($baseClass));
+        $dbGroup = is_string($dbGroup) ? $dbGroup : 'default';
+        $return  = is_string($return) ? $return : 'array';
 
         if (! in_array($return, ['array', 'object', 'entity'], true)) {
             // @codeCoverageIgnoreStart
@@ -130,6 +129,6 @@ class ModelGenerator extends BaseCommand
             $return = "'{$return}'";
         }
 
-        return $this->parseTemplate($class, ['{dbGroup}', '{table}', '{return}'], [$dbGroup, $table, $return], compact('dbGroup'));
+        return $this->parseTemplate($class, ['{table}', '{dbGroup}', '{return}'], [$table, $dbGroup, $return]);
     }
 }

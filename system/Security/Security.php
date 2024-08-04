@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -15,7 +13,6 @@ namespace CodeIgniter\Security;
 
 use CodeIgniter\Cookie\Cookie;
 use CodeIgniter\HTTP\IncomingRequest;
-use CodeIgniter\HTTP\Method;
 use CodeIgniter\HTTP\Request;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\I18n\Time;
@@ -23,6 +20,7 @@ use CodeIgniter\Security\Exceptions\SecurityException;
 use CodeIgniter\Session\Session;
 use Config\Cookie as CookieConfig;
 use Config\Security as SecurityConfig;
+use Config\Services;
 use ErrorException;
 use InvalidArgumentException;
 use LogicException;
@@ -160,7 +158,7 @@ class Security implements SecurityInterface
      */
     protected $samesite = Cookie::SAMESITE_LAX;
 
-    private readonly IncomingRequest $request;
+    private IncomingRequest $request;
 
     /**
      * CSRF Cookie Name without Prefix
@@ -206,7 +204,7 @@ class Security implements SecurityInterface
             $this->configureSession();
         }
 
-        $this->request      = service('request');
+        $this->request      = Services::request();
         $this->hashInCookie = $this->request->getCookie($this->cookieName);
 
         $this->restoreHash();
@@ -222,7 +220,7 @@ class Security implements SecurityInterface
 
     private function configureSession(): void
     {
-        $this->session = service('session');
+        $this->session = Services::session();
     }
 
     private function configureCookie(CookieConfig $cookie): void
@@ -235,6 +233,46 @@ class Security implements SecurityInterface
     /**
      * CSRF Verify
      *
+     * @return $this|false
+     *
+     * @throws SecurityException
+     *
+     * @deprecated Use `CodeIgniter\Security\Security::verify()` instead of using this method.
+     *
+     * @codeCoverageIgnore
+     */
+    public function CSRFVerify(RequestInterface $request)
+    {
+        return $this->verify($request);
+    }
+
+    /**
+     * Returns the CSRF Token.
+     *
+     * @deprecated Use `CodeIgniter\Security\Security::getHash()` instead of using this method.
+     *
+     * @codeCoverageIgnore
+     */
+    public function getCSRFHash(): ?string
+    {
+        return $this->getHash();
+    }
+
+    /**
+     * Returns the CSRF Token Name.
+     *
+     * @deprecated Use `CodeIgniter\Security\Security::getTokenName()` instead of using this method.
+     *
+     * @codeCoverageIgnore
+     */
+    public function getCSRFTokenName(): string
+    {
+        return $this->getTokenName();
+    }
+
+    /**
+     * CSRF Verify
+     *
      * @return $this
      *
      * @throws SecurityException
@@ -242,8 +280,8 @@ class Security implements SecurityInterface
     public function verify(RequestInterface $request)
     {
         // Protects POST, PUT, DELETE, PATCH
-        $method           = $request->getMethod();
-        $methodsToProtect = [Method::POST, Method::PUT, Method::DELETE, Method::PATCH];
+        $method           = strtoupper($request->getMethod());
+        $methodsToProtect = ['POST', 'PUT', 'DELETE', 'PATCH'];
         if (! in_array($method, $methodsToProtect, true)) {
             return $this;
         }
@@ -253,7 +291,7 @@ class Security implements SecurityInterface
         try {
             $token = ($postedToken !== null && $this->config->tokenRandomize)
                 ? $this->derandomize($postedToken) : $postedToken;
-        } catch (InvalidArgumentException) {
+        } catch (InvalidArgumentException $e) {
             $token = null;
         }
 
@@ -406,6 +444,18 @@ class Security implements SecurityInterface
     }
 
     /**
+     * Check if CSRF cookie is expired.
+     *
+     * @deprecated
+     *
+     * @codeCoverageIgnore
+     */
+    public function isExpired(): bool
+    {
+        return $this->cookie->isExpired();
+    }
+
+    /**
      * Check if request should be redirect on failure.
      */
     public function shouldRedirect(): bool
@@ -533,8 +583,42 @@ class Security implements SecurityInterface
             ]
         );
 
-        $response = service('response');
+        $response = Services::response();
         $response->setCookie($this->cookie);
+    }
+
+    /**
+     * CSRF Send Cookie
+     *
+     * @return false|Security
+     *
+     * @deprecated Set cookies to Response object instead.
+     */
+    protected function sendCookie(RequestInterface $request)
+    {
+        assert($request instanceof IncomingRequest);
+
+        if ($this->cookie->isSecure() && ! $request->isSecure()) {
+            return false;
+        }
+
+        $this->doSendCookie();
+        log_message('info', 'CSRF cookie sent.');
+
+        return $this;
+    }
+
+    /**
+     * Actual dispatching of cookies.
+     * Extracted for this to be unit tested.
+     *
+     * @codeCoverageIgnore
+     *
+     * @deprecated Set cookies to Response object instead.
+     */
+    protected function doSendCookie(): void
+    {
+        cookies([$this->cookie], false)->dispatch();
     }
 
     private function saveHashInSession(): void

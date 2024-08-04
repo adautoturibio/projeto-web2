@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -27,6 +25,16 @@ interface RequestInterface extends OutgoingRequestInterface
      * @return string IP address
      */
     public function getIPAddress(): string;
+
+    /**
+     * Validate an IP address
+     *
+     * @param string $ip    IP Address
+     * @param string $which IP protocol: 'ipv4' or 'ipv6'
+     *
+     * @deprecated Use Validation instead
+     */
+    public function isValidIP(string $ip, ?string $which = null): bool;
 
     /**
      * Fetch an item from the $_SERVER array.

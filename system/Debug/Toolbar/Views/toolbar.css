@@ -13,11 +13,10 @@
   z-index: 10000;
   height: 36px;
   width: 36px;
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
   clear: both;
   text-align: center;
-  cursor: pointer;
 }
 #debug-icon a svg {
   margin: 8px;
@@ -30,10 +29,6 @@
 }
 #debug-icon .debug-bar-ndisplay {
   display: none;
-}
-
-.debug-bar-vars {
-  cursor: pointer;
 }
 
 #debug-bar {
@@ -52,15 +47,12 @@
   display: flex;
   font-weight: normal;
   margin: 0 0 0 auto;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #debug-bar h1 svg {
   width: 16px;
   margin-right: 5px;
 }
 #debug-bar h2 {
-  font-weight: bold;
   font-size: 16px;
   margin: 0;
   padding: 5px 0 10px 0;
@@ -164,21 +156,19 @@
   bottom: auto;
   top: 36px;
 }
-#debug-bar #toolbar-position,
-#debug-bar #toolbar-theme {
+#debug-bar #toolbar-position a,
+#debug-bar #toolbar-theme a {
   padding: 0 6px;
   display: inline-flex;
   vertical-align: top;
-  cursor: pointer;
 }
-#debug-bar #toolbar-position:hover,
-#debug-bar #toolbar-theme:hover {
+#debug-bar #toolbar-position a:hover,
+#debug-bar #toolbar-theme a:hover {
   text-decoration: none;
 }
 #debug-bar #debug-bar-link {
   display: flex;
   padding: 6px;
-  cursor: pointer;
 }
 #debug-bar .ci-label {
   display: inline-flex;
@@ -214,8 +204,6 @@
   white-space: nowrap;
 }
 #debug-bar .tab {
-  height: fit-content;
-  text-align: left;
   bottom: 35px;
   display: none;
   left: 0;
@@ -228,8 +216,6 @@
   z-index: 9999;
 }
 #debug-bar .timeline {
-  position: static;
-  display: table;
   margin-left: 0;
   width: 100%;
 }
@@ -301,9 +287,6 @@
   font-style: italic;
   padding-left: 1em;
   text-align: right;
-}
-#debug-bar > .debug-bar-dblock {
-  display: block;
 }
 
 .debug-view.show-view {
@@ -549,6 +532,9 @@
   #debug-bar .timeline .timer {
     background-color: #DD8615;
   }
+  #debug-bar .timeline .timeline-parent-open td {
+    color: #252525;
+  }
   .debug-view.show-view {
     border-color: #DD8615;
   }
@@ -660,6 +646,9 @@
 }
 #toolbarContainer.dark #debug-bar .timeline .timer {
   background-color: #DD8615;
+}
+#toolbarContainer.dark #debug-bar .timeline .timeline-parent-open td {
+  color: #252525;
 }
 #toolbarContainer.dark .debug-view.show-view {
   border-color: #DD8615;
@@ -820,48 +809,4 @@
 
 .debug-bar-noverflow {
   overflow: hidden;
-}
-
-.debug-bar-dtableRow {
-  display: table-row;
-}
-
-.debug-bar-dinlineBlock {
-  display: inline-block;
-}
-
-.debug-bar-pointer {
-  cursor: pointer;
-}
-
-.debug-bar-mleft4 {
-  margin-left: 4px;
-}
-
-.debug-bar-level-0 {
-  --level: 0;
-}
-
-.debug-bar-level-1 {
-  --level: 1;
-}
-
-.debug-bar-level-2 {
-  --level: 2;
-}
-
-.debug-bar-level-3 {
-  --level: 3;
-}
-
-.debug-bar-level-4 {
-  --level: 4;
-}
-
-.debug-bar-level-5 {
-  --level: 5;
-}
-
-.debug-bar-level-6 {
-  --level: 6;
 }

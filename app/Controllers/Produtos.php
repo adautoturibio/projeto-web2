@@ -17,8 +17,7 @@ class Produtos extends BaseController
     public function index(): string
     {
         $data['title'] = 'Produtos';
-        // Linha de Inner join entre a classe produtos e categorias
-        $data['produtos'] = $this->produtos->join('categorias', 'categorias_id = categorias_id')->find();
+        $data['produtos'] = $this->produtos->join('categorias', 'produtos_categorias_id = categorias_id')->find();
         //$data['produtos'] = $this->produtos->findAll();
         return view('Produtos/index',$data);
     }
@@ -30,11 +29,11 @@ class Produtos extends BaseController
         $data['form'] = 'cadastrar';
         $data['categorias'] = $this->categorias->findAll();
         $data['produtos'] = (object) [
-            'nome'=> '',
-            'descricao'=> '',
-            'preco_custo'=> '0.00',
-            'preco_venda'=> '0.00',
-            'categorias_id'=> '',
+            'produtos_nome'=> '',
+            'produtos_descricao'=> '',
+            'produtos_preco_custo'=> '0.00',
+            'produtos_preco_venda'=> '0.00',
+            'produtos_categorias_id'=> '',
             'produtos_id'=> ''
         ];
         return view('Produtos/form',$data);
@@ -44,19 +43,19 @@ class Produtos extends BaseController
 
         // Checks whether the submitted data passed the validation rules.
         if(!$this->validate([
-            'nome' => 'required|max_length[255]|min_length[3]',
-            'preco_custo' => 'required',
-            'preco_venda' => 'required'
+            'produtos_nome' => 'required|max_length[255]|min_length[3]',
+            'produtos_preco_custo' => 'required',
+            'produtos_preco_venda' => 'required'
         ])) {
             
             // The validation fails, so returns the form.
             $data['produtos'] = (object) [
                 //'produtos_id' => $_REQUEST['produtos_id'],
-                'nome' => $_REQUEST['nome'],
-                'descricao' => $_REQUEST['descricao'],
-                'preco_custo' => moedaDolar($_REQUEST['preco_custo']),
-                'preco_venda' => moedaDolar($_REQUEST['preco_venda']),
-                'categorias_id' => $_REQUEST['categorias_id']
+                'produtos_nome' => $_REQUEST['produtos_nome'],
+                'produtos_descricao' => $_REQUEST['produtos_descricao'],
+                'produtos_preco_custo' => moedaDolar($_REQUEST['produtos_preco_custo']),
+                'produtos_preco_venda' => moedaDolar($_REQUEST['produtos_preco_venda']),
+                'produtos_categorias_id' => $_REQUEST['produtos_categorias_id']
             ];
             
             $data['title'] = 'Produtos';
@@ -67,15 +66,15 @@ class Produtos extends BaseController
 
 
         $this->produtos->save([
-            'nome' => $_REQUEST['nome'],
-            'descricao' => $_REQUEST['descricao'],
-            'preco_custo' => moedaDolar($_REQUEST['preco_custo']),
-            'preco_venda' => moedaDolar($_REQUEST['preco_venda']),
-            'categorias_id' => $_REQUEST['categorias_id']
+            'produtos_nome' => $_REQUEST['produtos_nome'],
+            'produtos_descricao' => $_REQUEST['produtos_descricao'],
+            'produtos_preco_custo' => moedaDolar($_REQUEST['produtos_preco_custo']),
+            'produtos_preco_venda' => moedaDolar($_REQUEST['produtos_preco_venda']),
+            'produtos_categorias_id' => $_REQUEST['produtos_categorias_id']
         ]);
         
         $data['msg'] = msg('Cadastrado com Sucesso!','success');
-        $data['produtos'] = $this->produtos->join('categorias', 'categorias_id = categorias_id')->find();
+        $data['produtos'] = $this->produtos->join('categorias', 'produtos_categorias_id = categorias_id')->find();
         $data['title'] = 'Produtos';
         return view('Produtos/index',$data);
 
@@ -85,7 +84,7 @@ class Produtos extends BaseController
     {
         $this->produtos->where('produtos_id', (int) $id)->delete();
         $data['msg'] = msg('Deletado com Sucesso!','success');
-        $data['produtos'] = $this->produtos->join('categorias', 'categorias_id = categorias_id')->find();
+        $data['produtos'] = $this->produtos->join('categorias', 'produtos_categorias_id = categorias_id')->find();
         $data['title'] = 'Produtos';
         return view('Produtos/index',$data);
     }
@@ -104,24 +103,24 @@ class Produtos extends BaseController
     {
         $dataForm = [
             'produtos_id' => $_REQUEST['produtos_id'],
-            'nome' => $_REQUEST['nome'],
-            'descricao' => $_REQUEST['descricao'],
-            'preco_custo' => moedaDolar($_REQUEST['preco_custo']),
-            'preco_venda' => moedaDolar($_REQUEST['preco_venda']),
-            'categorias_id' => $_REQUEST['categorias_id']
+            'produtos_nome' => $_REQUEST['produtos_nome'],
+            'produtos_descricao' => $_REQUEST['produtos_descricao'],
+            'produtos_preco_custo' => moedaDolar($_REQUEST['produtos_preco_custo']),
+            'produtos_preco_venda' => moedaDolar($_REQUEST['produtos_preco_venda']),
+            'produtos_categorias_id' => $_REQUEST['produtos_categorias_id']
         ];
 
         $this->produtos->update($_REQUEST['produtos_id'], $dataForm);
         $data['msg'] = msg('Alterado com Sucesso!','success');
-        $data['produtos'] = $this->produtos->join('categorias', 'categorias_id = categorias_id')->find();
+        $data['produtos'] = $this->produtos->join('categorias', 'produtos_categorias_id = categorias_id')->find();
         $data['title'] = 'Produtos';
         return view('Produtos/index',$data);
     }
 
     public function search()
     {
-        //$data['produtos'] = $this->produtos->like('nome', $_REQUEST['pesquisar'])->find();
-        $data['produtos'] = $this->produtos->join('categorias', 'categorias_id = categorias_id')->like('nome', $_REQUEST['pesquisar'])->orlike('categorias_nome', $_REQUEST['pesquisar'])->find();
+        //$data['produtos'] = $this->produtos->like('produtos_nome', $_REQUEST['pesquisar'])->find();
+        $data['produtos'] = $this->produtos->join('categorias', 'produtos_categorias_id = categorias_id')->like('produtos_nome', $_REQUEST['pesquisar'])->orlike('categorias_nome', $_REQUEST['pesquisar'])->find();
         $total = count($data['produtos']);
         $data['msg'] = msg("Dados Encontrados: {$total}",'success');
         $data['title'] = 'Produtos';

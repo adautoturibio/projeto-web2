@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -24,16 +22,23 @@ use ReflectionMethod;
 final class ControllerMethodReader
 {
     /**
+     * @var string the default namespace
+     */
+    private string $namespace;
+
+    /**
      * @param string $namespace the default namespace
      */
-    public function __construct(private readonly string $namespace)
+    public function __construct(string $namespace)
     {
+        $this->namespace = $namespace;
     }
 
     /**
-     * @param class-string $class
+     * @phpstan-param class-string $class
      *
-     * @return list<array{route: string, handler: string}>
+     * @return array<int, array{route: string, handler: string}>
+     * @phpstan-return list<array{route: string, handler: string}>
      */
     public function read(string $class, string $defaultController = 'Home', string $defaultMethod = 'index'): array
     {
@@ -123,7 +128,7 @@ final class ControllerMethodReader
     }
 
     /**
-     * @param class-string $classname
+     * @phpstan-param class-string $classname
      *
      * @return string URI path part from the folder(s) and controller
      */
@@ -155,17 +160,19 @@ final class ControllerMethodReader
         string $classname,
         string $methodName
     ): array {
-        if ($classShortname !== $defaultController) {
-            return [];
+        $output = [];
+
+        if ($classShortname === $defaultController) {
+            $pattern                = '#' . preg_quote(lcfirst($defaultController), '#') . '\z#';
+            $routeWithoutController = rtrim(preg_replace($pattern, '', $uriByClass), '/');
+            $routeWithoutController = $routeWithoutController ?: '/';
+
+            $output[] = [
+                'route'   => $routeWithoutController,
+                'handler' => '\\' . $classname . '::' . $methodName,
+            ];
         }
 
-        $pattern                = '#' . preg_quote(lcfirst($defaultController), '#') . '\z#';
-        $routeWithoutController = rtrim(preg_replace($pattern, '', $uriByClass), '/');
-        $routeWithoutController = $routeWithoutController ?: '/';
-
-        return [[
-            'route'   => $routeWithoutController,
-            'handler' => '\\' . $classname . '::' . $methodName,
-        ]];
+        return $output;
     }
 }

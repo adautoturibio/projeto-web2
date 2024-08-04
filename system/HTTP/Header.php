@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -13,8 +11,6 @@ declare(strict_types=1);
 
 namespace CodeIgniter\HTTP;
 
-use Stringable;
-
 /**
  * Class Header
  *
@@ -22,7 +18,7 @@ use Stringable;
  *
  * @see \CodeIgniter\HTTP\HeaderTest
  */
-class Header implements Stringable
+class Header
 {
     /**
      * The name of the header.
@@ -68,7 +64,7 @@ class Header implements Stringable
 
     /**
      * Gets the raw value of the header. This may return either a string
-     * or an array, depending on whether the header has multiple values or not.
+     * of an array, depending on whether the header has multiple values or not.
      *
      * @return array<int|string, array<string, string>|string>|string
      */

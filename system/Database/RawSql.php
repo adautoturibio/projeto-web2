@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -13,12 +11,10 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Database;
 
-use Stringable;
-
 /**
  * @see \CodeIgniter\Database\RawSqlTest
  */
-class RawSql implements Stringable
+class RawSql
 {
     /**
      * @var string Raw SQL string

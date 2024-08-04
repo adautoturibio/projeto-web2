@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -17,18 +15,25 @@ use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\I18n\Time;
-use PHPUnit\Framework\Assert;
+use Config\Services;
+use Exception;
 use PHPUnit\Framework\Constraint\IsEqual;
+use PHPUnit\Framework\TestCase;
 
 /**
+ * Test Response Class
+ *
  * Consolidated response processing
  * for test results.
  *
- * @mixin DOMParser
+ * @no-final
  *
+ * @internal
+ *
+ * @mixin DOMParser
  * @see \CodeIgniter\Test\TestResponseTest
  */
-class TestResponse
+class TestResponse extends TestCase
 {
     /**
      * The request.
@@ -86,7 +91,6 @@ class TestResponse
         $this->domParser = new DOMParser();
 
         $body = $response->getBody();
-
         if (is_string($body) && $body !== '') {
             $this->domParser->withString($body);
         }
@@ -132,40 +136,38 @@ class TestResponse
             return false;
         }
 
-        $body = (string) $this->response->getBody();
-
         // Empty bodies are not considered valid, unless in redirects
-        return ! ($status < 300 && $body === '');
+        return ! ($status < 300 && empty($this->response->getBody()));
     }
 
     /**
      * Asserts that the status is a specific value.
+     *
+     * @throws Exception
      */
-    public function assertStatus(int $code): void
+    public function assertStatus(int $code)
     {
-        Assert::assertSame($code, $this->response->getStatusCode());
+        $this->assertSame($code, $this->response->getStatusCode());
     }
 
     /**
      * Asserts that the Response is considered OK.
+     *
+     * @throws Exception
      */
-    public function assertOK(): void
+    public function assertOK()
     {
-        Assert::assertTrue(
-            $this->isOK(),
-            "{$this->response->getStatusCode()} is not a successful status code, or Response has an empty body."
-        );
+        $this->assertTrue($this->isOK(), "{$this->response->getStatusCode()} is not a successful status code, or the Response has an empty body.");
     }
 
     /**
-     * Asserts that the Response is considered not OK.
+     * Asserts that the Response is considered OK.
+     *
+     * @throws Exception
      */
-    public function assertNotOK(): void
+    public function assertNotOK()
     {
-        Assert::assertFalse(
-            $this->isOK(),
-            "{$this->response->getStatusCode()} is an unexpected successful status code, or Response body has content."
-        );
+        $this->assertFalse($this->isOK(), "{$this->response->getStatusCode()} is an unexpected successful status code, or the Response has body content.");
     }
 
     // --------------------------------------------------------------------
@@ -184,17 +186,21 @@ class TestResponse
 
     /**
      * Assert that the given response was a redirect.
+     *
+     * @throws Exception
      */
-    public function assertRedirect(): void
+    public function assertRedirect()
     {
-        Assert::assertTrue($this->isRedirect(), 'Response is not a redirect or instance of RedirectResponse.');
+        $this->assertTrue($this->isRedirect(), 'Response is not a redirect or RedirectResponse.');
     }
 
     /**
      * Assert that a given response was a redirect
      * and it was redirect to a specific URI.
+     *
+     * @throws Exception
      */
-    public function assertRedirectTo(string $uri): void
+    public function assertRedirectTo(string $uri)
     {
         $this->assertRedirect();
 
@@ -202,18 +208,20 @@ class TestResponse
         $redirectUri = strtolower($this->getRedirectUrl());
 
         $matches = $uri === $redirectUri
-            || strtolower(site_url($uri)) === $redirectUri
-            || $uri === site_url($redirectUri);
+                   || strtolower(site_url($uri)) === $redirectUri
+                   || $uri === site_url($redirectUri);
 
-        Assert::assertTrue($matches, "Redirect URL '{$uri}' does not match '{$redirectUri}'.");
+        $this->assertTrue($matches, "Redirect URL `{$uri}` does not match `{$redirectUri}`");
     }
 
     /**
      * Assert that the given response was not a redirect.
+     *
+     * @throws Exception
      */
-    public function assertNotRedirect(): void
+    public function assertNotRedirect()
     {
-        Assert::assertFalse($this->isRedirect(), 'Response is an unexpected redirect or instance of RedirectResponse.');
+        $this->assertFalse($this->isRedirect(), 'Response is an unexpected redirect or RedirectResponse.');
     }
 
     /**
@@ -241,33 +249,35 @@ class TestResponse
     // --------------------------------------------------------------------
 
     /**
-     * Asserts that an SESSION key has been set and, optionally, test its value.
+     * Asserts that an SESSION key has been set and, optionally, test it's value.
      *
      * @param mixed $value
+     *
+     * @throws Exception
      */
-    public function assertSessionHas(string $key, $value = null): void
+    public function assertSessionHas(string $key, $value = null)
     {
-        Assert::assertArrayHasKey($key, $_SESSION, "Key '{$key}' is not in the current \$_SESSION");
+        $this->assertArrayHasKey($key, $_SESSION, "'{$key}' is not in the current \$_SESSION");
 
         if ($value === null) {
             return;
         }
 
         if (is_scalar($value)) {
-            Assert::assertSame($value, $_SESSION[$key], "The value of key '{$key}' ({$value}) does not match expected value.");
-
-            return;
+            $this->assertSame($value, $_SESSION[$key], "The value of '{$key}' ({$value}) does not match expected value.");
+        } else {
+            $this->assertSame($value, $_SESSION[$key], "The value of '{$key}' does not match expected value.");
         }
-
-        Assert::assertSame($value, $_SESSION[$key], "The value of key '{$key}' does not match expected value.");
     }
 
     /**
      * Asserts the session is missing $key.
+     *
+     * @throws Exception
      */
-    public function assertSessionMissing(string $key): void
+    public function assertSessionMissing(string $key)
     {
-        Assert::assertArrayNotHasKey($key, $_SESSION, "Key '{$key}' should not be present in \$_SESSION.");
+        $this->assertArrayNotHasKey($key, $_SESSION, "'{$key}' should not be present in \$_SESSION.");
     }
 
     // --------------------------------------------------------------------
@@ -278,26 +288,26 @@ class TestResponse
      * Asserts that the Response contains a specific header.
      *
      * @param string|null $value
+     *
+     * @throws Exception
      */
-    public function assertHeader(string $key, $value = null): void
+    public function assertHeader(string $key, $value = null)
     {
-        Assert::assertTrue($this->response->hasHeader($key), "Header '{$key}' is not a valid Response header.");
+        $this->assertTrue($this->response->hasHeader($key), "'{$key}' is not a valid Response header.");
 
         if ($value !== null) {
-            Assert::assertSame(
-                $value,
-                $this->response->getHeaderLine($key),
-                "The value of '{$key}' header ({$this->response->getHeaderLine($key)}) does not match expected value."
-            );
+            $this->assertSame($value, $this->response->getHeaderLine($key), "The value of '{$key}' header ({$this->response->getHeaderLine($key)}) does not match expected value.");
         }
     }
 
     /**
      * Asserts the Response headers does not contain the specified header.
+     *
+     * @throws Exception
      */
-    public function assertHeaderMissing(string $key): void
+    public function assertHeaderMissing(string $key)
     {
-        Assert::assertFalse($this->response->hasHeader($key), "Header '{$key}' should not be in the Response headers.");
+        $this->assertFalse($this->response->hasHeader($key), "'{$key}' should not be in the Response headers.");
     }
 
     // --------------------------------------------------------------------
@@ -308,31 +318,31 @@ class TestResponse
      * Asserts that the response has the specified cookie.
      *
      * @param string|null $value
+     *
+     * @throws Exception
      */
-    public function assertCookie(string $key, $value = null, string $prefix = ''): void
+    public function assertCookie(string $key, $value = null, string $prefix = '')
     {
-        Assert::assertTrue($this->response->hasCookie($key, $value, $prefix), "Cookie named '{$key}' is not found.");
+        $this->assertTrue($this->response->hasCookie($key, $value, $prefix), "No cookie found named '{$key}'.");
     }
 
     /**
      * Assert the Response does not have the specified cookie set.
      */
-    public function assertCookieMissing(string $key): void
+    public function assertCookieMissing(string $key)
     {
-        Assert::assertFalse($this->response->hasCookie($key), "Cookie named '{$key}' should not be set.");
+        $this->assertFalse($this->response->hasCookie($key), "Cookie named '{$key}' should not be set.");
     }
 
     /**
      * Asserts that a cookie exists and has an expired time.
+     *
+     * @throws Exception
      */
-    public function assertCookieExpired(string $key, string $prefix = ''): void
+    public function assertCookieExpired(string $key, string $prefix = '')
     {
-        Assert::assertTrue($this->response->hasCookie($key, null, $prefix));
-
-        Assert::assertGreaterThan(
-            Time::now()->getTimestamp(),
-            $this->response->getCookie($key, $prefix)->getExpiresTimestamp()
-        );
+        $this->assertTrue($this->response->hasCookie($key, null, $prefix));
+        $this->assertGreaterThan(Time::now()->getTimestamp(), $this->response->getCookie($key, $prefix)->getExpiresTimestamp());
     }
 
     // --------------------------------------------------------------------
@@ -357,21 +367,20 @@ class TestResponse
 
     /**
      * Test that the response contains a matching JSON fragment.
+     *
+     * @throws Exception
      */
-    public function assertJSONFragment(array $fragment, bool $strict = false): void
+    public function assertJSONFragment(array $fragment, bool $strict = false)
     {
         $json = json_decode($this->getJSON(), true);
-        Assert::assertIsArray($json, 'Response is not a valid JSON.');
-
+        $this->assertIsArray($json, 'Response does not have valid json');
         $patched = array_replace_recursive($json, $fragment);
 
         if ($strict) {
-            Assert::assertSame($json, $patched, 'Response does not contain a matching JSON fragment.');
-
-            return;
+            $this->assertSame($json, $patched, 'Response does not contain a matching JSON fragment.');
+        } else {
+            $this->assertThat($patched, new IsEqual($json), 'Response does not contain a matching JSON fragment.');
         }
-
-        Assert::assertThat($patched, new IsEqual($json), 'Response does not contain a matching JSON fragment.');
     }
 
     /**
@@ -379,8 +388,10 @@ class TestResponse
      * If the value being passed in is a string, it must be a json_encoded string.
      *
      * @param array|object|string $test
+     *
+     * @throws Exception
      */
-    public function assertJSONExact($test): void
+    public function assertJSONExact($test)
     {
         $json = $this->getJSON();
 
@@ -389,10 +400,10 @@ class TestResponse
         }
 
         if (is_array($test)) {
-            $test = service('format')->getFormatter('application/json')->format($test);
+            $test = Services::format()->getFormatter('application/json')->format($test);
         }
 
-        Assert::assertJsonStringEqualsJsonString($test, $json, 'Response does not contain matching JSON.');
+        $this->assertJsonStringEqualsJsonString($test, $json, 'Response does not contain matching JSON.');
     }
 
     // --------------------------------------------------------------------
@@ -402,7 +413,7 @@ class TestResponse
     /**
      * Returns the response' body as XML
      *
-     * @return bool|string|null
+     * @return mixed|string
      */
     public function getXML()
     {
@@ -415,81 +426,76 @@ class TestResponse
 
     /**
      * Assert that the desired text can be found in the result body.
+     *
+     * @throws Exception
      */
-    public function assertSee(?string $search = null, ?string $element = null): void
+    public function assertSee(?string $search = null, ?string $element = null)
     {
-        Assert::assertTrue(
-            $this->domParser->see($search, $element),
-            "Text '{$search}' is not seen in response."
-        );
+        $this->assertTrue($this->domParser->see($search, $element), "Do not see '{$search}' in response.");
     }
 
     /**
      * Asserts that we do not see the specified text.
+     *
+     * @throws Exception
      */
-    public function assertDontSee(?string $search = null, ?string $element = null): void
+    public function assertDontSee(?string $search = null, ?string $element = null)
     {
-        Assert::assertTrue(
-            $this->domParser->dontSee($search, $element),
-            "Text '{$search}' is unexpectedly seen in response."
-        );
+        $this->assertTrue($this->domParser->dontSee($search, $element), "I should not see '{$search}' in response.");
     }
 
     /**
      * Assert that we see an element selected via a CSS selector.
+     *
+     * @throws Exception
      */
-    public function assertSeeElement(string $search): void
+    public function assertSeeElement(string $search)
     {
-        Assert::assertTrue(
-            $this->domParser->seeElement($search),
-            "Element with selector '{$search}' is not seen in response."
-        );
+        $this->assertTrue($this->domParser->seeElement($search), "Do not see element with selector '{$search} in response.'");
     }
 
     /**
      * Assert that we do not see an element selected via a CSS selector.
+     *
+     * @throws Exception
      */
-    public function assertDontSeeElement(string $search): void
+    public function assertDontSeeElement(string $search)
     {
-        Assert::assertTrue(
-            $this->domParser->dontSeeElement($search),
-            "Element with selector '{$search}' is unexpectedly seen in response.'"
-        );
+        $this->assertTrue($this->domParser->dontSeeElement($search), "I should not see an element with selector '{$search}' in response.'");
     }
 
     /**
      * Assert that we see a link with the matching text and/or class.
+     *
+     * @throws Exception
      */
-    public function assertSeeLink(string $text, ?string $details = null): void
+    public function assertSeeLink(string $text, ?string $details = null)
     {
-        Assert::assertTrue(
-            $this->domParser->seeLink($text, $details),
-            "Anchor tag with text '{$text}' is not seen in response."
-        );
+        $this->assertTrue($this->domParser->seeLink($text, $details), "Do no see anchor tag with the text {$text} in response.");
     }
 
     /**
      * Assert that we see an input with name/value.
+     *
+     * @throws Exception
      */
-    public function assertSeeInField(string $field, ?string $value = null): void
+    public function assertSeeInField(string $field, ?string $value = null)
     {
-        Assert::assertTrue(
-            $this->domParser->seeInField($field, $value),
-            "Input named '{$field}' with value '{$value}' is not seen in response."
-        );
+        $this->assertTrue($this->domParser->seeInField($field, $value), "Do no see input named {$field} with value {$value} in response.");
     }
 
     /**
      * Forward any unrecognized method calls to our DOMParser instance.
      *
-     * @param list<mixed> $params
+     * @param string $function Method name
+     * @param mixed  $params   Any method parameters
+     *
+     * @return mixed
      */
-    public function __call(string $function, array $params): mixed
+    public function __call($function, $params)
     {
         if (method_exists($this->domParser, $function)) {
             return $this->domParser->{$function}(...$params);
         }
-
-        return null;
     }
 }

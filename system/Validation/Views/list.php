@@ -1,4 +1,4 @@
-<?php if (isset($errors) && $errors !== []) : ?>
+<?php if (! empty($errors)) : ?>
 	<div class="errors" role="alert">
 		<ul>
 		<?php foreach ($errors as $error) : ?>

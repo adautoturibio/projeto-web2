@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -134,7 +132,7 @@ interface ImageHandlerInterface
      *    $image->resize(100, 200, true)
      *          ->save($target);
      *
-     * @param non-empty-string|null $target The path to save the file to.
+     * @param string|null $target The path to save the file to.
      *
      * @return bool
      */

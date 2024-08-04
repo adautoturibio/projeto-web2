@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -47,7 +45,8 @@ class AutoloadConfig
      * but this should be done prior to creating any namespaced classes,
      * else you will need to modify all of those classes for this to work.
      *
-     * @var array<string, list<string>|string>
+     * @var array<string, array<int, string>|string>
+     * @phpstan-var array<string, string|list<string>>
      */
     public $psr4 = [];
 
@@ -73,7 +72,8 @@ class AutoloadConfig
      * that will be autoloaded. This can be useful for bootstrap operations
      * or for loading functions.
      *
-     * @var list<string>
+     * @var array<int, string>
+     * @phpstan-var list<string>
      */
     public $files = [];
 
@@ -92,7 +92,7 @@ class AutoloadConfig
      */
     protected $corePsr4 = [
         'CodeIgniter' => SYSTEMPATH,
-        'Config'      => APPPATH . 'Config',
+        'App'         => APPPATH, // To ensure filters, etc still found,
     ];
 
     /**
@@ -105,7 +105,7 @@ class AutoloadConfig
      * searched for within one or more directories as they would if they
      * were being autoloaded through a namespace.
      *
-     * @var array<class-string, string>
+     * @var array<string, string>
      */
     protected $coreClassmap = [
         AbstractLogger::class                  => SYSTEMPATH . 'ThirdParty/PSR/Log/AbstractLogger.php',

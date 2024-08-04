@@ -1,12 +1,6 @@
 <?php
 
 /*
- * The environment testing is reserved for PHPUnit testing. It has special
- * conditions built into the framework at various places to assist with that.
- * You can’t use it for your development.
- */
-
-/*
  |--------------------------------------------------------------------------
  | ERROR DISPLAY
  |--------------------------------------------------------------------------
@@ -14,7 +8,7 @@
  | make sure they don't make it to production. And save us hours of
  | painful debugging.
  */
-error_reporting(E_ALL);
+error_reporting(-1);
 ini_set('display_errors', '1');
 
 /*

@@ -6,7 +6,7 @@ use CodeIgniter\Database\Seeder;
 
 class ExampleSeeder extends Seeder
 {
-    public function run(): void
+    public function run()
     {
         $factories = [
             [

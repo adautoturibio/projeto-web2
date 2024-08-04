@@ -21,7 +21,7 @@ class {class} implements FilterInterface
      * @param RequestInterface $request
      * @param array|null       $arguments
      *
-     * @return RequestInterface|ResponseInterface|string|void
+     * @return mixed
      */
     public function before(RequestInterface $request, $arguments = null)
     {
@@ -38,7 +38,7 @@ class {class} implements FilterInterface
      * @param ResponseInterface $response
      * @param array|null        $arguments
      *
-     * @return ResponseInterface|void
+     * @return mixed
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {

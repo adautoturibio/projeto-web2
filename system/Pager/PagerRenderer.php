@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -27,14 +25,14 @@ use CodeIgniter\HTTP\URI;
 class PagerRenderer
 {
     /**
-     * First page number in the set of links to be displayed.
+     * First page number.
      *
      * @var int
      */
     protected $first;
 
     /**
-     * Last page number in the set of links to be displayed.
+     * Last page number.
      *
      * @var int
      */
@@ -87,11 +85,8 @@ class PagerRenderer
      */
     public function __construct(array $details)
     {
-        // `first` and `last` will be updated by `setSurroundCount()`.
-        // You must call `setSurroundCount()` after instantiation.
-        $this->first = 1;
-        $this->last  = $details['pageCount'];
-
+        $this->first        = 1;
+        $this->last         = $details['pageCount'];
         $this->current      = $details['currentPage'];
         $this->total        = $details['total'];
         $this->uri          = $details['uri'];
@@ -126,6 +121,8 @@ class PagerRenderer
      * Returns a URL to the "previous" page. The previous page is NOT the
      * page before the current page, but is the page just before the
      * "first" page.
+     *
+     * You MUST call hasPrevious() first, or this value may be invalid.
      *
      * @return string|null
      */
@@ -164,6 +161,8 @@ class PagerRenderer
      * Returns a URL to the "next" page. The next page is NOT, the
      * page after the current page, but is the page that follows the
      * "last" page.
+     *
+     * You MUST call hasNext() first, or this value may be invalid.
      *
      * @return string|null
      */
@@ -261,8 +260,6 @@ class PagerRenderer
      * is represented by another array containing of the URI the link
      * should go to, the title (number) of the link, and a boolean
      * value representing whether this link is active or not.
-     *
-     * @return list<array{uri:string, title:int, active:bool}>
      */
     public function links(): array
     {
@@ -384,7 +381,7 @@ class PagerRenderer
     }
 
     /**
-     * Returns the page number of the first page in the set of links to be displayed.
+     * Returns the page number of the first page.
      */
     public function getFirstPageNumber(): int
     {
@@ -400,7 +397,7 @@ class PagerRenderer
     }
 
     /**
-     * Returns the page number of the last page in the set of links to be displayed.
+     * Returns the page number of the last page.
      */
     public function getLastPageNumber(): int
     {

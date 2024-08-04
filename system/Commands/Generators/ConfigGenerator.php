@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -54,7 +52,7 @@ class ConfigGenerator extends BaseCommand
     /**
      * The Command's Arguments
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $arguments = [
         'name' => 'The config class name.',
@@ -63,7 +61,7 @@ class ConfigGenerator extends BaseCommand
     /**
      * The Command's Options
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $options = [
         '--namespace' => 'Set root namespace. Default: "APP_NAMESPACE".',
@@ -81,7 +79,7 @@ class ConfigGenerator extends BaseCommand
         $this->template  = 'config.tpl.php';
 
         $this->classNameLang = 'CLI.generator.className.config';
-        $this->generateClass($params);
+        $this->execute($params);
     }
 
     /**

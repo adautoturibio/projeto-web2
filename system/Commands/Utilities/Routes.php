@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -20,9 +18,9 @@ use CodeIgniter\Commands\Utilities\Routes\AutoRouterImproved\AutoRouteCollector 
 use CodeIgniter\Commands\Utilities\Routes\FilterCollector;
 use CodeIgniter\Commands\Utilities\Routes\SampleURIGenerator;
 use CodeIgniter\Router\DefinedRouteCollector;
-use CodeIgniter\Router\Router;
 use Config\Feature;
 use Config\Routing;
+use Config\Services;
 
 /**
  * Lists all the routes. This will include any Routes files
@@ -63,7 +61,7 @@ class Routes extends BaseCommand
     /**
      * the Command's Arguments
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $arguments = [];
 
@@ -87,20 +85,31 @@ class Routes extends BaseCommand
 
         // Set HTTP_HOST
         if ($host) {
-            $request              = service('request');
+            $request              = Services::request();
             $_SERVER              = $request->getServer();
             $_SERVER['HTTP_HOST'] = $host;
             $request->setGlobal('server', $_SERVER);
         }
 
-        $collection = service('routes')->loadRoutes();
+        $collection = Services::routes()->loadRoutes();
 
         // Reset HTTP_HOST
         if ($host) {
             unset($_SERVER['HTTP_HOST']);
         }
 
-        $methods = Router::HTTP_METHODS;
+        $methods = [
+            'get',
+            'head',
+            'post',
+            'patch',
+            'put',
+            'delete',
+            'options',
+            'trace',
+            'connect',
+            'cli',
+        ];
 
         $tbody           = [];
         $uriGenerator    = new SampleURIGenerator();
@@ -119,8 +128,8 @@ class Routes extends BaseCommand
                 $route['route'],
                 $routeName,
                 $route['handler'],
-                implode(' ', array_map(class_basename(...), $filters['before'])),
-                implode(' ', array_map(class_basename(...), $filters['after'])),
+                implode(' ', array_map('class_basename', $filters['before'])),
+                implode(' ', array_map('class_basename', $filters['after'])),
             ];
         }
 
@@ -163,11 +172,11 @@ class Routes extends BaseCommand
                 $autoRoutes = $autoRouteCollector->get();
 
                 foreach ($autoRoutes as &$routes) {
-                    // There is no `AUTO` method, but it is intentional not to get route filters.
-                    $filters = $filterCollector->get('AUTO', $uriGenerator->get($routes[1]));
+                    // There is no `auto` method, but it is intentional not to get route filters.
+                    $filters = $filterCollector->get('auto', $uriGenerator->get($routes[1]));
 
-                    $routes[] = implode(' ', array_map(class_basename(...), $filters['before']));
-                    $routes[] = implode(' ', array_map(class_basename(...), $filters['after']));
+                    $routes[] = implode(' ', array_map('class_basename', $filters['before']));
+                    $routes[] = implode(' ', array_map('class_basename', $filters['after']));
                 }
             }
 
@@ -193,30 +202,5 @@ class Routes extends BaseCommand
         }
 
         CLI::table($tbody, $thead);
-
-        $this->showRequiredFilters();
-    }
-
-    private function showRequiredFilters(): void
-    {
-        $filterCollector = new FilterCollector();
-
-        $required = $filterCollector->getRequiredFilters();
-
-        $filters = [];
-
-        foreach ($required['before'] as $filter) {
-            $filters[] = CLI::color($filter, 'yellow');
-        }
-
-        CLI::write('Required Before Filters: ' . implode(', ', $filters));
-
-        $filters = [];
-
-        foreach ($required['after'] as $filter) {
-            $filters[] = CLI::color($filter, 'yellow');
-        }
-
-        CLI::write(' Required After Filters: ' . implode(', ', $filters));
     }
 }

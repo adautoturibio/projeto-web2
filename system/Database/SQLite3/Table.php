@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -14,7 +12,7 @@ declare(strict_types=1);
 namespace CodeIgniter\Database\SQLite3;
 
 use CodeIgniter\Database\Exceptions\DataException;
-use stdClass;
+use stdclass;
 
 /**
  * Class Table
@@ -30,7 +28,8 @@ class Table
     /**
      * All of the fields this table represents.
      *
-     * @var array<string, array<string, bool|int|string|null>> [name => attributes]
+     * @var array
+     * @phpstan-var array<string, array<string, bool|int|string|null>>
      */
     protected $fields = [];
 
@@ -98,7 +97,7 @@ class Table
 
         $prefix = $this->db->DBPrefix;
 
-        if (! empty($prefix) && str_starts_with($table, $prefix)) {
+        if (! empty($prefix) && strpos($table, $prefix) === 0) {
             $table = substr($table, strlen($prefix));
         }
 
@@ -115,7 +114,7 @@ class Table
         // if primary key index exists twice then remove psuedo index name 'primary'.
         $primaryIndexes = array_filter($this->keys, static fn ($index) => $index['type'] === 'primary');
 
-        if ($primaryIndexes !== [] && count($primaryIndexes) > 1 && array_key_exists('primary', $this->keys)) {
+        if (! empty($primaryIndexes) && count($primaryIndexes) > 1 && array_key_exists('primary', $this->keys)) {
             unset($this->keys['primary']);
         }
 
@@ -158,7 +157,7 @@ class Table
     /**
      * Drops columns from the table.
      *
-     * @param list<string>|string $columns Column names to drop.
+     * @param array|string $columns
      *
      * @return Table
      */
@@ -179,15 +178,14 @@ class Table
     }
 
     /**
-     * Modifies a field, including changing data type, renaming, etc.
-     *
-     * @param list<array<string, bool|int|string|null>> $fieldsToModify
+     * Modifies a field, including changing data type,
+     * renaming, etc.
      *
      * @return Table
      */
-    public function modifyColumn(array $fieldsToModify)
+    public function modifyColumn(array $fields)
     {
-        foreach ($fieldsToModify as $field) {
+        foreach ($fields as $field) {
             $oldName = $field['name'];
             unset($field['name']);
 
@@ -282,7 +280,7 @@ class Table
     /**
      * Creates the new table based on our current fields.
      *
-     * @return bool
+     * @return mixed
      */
     protected function createTable()
     {
@@ -376,7 +374,7 @@ class Table
      *
      * @param array|bool $fields
      *
-     * @return         mixed
+     * @return mixed
      * @phpstan-return ($fields is array ? array : mixed)
      */
     protected function formatFields($fields)
@@ -394,24 +392,6 @@ class Table
                 'null'    => $field->nullable,
             ];
 
-            if ($field->default === null) {
-                // `null` means that the default value is not defined.
-                unset($return[$field->name]['default']);
-            } elseif ($field->default === 'NULL') {
-                // 'NULL' means that the default value is NULL.
-                $return[$field->name]['default'] = null;
-            } else {
-                $default = trim($field->default, "'");
-
-                if ($this->isIntegerType($field->type)) {
-                    $default = (int) $default;
-                } elseif ($this->isNumericType($field->type)) {
-                    $default = (float) $default;
-                }
-
-                $return[$field->name]['default'] = $default;
-            }
-
             if ($field->primary_key) {
                 $this->keys['primary'] = [
                     'fields' => [$field->name],
@@ -424,39 +404,19 @@ class Table
     }
 
     /**
-     * Is INTEGER type?
-     *
-     * @param string $type SQLite data type (case-insensitive)
-     *
-     * @see https://www.sqlite.org/datatype3.html
-     */
-    private function isIntegerType(string $type): bool
-    {
-        return str_contains(strtoupper($type), 'INT');
-    }
-
-    /**
-     * Is NUMERIC type?
-     *
-     * @param string $type SQLite data type (case-insensitive)
-     *
-     * @see https://www.sqlite.org/datatype3.html
-     */
-    private function isNumericType(string $type): bool
-    {
-        return in_array(strtoupper($type), ['NUMERIC', 'DECIMAL'], true);
-    }
-
-    /**
      * Converts keys retrieved from the database to
      * the format needed to create later.
      *
-     * @param array<string, stdClass> $keys
+     * @param mixed $keys
      *
-     * @return array<string, array{fields: string, type: string}>
+     * @return mixed
      */
     protected function formatKeys($keys)
     {
+        if (! is_array($keys)) {
+            return $keys;
+        }
+
         $return = [];
 
         foreach ($keys as $name => $key) {

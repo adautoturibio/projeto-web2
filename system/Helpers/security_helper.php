@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -11,6 +9,8 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
+use Config\Services;
+
 // CodeIgniter Security Helpers
 
 if (! function_exists('sanitize_filename')) {
@@ -19,7 +19,7 @@ if (! function_exists('sanitize_filename')) {
      */
     function sanitize_filename(string $filename): string
     {
-        return service('security')->sanitizeFilename($filename);
+        return Services::security()->sanitizeFilename($filename);
     }
 }
 

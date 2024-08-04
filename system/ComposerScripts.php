@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -58,7 +56,7 @@ final class ComposerScripts
         ],
         'psr-log' => [
             'license' => __DIR__ . '/../vendor/psr/log/LICENSE',
-            'from'    => __DIR__ . '/../vendor/psr/log/src/',
+            'from'    => __DIR__ . '/../vendor/psr/log/Psr/Log/',
             'to'      => __DIR__ . '/ThirdParty/PSR/Log/',
         ],
     ];
@@ -73,7 +71,7 @@ final class ComposerScripts
 
         foreach (self::$dependencies as $key => $dependency) {
             // Kint may be removed.
-            if (! is_dir($dependency['from']) && str_starts_with($key, 'kint')) {
+            if (! is_dir($dependency['from']) && strpos($key, 'kint') === 0) {
                 continue;
             }
 
@@ -86,6 +84,7 @@ final class ComposerScripts
         }
 
         self::copyKintInitFiles();
+        self::recursiveDelete(self::$dependencies['psr-log']['to'] . 'Test/');
     }
 
     /**

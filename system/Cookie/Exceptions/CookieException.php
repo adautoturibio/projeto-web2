@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -106,7 +104,7 @@ class CookieException extends FrameworkException
     /**
      * Thrown when the `CookieStore` class is filled with invalid Cookie objects.
      *
-     * @param list<int|string> $data
+     * @param array<int|string> $data
      *
      * @return static
      */
@@ -118,7 +116,7 @@ class CookieException extends FrameworkException
     /**
      * Thrown when the queried Cookie object does not exist in the cookie collection.
      *
-     * @param list<string> $data
+     * @param string[] $data
      *
      * @return static
      */

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -53,24 +51,10 @@ class Connection extends BaseConnection
     ];
 
     protected $validDSNs = [
-        // TNS
-        'tns' => '/^\(DESCRIPTION=(\(.+\)){2,}\)$/',
-        // Easy Connect string (Oracle 10g+).
-        // https://docs.oracle.com/en/database/oracle/oracle-database/23/netag/configuring-naming-methods.html#GUID-36F3A17D-843C-490A-8A23-FB0FE005F8E8
-        // [//]host[:port][/[service_name][:server_type][/instance_name]]
-        'ec' => '/^
-            (\/\/)?
-            (\[)?[a-z0-9.:_-]+(\])? # Host or IP address
-            (:[1-9][0-9]{0,4})?     # Port
-            (
-                (\/)
-                ([a-z0-9.$_]+)?     # Service name
-                (:[a-z]+)?          # Server type
-                (\/[a-z0-9$_]+)?    # Instance name
-            )?
-        $/ix',
-        // Instance name (defined in tnsnames.ora)
-        'in' => '/^[a-z0-9$_]+$/i',
+        'tns' => '/^\(DESCRIPTION=(\(.+\)){2,}\)$/', // TNS
+        // Easy Connect string (Oracle 10g+)
+        'ec' => '/^(\/\/)?[a-z0-9.:_-]+(:[1-9][0-9]{0,4})?(\/[a-z0-9$_]+)?(:[^\/])?(\/[a-z0-9$_]+)?$/i',
+        'in' => '/^[a-z0-9$_]+$/i', // Instance name (defined in tnsnames.ora)
     ];
 
     /**
@@ -118,10 +102,6 @@ class Connection extends BaseConnection
      */
     private function isValidDSN(): bool
     {
-        if ($this->DSN === null || $this->DSN === '') {
-            return false;
-        }
-
         foreach ($this->validDSNs as $regexp) {
             if (preg_match($regexp, $this->DSN)) {
                 return true;
@@ -138,13 +118,13 @@ class Connection extends BaseConnection
      */
     public function connect(bool $persistent = false)
     {
-        if (! $this->isValidDSN()) {
+        if (empty($this->DSN) && ! $this->isValidDSN()) {
             $this->buildDSN();
         }
 
         $func = $persistent ? 'oci_pconnect' : 'oci_connect';
 
-        return ($this->charset === '')
+        return empty($this->charset)
             ? $func($this->username, $this->password, $this->DSN)
             : $func($this->username, $this->password, $this->DSN, $this->charset);
     }
@@ -241,7 +221,7 @@ class Connection extends BaseConnection
     public function parseInsertTableName(string $sql): string
     {
         $commentStrippedSql = preg_replace(['/\/\*(.|\n)*?\*\//m', '/--.+/'], '', $sql);
-        $isInsertQuery      = str_starts_with(strtoupper(ltrim($commentStrippedSql)), 'INSERT');
+        $isInsertQuery      = strpos(strtoupper(ltrim($commentStrippedSql)), 'INSERT') === 0;
 
         if (! $isInsertQuery) {
             return '';
@@ -250,7 +230,7 @@ class Connection extends BaseConnection
         preg_match('/(?is)\b(?:into)\s+("?\w+"?)/', $commentStrippedSql, $match);
         $tableName = $match[1] ?? '';
 
-        return str_starts_with($tableName, '"') ? trim($tableName, '"') : strtoupper($tableName);
+        return strpos($tableName, '"') === 0 ? trim($tableName, '"') : strtoupper($tableName);
     }
 
     /**
@@ -287,7 +267,7 @@ class Connection extends BaseConnection
      */
     protected function _listColumns(string $table = ''): string
     {
-        if (str_contains($table, '.')) {
+        if (strpos($table, '.') !== false) {
             sscanf($table, '%[^.].%s', $owner, $table);
         } else {
             $owner = $this->username;
@@ -301,13 +281,13 @@ class Connection extends BaseConnection
     /**
      * Returns an array of objects with field data
      *
-     * @return list<stdClass>
+     * @return stdClass[]
      *
      * @throws DatabaseException
      */
     protected function _fieldData(string $table): array
     {
-        if (str_contains($table, '.')) {
+        if (strpos($table, '.') !== false) {
             sscanf($table, '%[^.].%s', $owner, $table);
         } else {
             $owner = $this->username;
@@ -335,8 +315,12 @@ class Connection extends BaseConnection
 
             $retval[$i]->max_length = $length;
 
+            $default = $query[$i]->DATA_DEFAULT;
+            if ($default === null && $query[$i]->NULLABLE === 'N') {
+                $default = '';
+            }
+            $retval[$i]->default  = $default;
             $retval[$i]->nullable = $query[$i]->NULLABLE === 'Y';
-            $retval[$i]->default  = $query[$i]->DATA_DEFAULT;
         }
 
         return $retval;
@@ -345,13 +329,13 @@ class Connection extends BaseConnection
     /**
      * Returns an array of objects with index data
      *
-     * @return array<string, stdClass>
+     * @return stdClass[]
      *
      * @throws DatabaseException
      */
     protected function _indexData(string $table): array
     {
-        if (str_contains($table, '.')) {
+        if (strpos($table, '.') !== false) {
             sscanf($table, '%[^.].%s', $owner, $table);
         } else {
             $owner = $this->username;
@@ -394,7 +378,7 @@ class Connection extends BaseConnection
     /**
      * Returns an array of objects with Foreign key data
      *
-     * @return array<string, stdClass>
+     * @return stdClass[]
      *
      * @throws DatabaseException
      */
@@ -598,7 +582,7 @@ class Connection extends BaseConnection
         $indexs     = $this->getIndexData($this->lastInsertedTableName);
         $fieldDatas = $this->getFieldData($this->lastInsertedTableName);
 
-        if ($indexs === [] || $fieldDatas === []) {
+        if (! $indexs || ! $fieldDatas) {
             return 0;
         }
 
@@ -649,8 +633,8 @@ class Connection extends BaseConnection
             return;
         }
 
-        $isEasyConnectableHostName = $this->hostname !== '' && ! str_contains($this->hostname, '/') && ! str_contains($this->hostname, ':');
-        $easyConnectablePort       = ($this->port !== '') && ctype_digit((string) $this->port) ? ':' . $this->port : '';
+        $isEasyConnectableHostName = $this->hostname !== '' && strpos($this->hostname, '/') === false && strpos($this->hostname, ':') === false;
+        $easyConnectablePort       = ! empty($this->port) && ctype_digit($this->port) ? ':' . $this->port : '';
         $easyConnectableDatabase   = $this->database !== '' ? '/' . ltrim($this->database, '/') : '';
 
         if ($isEasyConnectableHostName && ($easyConnectablePort !== '' || $easyConnectableDatabase !== '')) {

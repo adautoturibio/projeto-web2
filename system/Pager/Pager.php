@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -62,9 +60,9 @@ class Pager implements PagerInterface
     /**
      * List of only permitted queries
      *
-     * @var list<string>|null
+     * @var array
      */
-    protected $only;
+    protected $only = [];
 
     /**
      * Constructor.
@@ -278,7 +276,7 @@ class Pager implements PagerInterface
             $uri->addQuery($this->groups[$group]['pageSelector'], $page);
         }
 
-        if ($this->only !== null) {
+        if ($this->only) {
             $query = array_intersect_key($_GET, array_flip($this->only));
 
             if (! $segment) {
@@ -312,7 +310,7 @@ class Pager implements PagerInterface
         $curr = $this->getCurrentPage($group);
         $page = null;
 
-        if (! empty($last) && $curr !== 0 && $last === $curr) {
+        if (! empty($last) && ! empty($curr) && $last === $curr) {
             return null;
         }
 
@@ -336,7 +334,7 @@ class Pager implements PagerInterface
         $curr  = $this->getCurrentPage($group);
         $page  = null;
 
-        if ($first !== 0 && $curr !== 0 && $first === $curr) {
+        if (! empty($first) && ! empty($curr) && $first === $curr) {
             return null;
         }
 
@@ -427,7 +425,7 @@ class Pager implements PagerInterface
             try {
                 $this->groups[$group]['currentPage'] = (int) $this->groups[$group]['currentUri']
                     ->setSilent(false)->getSegment($this->segment[$group]);
-            } catch (HTTPException) {
+            } catch (HTTPException $e) {
                 $this->groups[$group]['currentPage'] = 1;
             }
         } else {

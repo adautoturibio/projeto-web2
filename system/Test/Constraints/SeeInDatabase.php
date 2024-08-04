@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -67,7 +65,7 @@ class SeeInDatabase extends Constraint
         return sprintf(
             "a row in the table [%s] matches the attributes \n%s\n\n%s",
             $table,
-            $this->toString(false, JSON_PRETTY_PRINT),
+            $this->toString(JSON_PRETTY_PRINT),
             $this->getAdditionalInfo($table)
         );
     }
@@ -113,7 +111,7 @@ class SeeInDatabase extends Constraint
      *
      * @param int $options
      */
-    public function toString(bool $exportObjects = false, $options = 0): string
+    public function toString($options = 0): string
     {
         return json_encode($this->data, $options);
     }

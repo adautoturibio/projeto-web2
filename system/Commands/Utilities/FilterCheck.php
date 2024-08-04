@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -16,6 +14,7 @@ namespace CodeIgniter\Commands\Utilities;
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 use CodeIgniter\Commands\Utilities\Routes\FilterCollector;
+use Config\Services;
 
 /**
  * Check filters for a route.
@@ -57,14 +56,14 @@ class FilterCheck extends BaseCommand
      * @var array<string, string>
      */
     protected $arguments = [
-        'method' => 'The HTTP method. GET, POST, PUT, etc.',
-        'route'  => 'The route (URI path) to check filters.',
+        'method' => 'The HTTP method. get, post, put, etc.',
+        'route'  => 'The route (URI path) to check filtes.',
     ];
 
     /**
      * the Command's Options
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $options = [];
 
@@ -77,17 +76,17 @@ class FilterCheck extends BaseCommand
         if (! isset($params[0], $params[1])) {
             CLI::error('You must specify a HTTP verb and a route.');
             CLI::write('  Usage: ' . $this->usage);
-            CLI::write('Example: filter:check GET /');
-            CLI::write('         filter:check PUT products/1');
+            CLI::write('Example: filter:check get /');
+            CLI::write('         filter:check put products/1');
 
             return EXIT_ERROR;
         }
 
-        $method = $params[0];
+        $method = strtolower($params[0]);
         $route  = $params[1];
 
         // Load Routes
-        service('routes')->loadRoutes();
+        Services::routes()->loadRoutes();
 
         $filterCollector = new FilterCollector();
 
@@ -107,8 +106,6 @@ class FilterCheck extends BaseCommand
             return EXIT_ERROR;
         }
 
-        $filters = $this->addRequiredFilters($filterCollector, $filters);
-
         $tbody[] = [
             strtoupper($method),
             $route,
@@ -126,30 +123,5 @@ class FilterCheck extends BaseCommand
         CLI::table($tbody, $thead);
 
         return EXIT_SUCCESS;
-    }
-
-    private function addRequiredFilters(FilterCollector $filterCollector, array $filters): array
-    {
-        $output = [];
-
-        $required = $filterCollector->getRequiredFilters();
-
-        $colored = [];
-
-        foreach ($required['before'] as $filter) {
-            $filter    = CLI::color($filter, 'yellow');
-            $colored[] = $filter;
-        }
-        $output['before'] = array_merge($colored, $filters['before']);
-
-        $colored = [];
-
-        foreach ($required['after'] as $filter) {
-            $filter    = CLI::color($filter, 'yellow');
-            $colored[] = $filter;
-        }
-        $output['after'] = array_merge($filters['after'], $colored);
-
-        return $output;
     }
 }

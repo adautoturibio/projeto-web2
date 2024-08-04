@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -27,7 +25,8 @@ class Seeder
     /**
      * The name of the database group to use.
      *
-     * @var non-empty-string
+     * @var string
+     * @phpstan-var non-empty-string
      */
     protected $DBGroup;
 
@@ -80,7 +79,7 @@ class Seeder
     {
         $this->seedPath = $config->filesPath ?? APPPATH . 'Database/';
 
-        if ($this->seedPath === '') {
+        if (empty($this->seedPath)) {
             throw new InvalidArgumentException('Invalid filesPath set in the Config\Database.');
         }
 
@@ -125,7 +124,7 @@ class Seeder
             throw new InvalidArgumentException('No seeder was specified.');
         }
 
-        if (! str_contains($class, '\\')) {
+        if (strpos($class, '\\') === false) {
             $path = $this->seedPath . str_replace('.php', '', $class) . '.php';
 
             if (! is_file($path)) {
@@ -183,7 +182,7 @@ class Seeder
      * Child classes must implement this method and take care
      * of inserting their data here.
      *
-     * @return void
+     * @return mixed
      *
      * @codeCoverageIgnore
      */

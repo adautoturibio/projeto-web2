@@ -6,9 +6,7 @@ use CodeIgniter\Model;
 
 class {class} extends Model
 {
-<?php if (is_string($dbGroup)): ?>
     protected $DBGroup          = '{dbGroup}';
-<?php endif; ?>
     protected $table            = '{table}';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
@@ -16,12 +14,6 @@ class {class} extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [];
-
-    protected bool $allowEmptyInserts = false;
-    protected bool $updateOnlyChanged = true;
-
-    protected array $casts = [];
-    protected array $castHandlers = [];
 
     // Dates
     protected $useTimestamps = false;

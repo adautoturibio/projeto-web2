@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -152,7 +150,7 @@ class Connection extends BaseConnection
                 $ssl['cipher'] = $this->encrypt['ssl_cipher'];
             }
 
-            if ($ssl !== []) {
+            if (! empty($ssl)) {
                 if (isset($this->encrypt['ssl_verify'])) {
                     if ($this->encrypt['ssl_verify']) {
                         if (defined('MYSQLI_OPT_SSL_VERIFY_SERVER_CERT')) {
@@ -237,8 +235,6 @@ class Connection extends BaseConnection
     /**
      * Keep or establish the connection if no queries have been sent for
      * a length of time exceeding the server's idle timeout.
-     *
-     * @return void
      */
     public function reconnect()
     {
@@ -248,8 +244,6 @@ class Connection extends BaseConnection
 
     /**
      * Close the database connection.
-     *
-     * @return void
      */
     protected function _close()
     {
@@ -361,9 +355,9 @@ class Connection extends BaseConnection
      * additional "ESCAPE x" parameter for specifying the escape character
      * in "LIKE" strings, and this handles those directly with a backslash.
      *
-     * @param list<string>|string $str Input string
+     * @param string|string[] $str Input string
      *
-     * @return list<string>|string
+     * @return string|string[]
      */
     public function escapeLikeStringDirect($str)
     {
@@ -393,7 +387,7 @@ class Connection extends BaseConnection
      */
     protected function _listTables(bool $prefixLimit = false, ?string $tableName = null): string
     {
-        $sql = 'SHOW TABLES FROM ' . $this->escapeIdentifier($this->database);
+        $sql = 'SHOW TABLES FROM ' . $this->escapeIdentifiers($this->database);
 
         if ($tableName !== null) {
             return $sql . ' LIKE ' . $this->escape($tableName);
@@ -417,7 +411,7 @@ class Connection extends BaseConnection
     /**
      * Returns an array of objects with field data
      *
-     * @return list<stdClass>
+     * @return stdClass[]
      *
      * @throws DatabaseException
      */
@@ -449,7 +443,7 @@ class Connection extends BaseConnection
     /**
      * Returns an array of objects with index data
      *
-     * @return array<string, stdClass>
+     * @return stdClass[]
      *
      * @throws DatabaseException
      * @throws LogicException
@@ -495,7 +489,7 @@ class Connection extends BaseConnection
     /**
      * Returns an array of objects with Foreign key data
      *
-     * @return array<string, stdClass>
+     * @return stdClass[]
      *
      * @throws DatabaseException
      */

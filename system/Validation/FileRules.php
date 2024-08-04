@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -17,6 +15,7 @@ use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use Config\Mimes;
+use Config\Services;
 use InvalidArgumentException;
 
 /**
@@ -39,7 +38,7 @@ class FileRules
     public function __construct(?RequestInterface $request = null)
     {
         if ($request === null) {
-            $request = service('request');
+            $request = Services::request();
         }
 
         assert($request instanceof IncomingRequest || $request instanceof CLIRequest);
@@ -243,13 +242,7 @@ class FileRules
             $allowedHeight = $params[1] ?? 0;
 
             // Get uploaded image size
-            $info = getimagesize($file->getTempName());
-
-            if ($info === false) {
-                // Cannot get the image size.
-                return false;
-            }
-
+            $info       = getimagesize($file->getTempName());
             $fileWidth  = $info[0];
             $fileHeight = $info[1];
 

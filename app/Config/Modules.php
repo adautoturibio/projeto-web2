@@ -58,7 +58,7 @@ class Modules extends BaseModules
      *       ],
      *   ]
      *
-     * @var array{only?: list<string>, exclude?: list<string>}
+     * @var array
      */
     public $composerPackages = [];
 
@@ -72,7 +72,7 @@ class Modules extends BaseModules
      *
      * If it is not listed, only the base application elements will be used.
      *
-     * @var list<string>
+     * @var string[]
      */
     public $aliases = [
         'events',

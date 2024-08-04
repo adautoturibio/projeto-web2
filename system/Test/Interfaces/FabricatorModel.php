@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -13,7 +11,6 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Test\Interfaces;
 
-use CodeIgniter\BaseModel;
 use Faker\Generator;
 use ReflectionException;
 
@@ -28,8 +25,6 @@ use ReflectionException;
  * @property string $returnType
  * @property string $primaryKey
  * @property string $dateFormat
- *
- * @phpstan-import-type row_array from BaseModel
  */
 interface FabricatorModel
 {
@@ -37,9 +32,9 @@ interface FabricatorModel
      * Fetches the row of database from $this->table with a primary key
      * matching $id.
      *
-     * @param int|list<int|string>|string|null $id One primary key or an array of primary keys
+     * @param array|mixed|null $id One primary key or an array of primary keys
      *
-     * @phpstan-return ($id is int|string ? row_array|object|null : list<row_array|object>)
+     * @return array|object|null The resulting row of data, or null.
      */
     public function find($id = null);
 
@@ -47,15 +42,14 @@ interface FabricatorModel
      * Inserts data into the current table. If an object is provided,
      * it will attempt to convert it to an array.
      *
-     * @param         array|object|null     $row
-     * @phpstan-param row_array|object|null $row
-     * @param         bool                  $returnID Whether insert ID should be returned or not.
+     * @param array|object $data
+     * @param bool         $returnID Whether insert ID should be returned or not.
      *
      * @return bool|int|string
      *
      * @throws ReflectionException
      */
-    public function insert($row = null, bool $returnID = true);
+    public function insert($data = null, bool $returnID = true);
 
     /**
      * The following properties and methods are optional, but if present should

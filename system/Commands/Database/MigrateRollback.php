@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -15,7 +13,7 @@ namespace CodeIgniter\Commands\Database;
 
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
-use CodeIgniter\Database\MigrationRunner;
+use Config\Services;
 use Throwable;
 
 /**
@@ -56,7 +54,7 @@ class MigrateRollback extends BaseCommand
     /**
      * the Command's Options
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $options = [
         '-b' => 'Specify a batch to roll back to; e.g. "3" to return to batch #3',
@@ -79,23 +77,10 @@ class MigrateRollback extends BaseCommand
             // @codeCoverageIgnoreEnd
         }
 
-        /** @var MigrationRunner $runner */
-        $runner = service('migrations');
+        $runner = Services::migrations();
 
         try {
             $batch = $params['b'] ?? CLI::getOption('b') ?? $runner->getLastBatch() - 1;
-
-            if (is_string($batch)) {
-                if (! ctype_digit($batch)) {
-                    CLI::error('Invalid batch number: ' . $batch, 'light_gray', 'red');
-                    CLI::newLine();
-
-                    return EXIT_ERROR;
-                }
-
-                $batch = (int) $batch;
-            }
-
             CLI::write(lang('Migrations.rollingBack') . ' ' . $batch, 'yellow');
 
             if (! $runner->regress($batch)) {

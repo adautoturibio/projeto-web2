@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -58,7 +56,7 @@ class MigrationGenerator extends BaseCommand
     /**
      * The Command's Arguments
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $arguments = [
         'name' => 'The migration class name.',
@@ -67,7 +65,7 @@ class MigrationGenerator extends BaseCommand
     /**
      * The Command's Options
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $options = [
         '--session'   => 'Generates the migration file for database sessions.',
@@ -92,7 +90,7 @@ class MigrationGenerator extends BaseCommand
         }
 
         $this->classNameLang = 'CLI.generator.className.migration';
-        $this->generateClass($params);
+        $this->execute($params);
     }
 
     /**

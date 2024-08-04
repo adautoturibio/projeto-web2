@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -13,6 +11,7 @@ declare(strict_types=1);
 
 use CodeIgniter\Validation\Exceptions\ValidationException;
 use Config\App;
+use Config\Services;
 use Config\Validation;
 
 // CodeIgniter Form Helpers
@@ -30,13 +29,13 @@ if (! function_exists('form_open')) {
     function form_open(string $action = '', $attributes = [], array $hidden = []): string
     {
         // If no action is provided then set to the current url
-        if ($action === '') {
-            $action = (string) current_url(true);
+        if (! $action) {
+            $action = current_url(true);
         } // If an action is not a full URL then turn it into one
-        elseif (! str_contains($action, '://')) {
+        elseif (strpos($action, '://') === false) {
             // If an action has {locale}
-            if (str_contains($action, '{locale}')) {
-                $action = str_replace('{locale}', service('request')->getLocale(), $action);
+            if (strpos($action, '{locale}') !== false) {
+                $action = str_replace('{locale}', Services::request()->getLocale(), $action);
             }
 
             $action = site_url($action);
@@ -60,9 +59,9 @@ if (! function_exists('form_open')) {
         $form = '<form action="' . $action . '"' . $attributes . ">\n";
 
         // Add CSRF field if enabled, but leave it out for GET requests and requests to external websites
-        $before = service('filters')->getFilters()['before'];
+        $before = Services::filters()->getFilters()['before'];
 
-        if ((in_array('csrf', $before, true) || array_key_exists('csrf', $before)) && str_contains($action, base_url()) && ! stripos($form, 'method="get"')) {
+        if ((in_array('csrf', $before, true) || array_key_exists('csrf', $before)) && strpos($action, base_url()) !== false && ! stripos($form, 'method="get"')) {
             $form .= csrf_field($csrfId ?? null);
         }
 
@@ -289,7 +288,7 @@ if (! function_exists('form_dropdown')) {
         }
 
         // If no selected state was submitted we will attempt to set it automatically
-        if ($selected === []) {
+        if (empty($selected)) {
             if (is_array($data)) {
                 if (isset($data['name'], $_POST[$data['name']])) {
                     $selected = [$_POST[$data['name']]];
@@ -313,7 +312,7 @@ if (! function_exists('form_dropdown')) {
             $key = (string) $key;
 
             if (is_array($val)) {
-                if ($val === []) {
+                if (empty($val)) {
                     continue;
                 }
 
@@ -457,8 +456,10 @@ if (! function_exists('form_label')) {
             $label .= ' for="' . $id . '"';
         }
 
-        foreach ($attributes as $key => $val) {
-            $label .= ' ' . $key . '="' . $val . '"';
+        if (is_array($attributes) && $attributes) {
+            foreach ($attributes as $key => $val) {
+                $label .= ' ' . $key . '="' . $val . '"';
+            }
         }
 
         return $label . '>' . $labelText . '</label>';
@@ -543,15 +544,15 @@ if (! function_exists('set_value')) {
      * Grabs a value from the POST array for the specified field so you can
      * re-populate an input field or textarea
      *
-     * @param string              $field      Field name
-     * @param list<string>|string $default    Default value
-     * @param bool                $htmlEscape Whether to escape HTML special characters or not
+     * @param string          $field      Field name
+     * @param string|string[] $default    Default value
+     * @param bool            $htmlEscape Whether to escape HTML special characters or not
      *
-     * @return list<string>|string
+     * @return string|string[]
      */
     function set_value(string $field, $default = '', bool $htmlEscape = true)
     {
-        $request = service('request');
+        $request = Services::request();
 
         // Try any old input data we may have first
         $value = $request->getOldInput($field);
@@ -572,7 +573,7 @@ if (! function_exists('set_select')) {
      */
     function set_select(string $field, string $value = '', bool $default = false): string
     {
-        $request = service('request');
+        $request = Services::request();
 
         // Try any old input data we may have first
         $input = $request->getOldInput($field);
@@ -608,7 +609,7 @@ if (! function_exists('set_checkbox')) {
      */
     function set_checkbox(string $field, string $value = '', bool $default = false): string
     {
-        $request = service('request');
+        $request = Services::request();
 
         // Try any old input data we may have first
         $input = $request->getOldInput($field);
@@ -628,7 +629,7 @@ if (! function_exists('set_checkbox')) {
             return '';
         }
 
-        $session     = service('session');
+        $session     = Services::session();
         $hasOldInput = $session->has('_ci_old_input');
 
         // Unchecked checkbox and radio inputs are not even submitted by browsers ...
@@ -648,14 +649,20 @@ if (! function_exists('set_radio')) {
      */
     function set_radio(string $field, string $value = '', bool $default = false): string
     {
-        $request = service('request');
+        $request = Services::request();
 
         // Try any old input data we may have first
         $oldInput = $request->getOldInput($field);
 
         $postInput = $request->getPost($field);
 
-        $input = $oldInput ?? $postInput ?? $default;
+        if ($oldInput !== null) {
+            $input = $oldInput;
+        } elseif ($postInput !== null) {
+            $input = $postInput;
+        } else {
+            $input = $default;
+        }
 
         if (is_array($input)) {
             // Note: in_array('', array(0)) returns TRUE, do not use it
@@ -702,7 +709,7 @@ if (! function_exists('validation_errors')) {
             return $errors;
         }
 
-        $validation = service('validation');
+        $validation = Services::validation();
 
         return $validation->getErrors();
     }
@@ -717,7 +724,7 @@ if (! function_exists('validation_list_errors')) {
     function validation_list_errors(string $template = 'list'): string
     {
         $config = config(Validation::class);
-        $view   = service('renderer');
+        $view   = Services::renderer();
 
         if (! array_key_exists($template, $config->templates)) {
             throw ValidationException::forInvalidTemplate($template);
@@ -737,7 +744,7 @@ if (! function_exists('validation_show_error')) {
     function validation_show_error(string $field, string $template = 'single'): string
     {
         $config = config(Validation::class);
-        $view   = service('renderer');
+        $view   = Services::renderer();
 
         $errors = array_filter(validation_errors(), static fn ($key) => preg_match(
             '/^' . str_replace(['\.\*', '\*\.'], ['\..+', '.+\.'], preg_quote($field, '/')) . '$/',
@@ -777,7 +784,7 @@ if (! function_exists('parse_form_attributes')) {
                     unset($attributes[$key]);
                 }
             }
-            if ($attributes !== []) {
+            if (! empty($attributes)) {
                 $default = array_merge($default, $attributes);
             }
         }
