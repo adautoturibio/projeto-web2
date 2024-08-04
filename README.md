@@ -1,59 +1,59 @@
-# CodeIgniter 4 Framework
+# projeto-web2
 
-## What is CodeIgniter?
+Diretórios e suas funções - Modelo MVC
+* Arquivo sql - Fora de pasta
+* Controller (Vamos adicionar os arquivos php de controle aqui)- /app/Controllers
+* Model (onde ficará os arquivos php de criação das classes das tabelas) /app/Models
+* View (Pastas e arquivos organizados do front, vamos usar o formato do html separado em várias partes para cada página, e dps direcionar esse arquivo php com o html até o arquivo php central, onde vai ter os includes (header, nav, body ...)) - /app/Views
+** No View, vamos tentar separar os arquivos das páginas em pastas separadas e de fora vai ficar somente o php principal
+* CSS (Onde ficará framework css, imagens e arquivo de estilos externos ...)- /app/public
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
 
-This repository holds the distributable version of the framework.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+Instruções para usar o projeto base codeigniter 4
+1. Pré-requisitos
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+● Banco de dados ( Mysql ou MariaDB).
+○ MySQL
+■ https://dev.mysql.com/downloads/mysql/
+■ Versão recomendada = 8.4.1 LTS
+○ MariaDB
+■ Instalar o XAMPP
+■ https://www.apachefriends.org/pt_br/index.html
+■ Versão 8.2.12
+● Ferramenta de Gerenciamento de Banco de Dados (MySQL ou WorKbench)
+○ MySQL WorkBench (Caso usar MySQL ou MariaDB)
+■ https://dev.mysql.com/downloads/workbench/
+○ PHPMYADMIN (caso seja usado o XAMPP)
+● Composer
+○ https://getcomposer.org/download/
 
-The user guide corresponding to the latest version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
+2. Como usar o Projeto Base.
 
-## Important Change with index.php
+**Passo 1.** Criar um Banco de dados. O nome padrão que já esta configurado
+no projeto é "hamburgueria”.
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+**Passo 2.** Importar o arquivo hamburgueria.sql que está disponível na pasta
+compactada do projeto.
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+**Passo 3.** Adicionar o projeto no workspace do programa VSCODE.
 
-**Please** read the user guide for a better explanation of how CI4 works!
+**Passo 4.** Apenas se estiver usando Windows.
 
-## Repository Management
+● Verificar a restrição de execução no PowerShell no terminal
+VSCODE
+$ Get-ExecutionPolicy Se o resultado for restricted.
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+● Abrir o PowerShell do Sistema operacional e alterar as
+definições de restrição de execução. Execute o camando:
+$ Set-ExecutionPolicy Unrestricted
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+● Reinicie o VS Code, abra o terminal do VSCODE iniciar a
+edição do projeto.
 
-## Contributing
+**Passo 5.** Abra a pasta do projeto pelo terminal e acesse a pasta do projeto.
+$ cd projeto-web2/nome_banco
 
-We welcome contributions from the community.
+**Passo 6.** Inicialize o servidor usando o método SPARK. digite o comando:
+`$ php spark serve`
 
-Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/CONTRIBUTING.md) section in the development repository.
-
-## Server Requirements
-
-PHP version 7.4 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> **Warning**
-> The end of life date for PHP 7.4 was November 28, 2022. If you are
-> still using PHP 7.4, you should upgrade immediately. The end of life date
-> for PHP 8.0 will be November 26, 2023.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+**Passo 7.** Abrir o navegador de internet e digitar o host http://localhost:8080
