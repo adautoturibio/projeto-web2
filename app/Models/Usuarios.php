@@ -18,11 +18,14 @@ class Usuarios extends Model
                                    'sobrenome',
                                    'telefone',
                                    'data_nasc',
+                                   'email',
+                                   'senha',
+                                   'nivel',
                                    'data_cadastro'
                                     ];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
