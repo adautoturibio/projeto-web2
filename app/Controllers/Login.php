@@ -25,33 +25,34 @@ class Login extends BaseController
         $login = $_REQUEST['login'];
         $senha = md5($_REQUEST['senha']);
         
-        $this->data['usuarios'] = $this->usuarios->where('usuarios_cpf',$login)->
-        orWhere('usuarios_email',$login)->where('usuarios_senha',$senha)->find();
+        // $this->data['usuarios'] = $this->usuarios->where('usuarios_cpf',$login)->
+        // orWhere('usuarios_email',$login)->where('usuarios_senha',$senha)->find();
+        $this->data['usuarios'] = $this->usuarios->where('email',$login)->where('senha',$senha)->find();
         if($this->data['usuarios'] == []){
             $this->data['msg'] = msg('O usuário ou a senha são invalidos!','danger');
             return view('login',$this->data);
 
         }else{
-            if($this->data['usuarios'][0]->usuarios_email == $login  OR
-               $this->data['usuarios'][0]->usuarios_cpf == $login AND
-               $this->data['usuarios'][0]->usuarios_senha == $senha ){
+            if($this->data['usuarios'][0]->email == $login  AND
+               $this->data['usuarios'][0]->senha == $senha ){
                 $infoSession = (object)[
                     'usuarios_id' => $this->data['usuarios'][0]->usuarios_id,
-                    'usuarios_nivel' => $this->data['usuarios'][0]->usuarios_nivel,
-                    'usuarios_nome' => $this->data['usuarios'][0]->usuarios_nome,
-                    'usuarios_sobrenome' => $this->data['usuarios'][0]->usuarios_sobrenome,
-                    'usuarios_cpf' => $this->data['usuarios'][0]->usuarios_cpf,
-                    'usuarios_email' => $this->data['usuarios'][0]->usuarios_email,
-                    'usuarios_hash' => md5(123456),
+                    'nivel' => $this->data['usuarios'][0]->nivel,
+                    'nome' => $this->data['usuarios'][0]->nome,
+                    'sobrenome' => $this->data['usuarios'][0]->sobrenome,
+                    'email' => $this->data['usuarios'][0]->email,
+                    'hash' => md5(153045),
                     'logged_in' => TRUE
                 ];
+                //senha nova admin md5(153045);
+                //senha nova cliente md5()
                 $this->session->set('login', $infoSession);
 
-                if($this->data['usuarios'][0]->usuarios_nivel == 0){
+                if($this->data['usuarios'][0]->nivel == 0){
                     
                     return view('User/index',$this->data);
                 }
-                elseif($this->data['usuarios'][0]->usuarios_nivel == 1){
+                elseif($this->data['usuarios'][0]->nivel == 1){
                     return view('Admin/index',$this->data);
                 }else{
                     $this->data['msg'] = msg('Houve um problema com o seu acesso. Procure a Gerência de TI!','danger');

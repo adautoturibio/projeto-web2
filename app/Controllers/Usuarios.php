@@ -30,7 +30,7 @@ class Usuarios extends BaseController
             'data_nasc'=> '',
             'email'=> '',
             'senha'=> '',            
-            // 'id'=> ''
+            'id'=> ''
         ];
         return view('Usuarios/form',$data);
     }

@@ -17,13 +17,13 @@
                         <div class="mb-3">
                             <label for="login" class="form-label">
                                 <i class="bi bi-person"></i>
-                                Email/CPF
+                                Email
                             </label>
                             <input type="text" name="login"
                                 placeholder="Informe o seu login"
                                 class="form-control" id="login">
                             <div id="loginHelp" class="form-text">Entre com o
-                                seu email ou CPF.
+                                seu email.
                             </div>
                         </div>
                         
