@@ -40,43 +40,37 @@ class Usuarios extends BaseController
 
         // Checks whether the submitted data passed the validation rules.
         if(!$this->validate([
-            'usuarios_nome' => 'required|max_length[255]|min_length[3]',
-            'usuarios_sobrenome' => 'required',
-            'usuarios_cpf' => 'required',
-            'usuarios_email' => 'required',
-            'usuarios_senha' => 'required',
-            'usuarios_fone' => 'required',
-            'usuarios_data_nasc' => 'required',
+            'nome' => 'required|max_length[255]|min_length[3]',
+            'sobrenome' => 'required',
+            // 'senha' => 'required',
+            'telefone' => 'required',
+            'data_nasc' => 'required',
         ])) {
             
             // The validation fails, so returns the form.
             $data['usuarios'] = (object) [
                 'usuarios_id' => '',
-                'usuarios_nome' => $_REQUEST['usuarios_nome'],
-                'usuarios_sobrenome' => $_REQUEST['usuarios_sobrenome'],
-                'usuarios_email' => $_REQUEST['usuarios_email'],
-                'usuarios_cpf' => moedaDolar($_REQUEST['usuarios_cpf']),
-                'usuarios_data_nasc' => moedaDolar($_REQUEST['usuarios_data_nasc']),
-                'usuarios_senha' => $_REQUEST['usuarios_senha'],
-                'usuarios_fone' => $_REQUEST['usuarios_fone']
+                'nome' => $_REQUEST['nome'],
+                'sobrenome' => $_REQUEST['sobrenome'],
+                // 'usuarios_email' => $_REQUEST['usuarios_email'],
+                'data_nasc' => moedaDolar($_REQUEST['data_nasc']),
+                // 'usuarios_senha' => $_REQUEST['usuarios_senha'],
+                'telefone' => $_REQUEST['telefone']
             ];
             
             $data['title'] = 'Usuarios';
             $data['form'] = 'Cadastrar';
             $data['op'] = 'create';
-            return view('Usuarios/form',$data);
+            return view('Usuarios/form',$data); //corrigir
         }
 
 
         $this->usuarios->save([
-            'usuarios_nome' => $_REQUEST['usuarios_nome'],
-            'usuarios_sobrenome' => $_REQUEST['usuarios_sobrenome'],
-            'usuarios_email' => $_REQUEST['usuarios_email'],
-            'usuarios_cpf' => $_REQUEST['usuarios_cpf'],
-            'usuarios_data_nasc' => $_REQUEST['usuarios_data_nasc'],
-            'usuarios_senha' => md5($_REQUEST['usuarios_senha']),
-            'usuarios_fone' => $_REQUEST['usuarios_fone'],
-            'usuarios_nivel' => 0
+            'nome' => $_REQUEST['nome'],
+            'sobrenome' => $_REQUEST['sobrenome'],
+            // 'usuarios_email' => $_REQUEST['usuarios_email'],
+            'data_nasc' => $_REQUEST['data_nasc'],
+            'telefone' => $_REQUEST['telefone'],
         ]);
         
         $data['msg'] = msg('Cadastrado com Sucesso!','success');
@@ -108,13 +102,11 @@ class Usuarios extends BaseController
     {
         $dataForm = [
             'usuarios_id' => $_REQUEST['usuarios_id'],
-            'usuarios_nome' => $_REQUEST['usuarios_nome'],
-            'usuarios_sobrenome' => $_REQUEST['usuarios_sobrenome'],
-            'usuarios_email' => $_REQUEST['usuarios_email'],
-            'usuarios_cpf' => $_REQUEST['usuarios_cpf'],
-            'usuarios_data_nasc' => $_REQUEST['usuarios_data_nasc'],
-            'usuarios_fone' => $_REQUEST['usuarios_fone'],
-            'usuarios_nivel' => 0
+            'nome' => $_REQUEST['nome'],
+            'sobrenome' => $_REQUEST['sobrenome'],
+            // 'usuarios_email' => $_REQUEST['usuarios_email'],
+            'data_nasc' => $_REQUEST['data_nasc'],
+            'telefone' => $_REQUEST['telefone'],
         ];
 
         $this->usuarios->update($_REQUEST['usuarios_id'], $dataForm);
@@ -127,7 +119,7 @@ class Usuarios extends BaseController
     public function search()
     {
         //$data['usuarios'] = $this->usuarios->like('usuarios_nome', $_REQUEST['pesquisar'])->find();
-        $data['usuarios'] = $this->usuarios->like('usuarios_nome', $_REQUEST['pesquisar'])->orlike('usuarios_cpf', $_REQUEST['pesquisar'])->find();
+        $data['usuarios'] = $this->usuarios->like('nome', $_REQUEST['pesquisar'])->find();
         $total = count($data['usuarios']);
         $data['msg'] = msg("Dados Encontrados: {$total}",'success');
         $data['title'] = 'Usuarios';
@@ -135,103 +127,105 @@ class Usuarios extends BaseController
 
     }
 
-    public function edit_senha(): string
-    {
-        $data['usuarios'] = (object) [
-            'usuarios_nova_senha'=> '',
-            'usuarios_confirmar_senha'=> ''
-        ];
+            // Funções destinadas ao outro formato de usuário.
 
-        $data['title'] = 'Usuarios';
-        return view('Usuarios/edit_senha',$data);
-    }
+    // public function edit_senha(): string
+    // {
+    //     $data['usuarios'] = (object) [
+    //         'usuarios_nova_senha'=> '',
+    //         'usuarios_confirmar_senha'=> ''
+    //     ];
 
-    public function salvar_senha():string {
+    //     $data['title'] = 'Usuarios';
+    //     return view('Usuarios/edit_senha',$data);
+    // }
 
-        // Checks whether the submitted data passed the validation rules.
-        if(!$this->validate([
-            'usuarios_senha_atual' => 'required',
-            'usuarios_nova_senha' => 'required|max_length[14]|min_length[6]',
-            'usuarios_confirmar_senha' => 'required|max_length[14]|min_length[6]'
-        ])) {
+    // public function salvar_senha():string {
+
+    //     // Checks whether the submitted data passed the validation rules.
+    //     if(!$this->validate([
+    //         'usuarios_senha_atual' => 'required',
+    //         'usuarios_nova_senha' => 'required|max_length[14]|min_length[6]',
+    //         'usuarios_confirmar_senha' => 'required|max_length[14]|min_length[6]'
+    //     ])) {
             
-            // The validation fails, so returns the form.
-            $data['usuarios'] = (object) [
-                'usuarios_senha_atual' => $_REQUEST['usuarios_senha_atual'],
-                'usuarios_nova_senha' => $_REQUEST['usuarios_nova_senha'],
-                'usuarios_confirmar_senha' => $_REQUEST['usuarios_confirmar_senha']
-            ];
-            $data['title'] = 'Usuarios';
-            $data['msg'] = msg("Divergência de dados","danger");
-            return view('Usuarios/edit_senha',$data);
-        }
+    //         // The validation fails, so returns the form.
+    //         $data['usuarios'] = (object) [
+    //             'usuarios_senha_atual' => $_REQUEST['usuarios_senha_atual'],
+    //             'usuarios_nova_senha' => $_REQUEST['usuarios_nova_senha'],
+    //             'usuarios_confirmar_senha' => $_REQUEST['usuarios_confirmar_senha']
+    //         ];
+    //         $data['title'] = 'Usuarios';
+    //         $data['msg'] = msg("Divergência de dados","danger");
+    //         return view('Usuarios/edit_senha',$data);
+    //     }
 
-        $data['usuarios'] = (object) [
-            'usuarios_senha_atual' => $_REQUEST['usuarios_senha_atual'],
-            'usuarios_nova_senha' => $_REQUEST['usuarios_nova_senha'],
-            'usuarios_confirmar_senha' => $_REQUEST['usuarios_confirmar_senha']
-        ];
+    //     $data['usuarios'] = (object) [
+    //         'usuarios_senha_atual' => $_REQUEST['usuarios_senha_atual'],
+    //         'usuarios_nova_senha' => $_REQUEST['usuarios_nova_senha'],
+    //         'usuarios_confirmar_senha' => $_REQUEST['usuarios_confirmar_senha']
+    //     ];
 
-        $data['check_senha'] = $this->usuarios->find(['usuarios_id' => (int) $_REQUEST['usuarios_id']])[0];
+    //     $data['check_senha'] = $this->usuarios->find(['usuarios_id' => (int) $_REQUEST['usuarios_id']])[0];
 
-        if($data['check_senha']->usuarios_senha == md5($_REQUEST['usuarios_senha_atual'])){
-            if($_REQUEST['usuarios_nova_senha'] == $_REQUEST['usuarios_confirmar_senha']){
+    //     if($data['check_senha']->usuarios_senha == md5($_REQUEST['usuarios_senha_atual'])){
+    //         if($_REQUEST['usuarios_nova_senha'] == $_REQUEST['usuarios_confirmar_senha']){
 
-                $dataForm = [
-                    'usuarios_id' => $_REQUEST['usuarios_id'],
-                    'usuarios_senha' => md5($_REQUEST['usuarios_nova_senha'])
-                ];
+    //             $dataForm = [
+    //                 'usuarios_id' => $_REQUEST['usuarios_id'],
+    //                 'usuarios_senha' => md5($_REQUEST['usuarios_nova_senha'])
+    //             ];
         
-                $this->usuarios->update($_REQUEST['usuarios_id'], $dataForm);
-                $data['msg'] = msg('Senha alterada!','success');
-                $data['usuarios'] = $this->usuarios->findAll();
-                $data['title'] = 'Usuarios';
-                return view('Usuarios/index',$data);
+    //             $this->usuarios->update($_REQUEST['usuarios_id'], $dataForm);
+    //             $data['msg'] = msg('Senha alterada!','success');
+    //             $data['usuarios'] = $this->usuarios->findAll();
+    //             $data['title'] = 'Usuarios';
+    //             return view('Usuarios/index',$data);
 
 
-            }else{
-                $data['title'] = 'Usuarios';
-                $data['msg'] = msg("As senhas não são iguais!","danger");
-                return view('Usuarios/edit_senha',$data);
-            }
+    //         }else{
+    //             $data['title'] = 'Usuarios';
+    //             $data['msg'] = msg("As senhas não são iguais!","danger");
+    //             return view('Usuarios/edit_senha',$data);
+    //         }
 
-        }else{
-            $data['title'] = 'Usuarios';
-            $data['msg'] = msg("A senha atual é invalida","danger");
-            return view('Usuarios/edit_senha',$data);
-        }
-    }
+    //     }else{
+    //         $data['title'] = 'Usuarios';
+    //         $data['msg'] = msg("A senha atual é invalida","danger");
+    //         return view('Usuarios/edit_senha',$data);
+    //     }
+    // }
     
-    public function edit_nivel(): string
-    {
-        $data['nivel'] = [
-            ['id' => 0, 'nivel' => "Usuário"],
-            ['id' => 1, 'nivel' => "Administrador"]
-        ];
+    // public function edit_nivel(): string
+    // {
+    //     $data['nivel'] = [
+    //         ['id' => 0, 'nivel' => "Usuário"],
+    //         ['id' => 1, 'nivel' => "Administrador"]
+    //     ];
 
-        $data['usuarios'] = $this->usuarios->findAll();
-        $data['title'] = 'Usuarios';
+    //     $data['usuarios'] = $this->usuarios->findAll();
+    //     $data['title'] = 'Usuarios';
 
 
-        $data['usuarios'] = $this->usuarios->findAll();
-        $data['title'] = 'Usuarios';
-        return view('Usuarios/edit_nivel',$data);
-    }
+    //     $data['usuarios'] = $this->usuarios->findAll();
+    //     $data['title'] = 'Usuarios';
+    //     return view('Usuarios/edit_nivel',$data);
+    // }
 
-    public function salvar_nivel(): string
-    {
+    // public function salvar_nivel(): string
+    // {
 
-        $dataForm = [
-            'usuarios_id' => $_REQUEST['usuarios_id'],
-            'usuarios_nivel' => $_REQUEST['usuarios_nivel']
-        ];
+    //     $dataForm = [
+    //         'usuarios_id' => $_REQUEST['usuarios_id'],
+    //         'usuarios_nivel' => $_REQUEST['usuarios_nivel']
+    //     ];
 
-        $this->usuarios->update($_REQUEST['usuarios_id'], $dataForm);
-        $data['msg'] = msg('Nivel alterada!','success');
-        $data['usuarios'] = $this->usuarios->findAll();
-        $data['title'] = 'Usuarios';
-        return view('Usuarios/index',$data);
-    }
+    //     $this->usuarios->update($_REQUEST['usuarios_id'], $dataForm);
+    //     $data['msg'] = msg('Nivel alterada!','success');
+    //     $data['usuarios'] = $this->usuarios->findAll();
+    //     $data['title'] = 'Usuarios';
+    //     return view('Usuarios/index',$data);
+    // }
 
 
 

@@ -45,53 +45,60 @@ COLLATE = utf8mb4_general_ci;
 -- Table `hamburgueria`.`usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hamburgueria`.`usuarios` (
-  `usuarios_id` INT NOT NULL AUTO_INCREMENT,
+  `usuarios_id` INT NOT NULL,
   `nome` VARCHAR(100) NOT NULL,
   `sobrenome`VARCHAR(100) NOT NULL,
   `telefone` VARCHAR(45) NULL,
   `data_nasc`DATE NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `senha` varchar(100) NOT NULL,
+  `nivel` int(11) NOT NULL,
   `data_cadastro` DATETIME NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`usuarios_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_general_ci;
 
+INSERT INTO `usuarios` (`usuarios_id`, `nome`, `sobrenome`, `telefone`, `data_nasc`, `email`, `senha`, `nivel`,`data_cadastro`) 
+VALUES (1, 'administrador', '', '(62) 98154-5421', '2000-08-12', 'moderador01@gmail.com', 'a073801fcc2a4926908dd20c7d0a4dbe', '1', '2024-08-01 10:15:05'),
+(2, 'cliente','', '(62) 98357-2154', '1998-04-12', 'cliente01@gmail.com', 'd39c4be26e1e1f467bacb586a20c5aa8', '0', '2024-08-01 10:20:05');
+
 
 -- -----------------------------------------------------
 -- Table `hamburgueria`.`clientes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hamburgueria`.`clientes` (
-  `clientes_id` INT NOT NULL AUTO_INCREMENT,
-  `usuarios_usuarios_id` INT NOT NULL,
-  PRIMARY KEY (`clientes_id`),
-  INDEX `fk_clientes_usuarios_idx` (`usuarios_usuarios_id` ASC) VISIBLE,
-  CONSTRAINT `fk_clientes_usuarios`
-    FOREIGN KEY (`usuarios_usuarios_id`)
-    REFERENCES `hamburgueria`.`usuarios` (`usuarios_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_general_ci;
+-- CREATE TABLE IF NOT EXISTS `hamburgueria`.`clientes` (
+--   `clientes_id` INT NOT NULL AUTO_INCREMENT,
+--   `usuarios_usuarios_id` INT NOT NULL,
+--   PRIMARY KEY (`clientes_id`),
+--   INDEX `fk_clientes_usuarios_idx` (`usuarios_usuarios_id` ASC) VISIBLE,
+--   CONSTRAINT `fk_clientes_usuarios`
+--     FOREIGN KEY (`usuarios_usuarios_id`)
+--     REFERENCES `hamburgueria`.`usuarios` (`usuarios_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION)
+-- ENGINE = InnoDB
+-- DEFAULT CHARACTER SET = utf8mb4
+-- COLLATE = utf8mb4_general_ci;
 
 
--- -----------------------------------------------------
--- Table `hamburgueria`.`funcionarios`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hamburgueria`.`funcionarios` (
-  `funcionarios_id` INT NOT NULL AUTO_INCREMENT,
-  `usuarios_usuarios_id` INT NOT NULL,
-  `senha` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`funcionarios_id`),
-  INDEX `fk_funcionarios_usuarios_idx` (`usuarios_usuarios_id` ASC) VISIBLE,
-  CONSTRAINT `fk_funcionarios_usuarios`
-    FOREIGN KEY (`usuarios_usuarios_id`)
-    REFERENCES `hamburgueria`.`usuarios` (`usuarios_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_general_ci;
+-- -- -----------------------------------------------------
+-- -- Table `hamburgueria`.`funcionarios`
+-- -- -----------------------------------------------------
+-- CREATE TABLE IF NOT EXISTS `hamburgueria`.`funcionarios` (
+--   `funcionarios_id` INT NOT NULL AUTO_INCREMENT,
+--   `usuarios_usuarios_id` INT NOT NULL,
+--   `senha` VARCHAR(45) NOT NULL,
+--   PRIMARY KEY (`funcionarios_id`),
+--   INDEX `fk_funcionarios_usuarios_idx` (`usuarios_usuarios_id` ASC) VISIBLE,
+--   CONSTRAINT `fk_funcionarios_usuarios`
+--     FOREIGN KEY (`usuarios_usuarios_id`)
+--     REFERENCES `hamburgueria`.`usuarios` (`usuarios_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION)
+-- ENGINE = InnoDB
+-- DEFAULT CHARACTER SET = utf8mb4
+-- COLLATE = utf8mb4_general_ci;
 
 
 -- -----------------------------------------------------
@@ -153,22 +160,17 @@ COLLATE = utf8mb4_general_ci;
 CREATE TABLE IF NOT EXISTS `hamburgueria`.`pedidos` (
   `pedidos_id` INT NOT NULL AUTO_INCREMENT,
   `data_hora_pedidos` DATETIME NOT NULL DEFAULT current_timestamp(), 
-  `clientes_id` INT NOT NULL,
   `observacao` VARCHAR(255) NULL DEFAULT NULL,
-  `funcionarios_funcionarios_id` INT NOT NULL,
+  `usuarios_usuarios_id` INT NOT NULL,
   `entregas_entregas_id` INT NOT NULL,
   `pagamentos_pagamentos_id` INT NOT NULL,
   PRIMARY KEY (`pedidos_id`),
-  INDEX `clientes_id` (`clientes_id` ASC) VISIBLE,
-  INDEX `fk_pedidos_funcionarios_idx` (`funcionarios_funcionarios_id` ASC) VISIBLE,
+  INDEX `fk_pedidos_usuarios_idx` (`usuarios_usuarios_id` ASC) VISIBLE,
   INDEX `fk_pedidos_entregas_idx` (`entregas_entregas_id` ASC) VISIBLE,
   INDEX `fk_pedidos_pagamentos_idx` (`pagamentos_pagamentos_id` ASC) VISIBLE,
-  CONSTRAINT `fk_pedidos_cliente`
-    FOREIGN KEY (`clientes_id`)
-    REFERENCES `hamburgueria`.`clientes` (`clientes_id`),
-  CONSTRAINT `fk_pedidos_funcionarios`
-    FOREIGN KEY (`funcionarios_funcionarios_id`)
-    REFERENCES `hamburgueria`.`funcionarios` (`funcionarios_id`)
+  CONSTRAINT `fk_pedidos_usuarios`
+    FOREIGN KEY (`usuarios_usuarios_id`)
+    REFERENCES `hamburgueria`.`usuarios` (`usuarios_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_pedidos_entregas`
@@ -216,8 +218,8 @@ CREATE TABLE IF NOT EXISTS `hamburgueria`.`itempedidos` (
   `quantidade` INT NULL DEFAULT NULL,
   `personalizacao` TEXT NULL DEFAULT NULL,
   PRIMARY KEY (`itempedidos_id`),
-  INDEX `pedidos_id` (`pedidos_id` ASC) VISIBLE,
-  INDEX `produtos_id` (`produtos_id` ASC) VISIBLE,
+  INDEX `pedidos_id` (`pedidos_pedidos_id` ASC) VISIBLE,
+  INDEX `produtos_id` (`produtos_produtos_id` ASC) VISIBLE,
   CONSTRAINT `fk_itempedidos_pedidos`
     FOREIGN KEY (`pedidos_pedidos_id`)
     REFERENCES `hamburgueria`.`pedidos` (`pedidos_id`),

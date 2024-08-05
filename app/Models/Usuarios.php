@@ -14,15 +14,11 @@ class Usuarios extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['usuarios_nome',
-                                   'usuarios_sobrenome',
-                                   'usuarios_email',
-                                   'usuarios_cpf',
-                                   'usuarios_data_nasc',
-                                   'usuarios_nivel',
-                                   'usuarios_fone',
-                                   'usuarios_senha',
-                                   'usuarios_data_cadastro'
+    protected $allowedFields    = ['nome',
+                                   'sobrenome',
+                                   'telefone',
+                                   'data_nasc',
+                                   'data_cadastro'
                                     ];
 
     // Dates
