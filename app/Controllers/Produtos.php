@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use App\Models\Produtos as Produtos_model;
 use App\Models\Categorias as Categorias_model;
+use CodeIgniter\Model;
 
 class Produtos extends BaseController
 {
@@ -127,5 +128,11 @@ class Produtos extends BaseController
         return view('Produtos/index',$data);
 
     }
-
+    public function pesquisar(){
+        $produto = new Produtos_model();
+        $produtos = $produto->findAll();  
+        return $produtos;
+        
+        
+}
 }
