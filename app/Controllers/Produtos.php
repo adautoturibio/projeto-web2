@@ -14,14 +14,13 @@ class Produtos extends BaseController
         $data['title'] = 'Produtos';
         helper('functions');
     }
-    public function index(): string
+
+    public function index()
     {
         $data['title'] = 'Produtos';
-        // Linha de Inner join entre a classe produtos e categorias
-        $data['produtos'] = $this->produtos->join('categorias', 'categorias_id = categorias_id')->find();
-        //$data['produtos'] = $this->produtos->findAll();
-        return view('Produtos/index',$data);
-    }
+        $data['produtos'] = $this->produtos->findAll();
+        return view('Templates/produtos', $data);
+    } 
 
     public function new(): string
     {

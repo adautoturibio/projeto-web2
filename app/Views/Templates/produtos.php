@@ -1,127 +1,41 @@
 <!--Abre Produtos-->
 <div id="produtos" class="container">
 
-<h1>Produtos</h1>
+    <h2 class="cor-1t"><b>Produtos</b></h2>
+    <hr class="linha">
 
-<div class="row">
-    <!-- card 1 -->
-    <div class="col-sm-3 mb-3 mb-sm-0">
-        <div class="card">
-            <img src="assets/images/hamburguer1.png"
-                class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a
-                    natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
+    <?php
+    // código para exibir o erro na tela (debug)
+    // se comentar esse bloco de código php, é possível ver a página
+    echo '<pre>';
+    print_r($produtos);
+    echo '</pre>';
+    ?>
+
+    <?php if (!empty($produtos)): ?>
+        <div class="row">
+            <?php foreach ($produtos as $produto): ?>
+                <div class="col s12 m7 l4">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="assets/imagens/burguer2.jpg">
+                            <span class="card-title"><?= esc($produto->nome) ?></span>
+                        </div>
+                        <div class="card-content">
+                            <p><?= esc($produto->descricao) ?></p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">Detalhes</a>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
-    </div>
+    <?php else: ?>
+        <p>Nenhum produto encontrado.</p>
+    <?php endif; ?>
+    
 
-    <!-- card 2 -->
-    <div class="col-sm-3 mb-3 mb-sm-0">
-        <div class="card">
-            <img src="assets/images/hamburguer2.png"
-                class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a
-                    natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- card 3 -->
-    <div class="col-sm-3 mb-3 mb-sm-0">
-        <div class="card">
-            <img src="assets/images/hamburguer3.png"
-                class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a
-                    natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- card 4 -->
-    <div class="col-sm-3 mb-3 mb-sm-0">
-        <div class="card">
-            <img src="assets/images/hamburguer3.png"
-                class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a
-                    natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<!-- Linha 2 -->
-
-<div class="row">
-    <!-- card 1 -->
-    <div class="col-sm-3 mb-3 mb-sm-0">
-        <div class="card">
-            <img src="assets/images/hamburguer1.png"
-                class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a
-                    natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- card 2 -->
-    <div class="col-sm-3 mb-3 mb-sm-0">
-        <div class="card">
-            <img src="assets/images/hamburguer2.png"
-                class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a
-                    natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- card 3 -->
-    <div class="col-sm-3 mb-3 mb-sm-0">
-        <div class="card">
-            <img src="assets/images/hamburguer3.png"
-                class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a
-                    natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- card 4 -->
-    <div class="col-sm-3 mb-3 mb-sm-0">
-        <div class="card">
-            <img src="assets/images/hamburguer3.png"
-                class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a
-                    natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-
-</div>
 
 </div>
 

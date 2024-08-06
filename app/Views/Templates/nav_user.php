@@ -1,5 +1,5 @@
 <!-- Abre o menu de navegação -->
-<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary"
+<nav class="z"
             data-bs-theme="dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
