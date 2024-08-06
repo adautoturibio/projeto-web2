@@ -1,14 +1,17 @@
 # projeto-web2
 
-* Diretórios e suas funções - Modelo MVC
+**Diretórios e suas funções - Modelo MVC**
 Controllers: Onde instanciamos as classes e criamos as funções que terão em cada classe.
+
 Models: Onde ficam as classes referentes as entidades do banco de dados, com o id e os atributos.
+
 Views: Onde ficam os templates e telas com funções do html e chamando as funções do controller
 
 .env: Configuração para conexão com banco de dados;
 ** Nesse arquivo, vc precisa atualizar o 'password' para a senha do banco de dados do seu computador
 
-** Login e senha do administrador
+**Login e senha do administrador** 
+
 Para acessar, acesse localhost:8080/login
 login: moderador01@gmail.com
 senha: 153045
