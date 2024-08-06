@@ -16,7 +16,7 @@
                 <li class="breadcrumb-item"><a href="#">Admin</a></li>
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Data</li>
-                <span class="breadcrumb-text"> / Seja bem vindo <?= $login->usuarios_nome ?></span>
+                <span class="breadcrumb-text"> / Seja bem vindo <?= $login->nome ?></span>
             </ol>     
         </nav>
         <h2 class="border-bottom border-2 border-primary">
@@ -26,7 +26,7 @@
 
         <p>
             <?php
-                print_r($login); 
+                print_r($login); // estilizar
             ?>
         </p>
         </div>
