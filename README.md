@@ -1,12 +1,17 @@
 # projeto-web2
 
-Diretórios e suas funções - Modelo MVC
-* Arquivo sql - Fora de pasta
-* Controller (Vamos adicionar os arquivos php de controle aqui)- /app/Controllers
-* Model (onde ficará os arquivos php de criação das classes das tabelas) /app/Models
-* View (Pastas e arquivos organizados do front, vamos usar o formato do html separado em várias partes para cada página, e dps direcionar esse arquivo php com o html até o arquivo php central, onde vai ter os includes (header, nav, body ...)) - /app/Views
-** No View, vamos tentar separar os arquivos das páginas em pastas separadas e de fora vai ficar somente o php principal
-* CSS (Onde ficará framework css, imagens e arquivo de estilos externos ...)- /app/public
+* Diretórios e suas funções - Modelo MVC
+Controllers: Onde instanciamos as classes e criamos as funções que terão em cada classe.
+Models: Onde ficam as classes referentes as entidades do banco de dados, com o id e os atributos.
+Views: Onde ficam os templates e telas com funções do html e chamando as funções do controller
+
+.env: Configuração para conexão com banco de dados;
+** Nesse arquivo, vc precisa atualizar o 'password' para a senha do banco de dados do seu computador
+
+** Login e senha do administrador
+Para acessar, acesse localhost:8080/login
+login: moderador01@gmail.com
+senha: 153045
 
 
 Instruções para usar o projeto base codeigniter 4
@@ -56,4 +61,4 @@ $ cd projeto-web2/nome_banco
 **Passo 6.** Inicialize o servidor usando o método SPARK. digite o comando:
 `$ php spark serve`
 
-**Passo 7.** Abrir o navegador de internet e digitar o host http://localhost:8080
+**Passo 7.** Abrir o navegador de internet e digitar o host http://localhost:8080/home
