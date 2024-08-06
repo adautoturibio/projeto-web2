@@ -4,7 +4,7 @@
     if(isset($_SESSION['login'])){
         $login = $_SESSION['login'];
         print_r($login);
-        if($login->usuarios_nivel == 1){
+        if($login->nivel == 1){
     
 ?>
 <?= $this->extend('Templates_admin') ?>
@@ -43,7 +43,7 @@
                 <?php for($i=0; $i < count($categorias); $i++){ ?>
                     <tr>
                         <th scope="row"><?= $categorias[$i]->categorias_id; ?></th>
-                        <td><?= $categorias[$i]->categorias_nome; ?></td>
+                        <td><?= $categorias[$i]->nome; ?></td>
                         <td>
                             <a class="btn btn-primary"  href="<?= base_url('categorias/edit/'.$categorias[$i]->categorias_id); ?>">
                                 Editar

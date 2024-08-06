@@ -5,7 +5,7 @@
     if(isset($_SESSION['login'])){
         $login = $_SESSION['login'];
         print_r($login);
-        if($login->usuarios_nivel == 1){
+        if($login->nivel == 1){
     
 ?>
 <?= $this->extend('Templates_admin') ?>
@@ -19,8 +19,8 @@
 
         <form action="<?= base_url('categorias/'.$op); ?>" method="post">
             <div class="mb-3">
-                <label for="categorias_nome" class="form-label"> Categoria </label>
-                <input type="text" class="form-control" name="categorias_nome" value="<?= $categorias->categorias_nome; ?>"  id="categorias_nome">
+                <label for="nome_categoria" class="form-label"> Categoria </label>
+                <input type="text" class="form-control" name="nome_categoria" value="<?= $categorias->nome; ?>"  id="nome">
             </div>
 
 

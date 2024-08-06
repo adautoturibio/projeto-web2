@@ -4,7 +4,7 @@
     if(isset($_SESSION['login'])){
         $login = $_SESSION['login'];
         print_r($login);
-        if($login->usuarios_nivel == 1){
+        if($login->nivel == 1){
     
 ?>
 <?= $this->extend('Templates_admin') ?>
@@ -44,8 +44,8 @@
                 <?php for($i=0; $i < count($usuarios); $i++){ ?>
                     <tr>
                         <th scope="row"><?= $usuarios[$i]->usuarios_id; ?></th>
-                        <td><?= $usuarios[$i]->usuarios_nome.' '.$usuarios[$i]->usuarios_sobrenome; ?></td>
-                        <td><?= $usuarios[$i]->usuarios_cpf; ?></td>
+                        <td><?= $usuarios[$i]->nome.' '.$usuarios[$i]->sobrenome; ?></td>
+                        
                         <td>
                             <a class="btn btn-primary"  href="<?= base_url('usuarios/edit/'.$usuarios[$i]->usuarios_id); ?>">
                                 Editar
