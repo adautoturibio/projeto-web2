@@ -30,7 +30,7 @@ class Usuarios extends BaseController
             'data_nasc'=> '',
             'email'=> '',
             'senha'=> '',            
-            'id'=> ''
+            'nivel'=> ''
         ];
         return view('Usuarios/form',$data);
     }
@@ -49,38 +49,59 @@ class Usuarios extends BaseController
         ])) {
             
             // The validation fails, so returns the form.
+            // $data['usuarios'] = (object) [
+            //     'usuarios_id' => '',
+            //     'nome' => $_REQUEST['usuarios_nome'],
+            //     'sobrenome' => $_REQUEST['usuarios_sobrenome'],
+            //     'telefone' => $_REQUEST['usuarios_telefone'],
+            //     'data_nasc' => moedaDolar($_REQUEST['usuarios_data_nasc']),
+            //     'email' => $_REQUEST['usuarios_email'],
+            //     'senha' => $_REQUEST['usuarios_senha'],
+            //     'nivel' => '1'
+            // ];
+
             $data['usuarios'] = (object) [
                 'usuarios_id' => '',
-                'nome' => $_REQUEST['usuarios_nome'],
-                'sobrenome' => $_REQUEST['usuarios_sobrenome'],
-                'telefone' => $_REQUEST['usuarios_telefone'],
-                'data_nasc' => moedaDolar($_REQUEST['usuarios_data_nasc']),
-                'email' => $_REQUEST['usuarios_email'],
-                'senha' => $_REQUEST['usuarios_senha'],
-                'nivel' => '1'
+                'nome' => $this->request->getPost('usuarios_nome'),
+                'sobrenome' => $this->request->getPost('usuarios_sobrenome'),
+                'telefone' => $this->request->getPost('usuarios_telefone'),
+                'data_nasc' => $this->request->getPost('usuarios_data_nasc'),
+                'email' => $this->request->getPost('usuarios_email'),
+                'senha' => $this->request->getPost('usuarios_senha'),
+                'nivel' => $this->request->getPost('usuarios_nivel')
             ];
             
             $data['title'] = 'Usuarios';
             $data['form'] = 'Cadastrar';
             $data['op'] = 'create';
-            return view('Usuarios/form',$data); //corrigir form
+            $data['validation'] = $this->validator; //novo
+            return view('Usuarios/form',$data);
         }
 
 
+        // $this->usuarios->save([
+        //     'nome' => $_REQUEST['nome'],
+        //     'sobrenome' => $_REQUEST['sobrenome'],
+        //     'telefone' => $_REQUEST['telefone'],
+        //     'data_nasc' => moedaDolar($_REQUEST['data_nasc']),
+        //     'email' => $_REQUEST['email'],
+        //     'senha' => $_REQUEST['senha'],
+        //     'nivel' => $_REQUEST['nivel']
+        // ]);
         $this->usuarios->save([
-            'nome' => $_REQUEST['nome'],
-            'sobrenome' => $_REQUEST['sobrenome'],
-            'telefone' => $_REQUEST['telefone'],
-            'data_nasc' => moedaDolar($_REQUEST['data_nasc']),
-            'email' => $_REQUEST['email'],
-            'senha' => $_REQUEST['senha'],
-            'nivel' => $_REQUEST['nivel']
+            'nome' => $this->request->getPost('nome'),
+            'sobrenome' => $this->request->getPost('sobrenome'),
+            'telefone' => $this->request->getPost('telefone'),
+            'data_nasc' => moedaDolar($this->request->getPost('data_nasc'),),
+            'email' => $this->request->getPost('email'),
+            'senha' => $this->request->getPost('senha'),
+            'nivel' => $this->request->getPost('nivel'),
         ]);
         
         $data['msg'] = msg('Cadastrado com Sucesso!','success');
         $data['usuarios'] = $this->usuarios->findAll();
         $data['title'] = 'Usuarios';
-        return view('Usuarios/index',$data); // verificar index de usuarios
+        return view('Usuarios/index',$data);
 
     }
 

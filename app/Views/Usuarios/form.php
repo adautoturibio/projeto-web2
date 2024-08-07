@@ -16,6 +16,8 @@
             <?= ucfirst($form).' '.$title ?>
         </h2>
 
+       
+
         <form action="<?= base_url('usuarios/'.$op); ?>" method="post">
             <div class="mb-3">
                 <label for="usuarios_nome" class="form-label"> Nome </label>
@@ -45,6 +47,14 @@
             <div class="mb-3">
                 <label for="usuarios_senha" class="form-label"> Senha </label>
                 <input type="password" class="form-control" name="usuarios_senha" value="<?= $usuarios->senha; ?>"  id="usuarios_senha">
+            </div>
+
+            <div class="mb-3">
+                <label for="nivel" class="form-label"> Nível </label>
+                <select class="form-control" name="nivel" id="nivel">
+                    <option value="1" <?= $usuarios->nivel == '1' ? 'selected' : '' ?>>Administrador</option>
+                    <option value="0" <?= $usuarios->nivel == '0' ? 'selected' : '' ?>>Usuário</option>
+                </select>
             </div>
 
             <!-- <label for="usuarios_id" class="form-label"> ID </label>
