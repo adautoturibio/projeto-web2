@@ -33,8 +33,11 @@
                             <p><?= esc($produto->descricao)?></p>
                         </div>
                         <div class="card-action">
-                            <a href="#">Botão</a>
-                        </div>
+                            <label>
+                                <input type="checkbox" />
+                                <span>Adicionar a sacola</span>
+                            </label>
+                       </div>
                     </div>
                 </div>
                <?php endif;?>
@@ -67,7 +70,10 @@
                            <p><?= esc($produto->descricao)?></p>
                        </div>
                        <div class="card-action">
-                           <a href="#">Botão</a>
+                            <label>
+                                <input type="checkbox" />
+                                <span>Adicionar a sacola</span>
+                            </label>
                        </div>
                    </div>
                </div>
