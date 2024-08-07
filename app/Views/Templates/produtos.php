@@ -4,7 +4,7 @@
 <!--Abre Produtos-->
 <div id="produtos" class="container">
 
-    <h2 class="cor-1t"><b>Hambúrgeres</b></h2>
+    <h2 class="cor-1t" id="hamburger"><b>Hambúrgeres</b></h2>
     <hr class="linha">
 
     <?php
@@ -49,7 +49,7 @@
 
 
     
-    <h2 class="cor-1t"><b>Bebidas</b></h2>
+    <h2 class="cor-1t" id="bebidas"><b>Bebidas</b></h2>
     <hr class="linha">
 
     <?php if (!empty($produtos)): ?>

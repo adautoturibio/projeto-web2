@@ -9,7 +9,7 @@
                         <?php if(isset($msg)){echo $msg;} ?>
                         <img width="80" src="assets/images/bootstrap-logo.svg"
                             alt>
-                        <h2 class="p-3">Aceso ao Sistema</h2>
+                        <h2 class="p-3">Acesso ao Sistema</h2>
                     </div>
 
                     <form action="<?php echo base_url('login/logar') ?>" method="post">
