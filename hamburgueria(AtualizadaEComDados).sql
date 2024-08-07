@@ -123,10 +123,19 @@ CREATE TABLE `produtos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `produtos` (`produtos_id`, `nome`, `descricao`, `preco_custo`, `preco_venda`, `categorias_id`, `img`) VALUES
-(1,	'BURGAO',	'Pão brioche, salame, batata, alface, tomate, milho, ervilha, cebola, ovo, bacon, hamburger',	15.00,	25.00,	1,	'https://img.freepik.com/fotos-gratis/feche-a-comida-deliciosa_23-2149303550.jpg?t=st=1722980107~exp=1722983707~hmac=0cac2ac38b0eec44529951556ecb89f64820383707eea681513941b5a53f89ee&w=740'),
-(2,	'X-TUDO',	'TUDO QUE VC QUISER',	10.00,	30.00,	1,	'https://img.freepik.com/fotos-gratis/ainda-vida-de-delicioso-hamburguer-americano_23-2149637312.jpg?t=st=1722971566~exp=1722975166~hmac=5433e064d78788c6775d35fda439f996ee0ab1d6395b521e1b4d220de3435e73&w=740'),
-(3,	'Coca-Cola',	'Coca-Cola Lata 250 ml.',	1.00,	5.00,	2,	'https://img.freepik.com/fotos-gratis/cola-fresca-bebida-em-vidro_144627-16204.jpg?t=st=1722983262~exp=1722986862~hmac=0004073304f99441b6c09c6af476bc26ce498a34fff98f4613112b57c53d1f9d&w=740'),
-(4,	'Skol',	'Cerveja Skol 250 ml.',	1.00,	3.50,	2,	'https://img.freepik.com/fotos-gratis/vista-frontal-de-copos-de-cerveja-com-trigo_23-2148755010.jpg?t=st=1722983709~exp=1722987309~hmac=1c41256b21a10ed3982c267789b5413707d649cae5d97970531b1476432b2255&w=740');
+(1, 'Burger Clássico', 'Pão, carne de hambúrguer, queijo, alface, tomate, cebola, picles, molho especial', 10.00, 18.00, 1, 'https://i.imgur.com/FYpad9p.jpeg'),
+(2, 'Cheeseburger', 'Pão, carne de hambúrguer, queijo, alface, tomate, cebola, picles, molho especial', 11.00, 20.00, 1, 'https://i.imgur.com/VBXXVDT.jpeg'),
+(3, 'Bacon Burger', 'Pão, carne de hambúrguer, queijo, alface, tomate, cebola, picles, molho especial', 12.00, 22.00, 1, 'https://i.imgur.com/01q4ppO.jpeg'),
+(4, 'Chicken Burger', 'Pão, carne de hambúrguer, queijo, alface, tomate, cebola, picles, molho especial', 9.00, 17.00, 1, 'https://i.imgur.com/x34KZhO.jpeg'),
+(5, 'Veggie Burger', 'Pão, carne de hambúrguer, queijo, alface, tomate, cebola, picles, molho especial', 8.00, 16.00, 1, 'https://i.imgur.com/2mgor39.jpeg'),
+(6, 'Double Burger', 'Pão, carne de hambúrguer, queijo, alface, tomate, cebola, picles, molho especial', 14.00, 25.00, 1, 'https://i.imgur.com/ngoerYc.jpeg'),
+(7, 'Coca-Cola Lata', 'Coca-Cola lata 350 ml', 1.50, 4.00, 2, 'https://i.imgur.com/a9gp7ij.jpeg'),
+(8, 'Coca-Cola 2L', 'Coca-Cola garrafa 2 litros', 3.00, 8.00, 2, 'https://i.imgur.com/uZPZrUt.jpeg'),
+(9, 'Fanta Lata', 'Fanta lata 350 ml', 1.50, 4.00, 2, 'https://i.imgur.com/Hziosok.jpeg'),
+(10, 'Suco de Laranja', 'Suco de laranja natural 500 ml', 2.00, 6.00, 2, 'https://i.imgur.com/eR33Q7v.jpeg'),
+(11, 'Guaraná Lata', 'Guaraná lata 350 ml', 1.50, 4.00, 2, 'https://i.imgur.com/vxjuTsH.jpeg'),
+(12, 'Guaraná 2L', 'Guaraná garrafa 2 litros', 3.00, 8.00, 2, 'https://i.imgur.com/xCfUOZJ.jpeg');
+
 
 DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (

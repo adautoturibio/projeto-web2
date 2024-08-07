@@ -20,13 +20,13 @@
          <div class="row">
             <?php foreach ($produtos as $produto): ?>
                 <?php if($produto->categorias_id == 1):?>
-                <div class="col s12 m7 l4">
+                <div class="col s12 m5 l3">
                     <div class="card">
                     
                         <div class="card-image">
                             <img src="<?= $produto->img?>">
                             
-                            <span class="card-title"><b><?=esc($produto->nome)?></b></span>
+                            <span class="sombra card-title"><b><?=esc($produto->nome)?></b></span>
                         </div>
                         <div class="card-content">
                         <span class="card-title"><b><?= esc("R$ ".$produto->preco_venda) ?></b></span>
@@ -60,7 +60,7 @@
                        <div class="card-image">
                            <img src="<?= $produto->img?>">
                            
-                           <span class="card-title"><b><?=esc($produto->nome)?></b></span>
+                           <span class="sombra card-title"><b><?=esc($produto->nome)?></b></span>
                        </div>
                        <div class="card-content">
                        <span class="card-title"><b><?= esc("R$ ".$produto->preco_venda) ?></b></span>
