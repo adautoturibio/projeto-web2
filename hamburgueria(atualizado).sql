@@ -63,7 +63,6 @@ INSERT INTO `usuarios` (`usuarios_id`, `nome`, `sobrenome`, `telefone`, `data_na
 VALUES (1, 'administrador', '', '(62) 98154-5421', '2000-08-12', 'moderador01@gmail.com', 'a073801fcc2a4926908dd20c7d0a4dbe', '1', '2024-08-01 10:15:05'),
 (2, 'cliente','', '(62) 98357-2154', '1998-04-12', 'cliente01@gmail.com', 'd39c4be26e1e1f467bacb586a20c5aa8', '0', '2024-08-01 10:20:05');
 
-
 -- -----------------------------------------------------
 -- Table `hamburgueria`.`clientes`
 -- -----------------------------------------------------
@@ -200,9 +199,7 @@ CREATE TABLE IF NOT EXISTS `hamburgueria`.`produtos` (
   `categorias_id` INT NOT NULL,
   PRIMARY KEY (`produtos_id`),
   INDEX `categorias_id` (`categorias_id` ASC) VISIBLE,
-  CONSTRAINT `fk_produtos_categorias`
-    FOREIGN KEY (`categorias_id`)
-    REFERENCES `hamburgueria`.`categorias` (`categorias_id`)  ON UPDATE CASCADE)
+  CONSTRAINT `fk_produtos_categorias`FOREIGN KEY (`categorias_id`) REFERENCES `hamburgueria`.`categorias` (`categorias_id`)  ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_general_ci;

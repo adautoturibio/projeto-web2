@@ -76,6 +76,4 @@ class Login extends BaseController
         $this->data = msg("O usuário não está logado!","danger");
         return view('login',$this->data);
     }
-
-
 }
