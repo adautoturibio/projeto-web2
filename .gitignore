@@ -1,5 +1,5 @@
 vendor/
 writable/
 
-/.env
+.env
 /app/Config/Database.php

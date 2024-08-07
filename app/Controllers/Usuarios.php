@@ -40,8 +40,8 @@ class Usuarios extends BaseController
         // Checks whether the submitted data passed the validation rules.
         if(!$this->validate([
             'nome' => 'required|max_length[255]|min_length[3]',
-            'sobrenome' => 'required',
-            'telefone' => 'required',
+            'sobrenome' => 'required||max_length[255]|min_length[0]',
+            'telefone' => 'required|max_length[255]|min_length[11]',
             'data_nasc' => 'required',
             'email' => 'required',
             'senha' => 'required',
@@ -51,13 +51,13 @@ class Usuarios extends BaseController
             // The validation fails, so returns the form.
             $data['usuarios'] = (object) [
                 'usuarios_id' => '',
-                'nome' => $_REQUEST['nome'],
-                'sobrenome' => $_REQUEST['sobrenome'],
-                'telefone' => $_REQUEST['telefone'],
-                'data_nasc' => moedaDolar($_REQUEST['data_nasc']),
-                'email' => $_REQUEST['email'],
-                'senha' => $_REQUEST['senha'],
-                'nivel' => $_REQUEST['nivel']
+                'nome' => $_REQUEST['usuarios_nome'],
+                'sobrenome' => $_REQUEST['usuarios_sobrenome'],
+                'telefone' => $_REQUEST['usuarios_telefone'],
+                'data_nasc' => moedaDolar($_REQUEST['usuarios_data_nasc']),
+                'email' => $_REQUEST['usuarios_email'],
+                'senha' => $_REQUEST['usuarios_senha'],
+                'nivel' => '1'
             ];
             
             $data['title'] = 'Usuarios';

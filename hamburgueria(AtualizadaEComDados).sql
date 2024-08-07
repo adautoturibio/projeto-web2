@@ -47,8 +47,8 @@ CREATE TABLE `imgprodutos` (
   PRIMARY KEY (`imgprodutos_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `imgprodutos` (`imgprodutos_id`, `link`, `descricao`, `produtos_id`) VALUES
-(1,	'https://img.freepik.com/fotos-gratis/ainda-vida-de-delicioso-hamburguer-americano_23-2149637312.jpg?t=st=1722971566~exp=1722975166~hmac=5433e064d78788c6775d35fda439f996ee0ab1d6395b521e1b4d220de3435e73&w=740',	'x-tudo',	2);
+-- INSERT INTO `imgprodutos` (`imgprodutos_id`, `link`, `descricao`, `produtos_id`) VALUES
+-- (1,	'https://img.freepik.com/fotos-gratis/ainda-vida-de-delicioso-hamburguer-americano_23-2149637312.jpg?t=st=1722971566~exp=1722975166~hmac=5433e064d78788c6775d35fda439f996ee0ab1d6395b521e1b4d220de3435e73&w=740',	'x-tudo',	2);
 
 DROP TABLE IF EXISTS `itempedidos`;
 CREATE TABLE `itempedidos` (

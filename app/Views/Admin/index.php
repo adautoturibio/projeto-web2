@@ -7,7 +7,7 @@
     
 ?>
 <?= $this->extend('Templates_admin') ?>
-<?= $this->sectizon('content') ?>
+<?= $this->section('content') ?>
 
 
     <div class="container pt-4 pb-5 bg-light">

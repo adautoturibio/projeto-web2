@@ -29,7 +29,9 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Nome</th>
-                    <th scope="col">CPF</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Data_Nasc</th>
+                    <th scope="col">Email</th>
                     <th scope="col">
                         <a class="btn btn-success"  href="<?= base_url('usuarios/new'); ?>">
                             Novo
@@ -45,6 +47,9 @@
                     <tr>
                         <th scope="row"><?= $usuarios[$i]->usuarios_id; ?></th>
                         <td><?= $usuarios[$i]->nome.' '.$usuarios[$i]->sobrenome; ?></td>
+                        <th scope="row"><?= $usuarios[$i]->telefone; ?></th>
+                        <th scope="row"><?= $usuarios[$i]->data_nasc; ?></th>
+                        <th scope="row"><?= $usuarios[$i]->email; ?></th>
                         
                         <td>
                             <a class="btn btn-primary"  href="<?= base_url('usuarios/edit/'.$usuarios[$i]->usuarios_id); ?>">
