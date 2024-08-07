@@ -3015,11 +3015,13 @@ ul.staggered-list li {
   padding-top: 20px;
   color: #fff;
   background-color: #881E3B;
+  width: 100%; 
 }
 
 .page-footer .footer-copyright {
   overflow: hidden;
   min-height: 50px;
+  width: 100%; 
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
