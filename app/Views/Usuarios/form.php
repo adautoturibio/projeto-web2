@@ -16,37 +16,41 @@
             <?= ucfirst($form).' '.$title ?>
         </h2>
 
-       
+        <?php if (isset($validation)): ?>
+            <div class="alert alert-danger">
+                <?= $validation->listErrors() ?>
+            </div>
+        <?php endif; ?>
 
         <form action="<?= base_url('usuarios/'.$op); ?>" method="post">
             <div class="mb-3">
-                <label for="usuarios_nome" class="form-label"> Nome </label>
-                <input type="text" class="form-control" name="usuarios_nome" value="<?= $usuarios->nome; ?>"  id="usuarios_nome">
+                <label for="nome" class="form-label"> Nome </label>
+                <input type="text" class="form-control" name="nome" value="<?= $usuarios->nome; ?>"  id="nome">
             </div>
 
             <div class="mb-3">
-                <label for="usuarios_sobrenome" class="form-label"> Sobrenome </label>
-                <input type="text" class="form-control" name="usuarios_sobrenome" value="<?= $usuarios->sobrenome; ?>"  id="usuarios_sobrenome">
+                <label for="sobrenome" class="form-label"> Sobrenome </label>
+                <input type="text" class="form-control" name="sobrenome" value="<?= $usuarios->sobrenome; ?>"  id="sobrenome">
             </div>
 
             <div class="mb-3">
-                <label for="usuarios_fone" class="form-label"> TeleFone </label>
-                <input type="tel" class="form-control" name="usuarios_telefone" value="<?= $usuarios->telefone; ?>"  id="usuarios_fone">
+                <label for="telefone" class="form-label"> TeleFone </label>
+                <input type="tel" class="form-control" name="telefone" value="<?= $usuarios->telefone; ?>"  id="telefone">
             </div>
 
             <div class="mb-3">
-                <label for="usuarios_data_nasc" class="form-label"> Data Nasc. </label>
-                <input type="date" class="form-control" name="usuarios_data_nasc" value="<?= $usuarios->data_nasc; ?>"  id="usuarios_data_nasc">
+                <label for="data_nasc" class="form-label"> Data Nasc. </label>
+                <input type="date" class="form-control" name="data_nasc" value="<?= $usuarios->data_nasc; ?>"  id="data_nasc">
             </div>
             
             <div class="mb-3">
-                <label for="usuarios_email" class="form-label"> E-mail </label>
-                <input type="email" class="form-control" name="usuarios_email" value="<?= $usuarios->email; ?>"  id="usuarios_email">
+                <label for="email" class="form-label"> E-mail </label>
+                <input type="email" class="form-control" name="email" value="<?= $usuarios->email; ?>"  id="email">
             </div>
 
             <div class="mb-3">
-                <label for="usuarios_senha" class="form-label"> Senha </label>
-                <input type="password" class="form-control" name="usuarios_senha" value="<?= $usuarios->senha; ?>"  id="usuarios_senha">
+                <label for="senha" class="form-label"> Senha </label>
+                <input type="password" class="form-control" name="senha" value="<?= $usuarios->senha; ?>"  id="senha">
             </div>
 
             <div class="mb-3">

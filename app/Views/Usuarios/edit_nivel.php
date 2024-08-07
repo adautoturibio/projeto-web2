@@ -3,7 +3,7 @@
     session();
     if(isset($_SESSION['login'])){
         $login = $_SESSION['login'];
-        if($login->usuarios_nivel == 1){
+        if($login->nivel == 1){
     
 ?>
 <?= $this->extend('Templates_admin') ?>
@@ -33,7 +33,7 @@
                         }
                     ?>
                 <option <?= $selected; ?> value="<?= $usuarios[$i]->usuarios_id; ?>">
-                    <?= $usuarios[$i]->usuarios_nome.' '.$usuarios[$i]->usuarios_sobrenome; ?>
+                    <?= $usuarios[$i]->nome.' '.$usuarios[$i]->sobrenome; ?>
                 </option>
                 <?php } ?>
 
@@ -47,7 +47,7 @@
             <?php 
                     for($i=0; $i < count($nivel);$i++){ 
                         $selected = '';
-                        if($login->usuarios_nivel == $nivel[$i]['id']){
+                        if($login->nivel == $nivel[$i]['id']){
                             $selected = 'selected'; 
                         }
                     ?>

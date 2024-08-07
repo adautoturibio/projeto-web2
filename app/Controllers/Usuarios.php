@@ -41,11 +41,11 @@ class Usuarios extends BaseController
         if(!$this->validate([
             'nome' => 'required|max_length[255]|min_length[3]',
             'sobrenome' => 'required||max_length[255]|min_length[0]',
-            'telefone' => 'required|max_length[255]|min_length[11]',
-            'data_nasc' => 'required',
-            'email' => 'required',
-            'senha' => 'required',
-            'nivel' => 'required',
+            'telefone' => 'required|max_length[15]|min_length[10]',
+            'data_nasc' => 'required|valid_date',
+            'email' => 'required|valid_email',
+            'senha' => 'required|min_length[6]',
+            'nivel' => 'required|integer',
         ])) {
             
             // The validation fails, so returns the form.
@@ -59,22 +59,22 @@ class Usuarios extends BaseController
             //     'senha' => $_REQUEST['usuarios_senha'],
             //     'nivel' => '1'
             // ];
-
+            $data['validation'] = $this->validator;
             $data['usuarios'] = (object) [
-                'usuarios_id' => '',
-                'nome' => $this->request->getPost('usuarios_nome'),
-                'sobrenome' => $this->request->getPost('usuarios_sobrenome'),
-                'telefone' => $this->request->getPost('usuarios_telefone'),
-                'data_nasc' => $this->request->getPost('usuarios_data_nasc'),
-                'email' => $this->request->getPost('usuarios_email'),
-                'senha' => $this->request->getPost('usuarios_senha'),
-                'nivel' => $this->request->getPost('usuarios_nivel')
+                // 'usuarios_id' => '',
+                'nome' => $this->request->getPost('nome'),
+                'sobrenome' => $this->request->getPost('sobrenome'),
+                'telefone' => $this->request->getPost('telefone'),
+                'data_nasc' => $this->request->getPost('data_nasc'),
+                'email' => $this->request->getPost('email'),
+                'senha' => $this->request->getPost('senha'),
+                'nivel' => '1'
             ];
             
             $data['title'] = 'Usuarios';
             $data['form'] = 'Cadastrar';
             $data['op'] = 'create';
-            $data['validation'] = $this->validator; //novo
+            // $data['validation'] = $this->validator; //novo
             return view('Usuarios/form',$data);
         }
 
@@ -92,7 +92,7 @@ class Usuarios extends BaseController
             'nome' => $this->request->getPost('nome'),
             'sobrenome' => $this->request->getPost('sobrenome'),
             'telefone' => $this->request->getPost('telefone'),
-            'data_nasc' => moedaDolar($this->request->getPost('data_nasc'),),
+            'data_nasc' => $this->request->getPost('data_nasc'),
             'email' => $this->request->getPost('email'),
             'senha' => $this->request->getPost('senha'),
             'nivel' => $this->request->getPost('nivel'),
