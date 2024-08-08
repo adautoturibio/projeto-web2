@@ -9,61 +9,18 @@
             <!-- Link Home-->
             <li>
                 <a href="<?php echo base_url('admin') ?>" class="hover-yellow">
-                    <i class="tiny material-icons left">home</i>
-                    Home
+                    <i class="tiny material-icons left">settings</i>
+                    Painel Administrativo
                 </a>
             </li>
+        </ul>
+    </div>
 
-            <!-- Link Usuários -->
-            <li>
-                <a href="<?php echo base_url('usuarios') ?>" class="hover-yellow">
-                    <i class="tiny material-icons left">person</i>
-                    Usuários
-                </a>
-            </li>
 
-            <!-- Link Categorias -->
-            <li>
-                <a href="<?php echo base_url('categorias') ?>" class="hover-yellow">
-                    <i class="tiny material-icons left">description</i>
-                    Categorias
-                </a>
-            </li>
-
-            <!-- Link Produtos -->
-            <li>
-                <a href="<?php echo base_url('produtos') ?>" class="hover-yellow">
-                    <i class="tiny material-icons left">shopping_basket</i>
-                    Produtos
-                </a>
-            </li>
-
-            <!-- Link IMG Produtos -->
-            <li>
-                <a href="<?php echo base_url('imgprodutos') ?>" class="hover-yellow">
-                    <i class="tiny material-icons left">image</i>
-                    IMG Produtos
-                </a>
-            </li>
-
-            <!-- Link Alterar Senha -->
-            <li>
-                <a href="<?php echo base_url('usuarios/edit_senha') ?>" class="hover-yellow">
-                    <i class="tiny material-icons left">vpn_key</i>
-                    Alterar Senha
-                </a>
-            </li>
-
-            <!-- Link Alterar Nível -->
-            <li>
-                <a href="<?php echo base_url('usuarios/edit_nivel') ?>" class="hover-yellow">
-                    <i class="tiny material-icons left">bar_chart</i>
-                    Alterar Nível
-                </a>
-            </li>
-
+    <div class="right">
+        <ul class="hide-on-med-and-down">
             <!-- Botão Sair -->
-            <li>
+            <li class="left">
                 <a class="btn waves-effect amber black-text" href="<?php echo base_url('login/logout') ?>">
                     <i class="material-icons">exit_to_app</i>
                 </a>

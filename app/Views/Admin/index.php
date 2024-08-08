@@ -70,23 +70,6 @@
             </div>
 
 
-            <!-- CARD DE IMG PRODUTOS -->
-            <div class="card">
-                <div class="card-content">
-                <span class="card-title"><b>IMG Produtos</b></span>
-                    <p>Adicionar, excluir ou alterar imagem dos produtos.</p>
-                </div>
-                <div class="card-action">
-                    <label>
-                    <a class="btn white waves-effect black-text" href="<?php echo base_url('/imgprodutos') ?>">
-                        <i class="material-icons">image</i>
-                        <b>Acessar</b>
-                    </a>
-                    </label>
-                </div>
-            </div>
-
-
             <!-- CARD DE ALTERAR SENHA -->
             <div class="card">
                 <div class="card-content">
@@ -106,7 +89,7 @@
             <!-- CARD DE ALTERAR NÍVEL -->
             <div class="card">
                 <div class="card-content">
-                <span class="card-title"><b>IMG Produtos</b></span>
+                <span class="card-title"><b>Alterar Nível</b></span>
                     <p>Alterar nível dos usuários. <p>
                 </div>
                 <div class="card-action">
