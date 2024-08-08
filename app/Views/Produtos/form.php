@@ -49,7 +49,7 @@
                         }
                     ?>
                         <option <?= $selected; ?> value="<?= $categorias[$i]->categorias_id; ?>">
-                            <?= $categorias[$i]->categorias_nome; ?>
+                            <?= $categorias[$i]->nome; ?>
                         </option>
                     <?php } ?>
 

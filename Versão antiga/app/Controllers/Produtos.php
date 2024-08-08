@@ -121,7 +121,7 @@ class Produtos extends BaseController
     public function search()
     {
         //$data['produtos'] = $this->produtos->like('nome', $_REQUEST['pesquisar'])->find();
-        $data['produtos'] = $this->produtos->join('categorias', 'categorias_id = categorias_id')->like('nome', $_REQUEST['pesquisar'])->orlike('categorias_nome', $_REQUEST['pesquisar'])->find();
+        $data['produtos'] = $this->produtos->join('categorias', 'categorias_id = categorias_id')->like('nome', $_REQUEST['pesquisar'])->orlike('nome', $_REQUEST['pesquisar'])->find();
         $total = count($data['produtos']);
         $data['msg'] = msg("Dados Encontrados: {$total}",'success');
         $data['title'] = 'Produtos';

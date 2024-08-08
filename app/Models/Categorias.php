@@ -14,7 +14,7 @@ class Categorias extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['categorias_nome'];
+    protected $allowedFields    = ['nome'];
 
     // Dates
     protected $useTimestamps = false;

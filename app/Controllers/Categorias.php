@@ -24,7 +24,7 @@ class Categorias extends BaseController
         $data['op'] = 'create';
         $data['form'] = 'cadastrar';
         $data['categorias'] = (object) [
-            'categorias_nome'=> '',
+            'nome'=> '',
             'categorias_id'=> ''
         ];
         return view('Categorias/form',$data);
@@ -34,13 +34,13 @@ class Categorias extends BaseController
 
         // Checks whether the submitted data passed the validation rules.
         if(!$this->validate([
-            'categorias_nome' => 'required|max_length[255]|min_length[3]',
+            'nome' => 'required|max_length[255]|min_length[3]',
         ])) {
             
             // The validation fails, so returns the form.
             $data['categorias'] = (object) [
                 //'categorias_id' => $_REQUEST['categorias_id'],
-                'categorias_nome' => $_REQUEST['categorias_nome'],
+                'nome' => $_REQUEST['nome'],
             ];
             
             $data['title'] = 'Categorias';
@@ -51,7 +51,7 @@ class Categorias extends BaseController
 
 
         $this->categorias->save([
-            'categorias_nome' => $_REQUEST['categorias_nome']
+            'nome' => $_REQUEST['nome']
 
         ]);
         
@@ -85,7 +85,7 @@ class Categorias extends BaseController
     {
         $dataForm = [
             'categorias_id' => $_REQUEST['categorias_id'],
-            'categorias_nome' => $_REQUEST['categorias_nome']
+            'nome' => $_REQUEST['nome']
         ];
 
         $this->categorias->update($_REQUEST['categorias_id'], $dataForm);
@@ -98,7 +98,7 @@ class Categorias extends BaseController
     public function search()
     {
 
-        $data['categorias'] = $this->categorias->like('categorias_nome', $_REQUEST['pesquisar'])->find();
+        $data['categorias'] = $this->categorias->like('nome', $_REQUEST['pesquisar'])->find();
         $total = count($data['categorias']);
         $data['msg'] = msg("Dados Encontrados: {$total}",'success');
         $data['title'] = 'Categorias';

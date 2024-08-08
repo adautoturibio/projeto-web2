@@ -19,8 +19,8 @@
 
         <form action="<?= base_url('categorias/'.$op); ?>" method="post">
             <div class="mb-3">
-                <label for="nome_categoria" class="form-label"> Categoria </label>
-                <input type="text" class="form-control" name="nome_categoria" value="<?= $categorias->nome; ?>"  id="nome">
+                <label for="nome" class="form-label"> Categoria </label>
+                <input type="text" class="form-control" name="nome" value="<?= $categorias->nome; ?>"  id="nome">
             </div>
 
 

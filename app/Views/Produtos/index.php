@@ -49,7 +49,7 @@
                                 <td><?= $produtos[$i]->produtos_nome; ?></td>
                                 <td>R$ <?= moedaReal($produtos[$i]->produtos_preco_custo); ?></td>
                                 <td>R$ <?= moedaReal($produtos[$i]->produtos_preco_venda); ?></td>
-                                <td><?= $produtos[$i]->categorias_nome; ?></td>
+                                <td><?= $produtos[$i]->nome; ?></td>
                                 <td>
                                     <a class="btn btn-primary"  href="<?= base_url('produtos/edit/'.$produtos[$i]->produtos_id); ?>">
                                         Editar
