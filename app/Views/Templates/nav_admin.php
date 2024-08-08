@@ -64,7 +64,7 @@
 
             <!-- Botão Sair -->
             <li>
-                <a class="btn waves-effect   amber black-text sair" href="<?php echo base_url('login/logout') ?>">
+                <a class="btn waves-effect amber black-text" href="<?php echo base_url('login/logout') ?>">
                     <i class="material-icons">exit_to_app</i>
                 </a>
             </li>
