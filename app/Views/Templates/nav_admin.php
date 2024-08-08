@@ -1,10 +1,8 @@
 <!-- Abre o menu de navegação -->
-<nav class="nav-wrapper blue darken-3">
-    <div class="container">
-        <a href="#" class="brand-logo">
-            <!--Logo do Projeto-->
-            <img src="<?php echo base_url('assets/imagens/logo.png') ?>" alt="Logo" width="30" height="24">
-        </a>
+<nav class="nav-wrapper cor-1b">
+    <div class="">
+        
+        <a class="brand-logo" href="/home"><img src="/assets/imagens/logo.png" alt="Logo" class="navbar-logo"></a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger">
             <i class="material-icons">menu</i>
         </a>
