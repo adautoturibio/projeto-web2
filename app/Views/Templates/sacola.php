@@ -65,7 +65,11 @@ include('nav.php');
         </tbody>
     </table>
 
-<br><br><br>
+<br><br>
+
+<a href="#" class="waves-effect waves-light btn-large green right"><i class="material-icons left">shopping_basket</i><b>Finalizar pedido</b></a>
+
+<br><br><br><br><br>
 
 
 </div>
