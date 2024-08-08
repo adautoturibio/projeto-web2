@@ -6364,7 +6364,7 @@ input[type=tel]:not(.browser-default).validate + label,
 input[type=number]:not(.browser-default).validate + label,
 input[type=search]:not(.browser-default).validate + label,
 textarea.materialize-textarea.validate + label {
-  width: 100%;
+  width: 10%;
 }
 
 /* Validation Sass Placeholders */

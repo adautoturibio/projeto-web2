@@ -11,54 +11,57 @@
 <?= $this->section('content') ?>
 
     <div class="container">
-
-        <h2 class="border-bottom border-2 border-primary mt-3 mb-4"> <?= $title ?> </h2>
+        
+        <h3 class="cor-1t"><b> <?= $title ?></b></h3>
+        <hr class="linha">
 
         <?php if(isset($msg)){echo $msg;} ?>
 
-        <form action="<?= base_url('usuarios/search'); ?>" class="d-flex" role="search" method="post">
-            <input class="form-control me-2" name="pesquisar" type="search"
-                placeholder="Pesquisar" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">
-                <i class="bi bi-search"></i>
-            </button>
+        <form action="<?= base_url('usuarios/search'); ?>" class="input-field" role="search" method="post">
+            <div class="input-field">
+                <input id="search" name="pesquisar" type="search" class="validate" placeholder="Pesquisar">
+                <label class="label-icon" for="search"><i class="material-icons right">search</i></label>
+                <button class="btn waves-effect waves-light right" type="submit">
+                    Buscar
+                </button>
+            </div>
         </form>
 
-        <table class="table">
+        <table class="highlight">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Telefone</th>
-                    <th scope="col">Data_Nasc</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">
-                        <a class="btn btn-success"  href="<?= base_url('usuarios/new'); ?>">
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Data_Nasc</th>
+                    <th>Email</th>
+                    <th>
+                        <a class="btn waves-effect waves-light green" href="<?= base_url('usuarios/new'); ?>">
                             Novo
-                            <i class="bi bi-plus-circle"></i>
+                            <i class="material-icons">add_circle</i>
                         </a>
                     </th>
                 </tr>
             </thead>
-            <tbody class="table-group-divider">
+            <tbody>
                 
                 <!-- Aqui vai o laço de repetição -->
                 <?php for($i=0; $i < count($usuarios); $i++){ ?>
                     <tr>
-                        <th scope="row"><?= $usuarios[$i]->usuarios_id; ?></th>
+                        <td><?= $usuarios[$i]->usuarios_id; ?></td>
                         <td><?= $usuarios[$i]->nome.' '.$usuarios[$i]->sobrenome; ?></td>
-                        <th scope="row"><?= $usuarios[$i]->telefone; ?></th>
-                        <th scope="row"><?= $usuarios[$i]->data_nasc; ?></th>
-                        <th scope="row"><?= $usuarios[$i]->email; ?></th>
+                        <td><?= $usuarios[$i]->telefone; ?></td>
+                        <td><?= $usuarios[$i]->data_nasc; ?></td>
+                        <td><?= $usuarios[$i]->email; ?></td>
                         
                         <td>
-                            <a class="btn btn-primary"  href="<?= base_url('usuarios/edit/'.$usuarios[$i]->usuarios_id); ?>">
+                            <a class="btn waves-effect waves-light blue" href="<?= base_url('usuarios/edit/'.$usuarios[$i]->usuarios_id); ?>">
                                 Editar
-                                <i class="bi bi-pencil-square"></i>
+                                <i class="material-icons">edit</i>
                             </a>
-                            <a class="btn btn-danger"  href="<?= base_url('usuarios/delete/'.$usuarios[$i]->usuarios_id); ?>">
+                            <a class="btn waves-effect waves-light red" href="<?= base_url('usuarios/delete/'.$usuarios[$i]->usuarios_id); ?>">
                                 Excluir
-                                <i class="bi bi-x-circle"></i>
+                                <i class="material-icons">delete</i>
                             </a>
                         </td>
                     </tr>
@@ -68,6 +71,7 @@
         </table>
 
     </div>
+    <br><br><br><br>
 <?= $this->endSection() ?>
 
 <?php 
