@@ -67,7 +67,7 @@ include('nav.php');
 
 <br><br>
 
-<a href="#" class="waves-effect waves-light btn-large green right"><i class="material-icons left">shopping_basket</i><b>Finalizar pedido</b></a>
+<a href="https://api.whatsapp.com/send?phone=+5562984093303&text=Ol%C3%A1+queria+fazer+um+pedido%21" class="waves-effect waves-light btn-large green right"><i class="material-icons left">shopping_basket</i><b>Finalizar pedido</b></a>
 
 <br><br><br><br><br>
 
