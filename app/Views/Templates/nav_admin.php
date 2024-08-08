@@ -1,84 +1,144 @@
 <!-- Abre o menu de navegação -->
-<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+<nav class="nav-wrapper blue darken-3">
+    <div class="container">
+        <a href="#" class="brand-logo">
             <!--Logo do Projeto-->
-            <img src="<?php echo base_url('assets/images/bootstrap-logo.svg') ?>" alt="Bootstrap" width="30"
-                height="24">
-            Bootstrap
+            <img src="<?php echo base_url('assets/imagens/logo.png') ?>" alt="Logo" width="30" height="24">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                <!-- Link Home-->
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<?php echo base_url('admin') ?>">
-                        <i class="bi bi-house-fill"></i>
-                        Home
-                    </a>
-                </li>
-
-                <!-- Link usuários-->
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<?php echo base_url('usuarios') ?>">
-                        <i class="bi bi-person"></i>
-                        Usuários
-                    </a>
-                </li>
-
-                <!-- Link Categorias-->
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<?php echo base_url('categorias') ?>">
-                        <i class="bi bi-file-earmark-text"></i>
-                        Categorias
-                    </a>
-                </li>
-
-                <!-- Link Produtos-->
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<?php echo base_url('produtos') ?>">
-                        <i class="bi bi-basket"></i>
-                        Produtos
-                    </a>
-                </li>
-
-                <!-- Link IMG Produtos-->
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<?php echo base_url('imgprodutos') ?>">
-                        <i class="bi bi-images"></i>
-                        IMG Produtos
-                    </a>
-                </li>
-
-                <!-- Link Alterar Senha-->
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<?php echo base_url('usuarios/edit_senha') ?>">
-                        <i class="bi bi-key"></i>
-                        Alterar Senha
-                    </a>
-                </li>
-
-                <!-- Link Alterar Nível-->
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<?php echo base_url('usuarios/edit_nivel') ?>">
-                        <i class="bi bi-bar-chart-steps"></i>
-                        Alterar Nível
-                    </a>
-                </li>
-
-            </ul>
-
-            <div class="d-flex">
-                <a class="btn btn-outline-primary me-2" href="<?php echo base_url('login/logout') ?>">
-                    <i class="bi bi-unlock"></i>
-                    sair
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+            <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+            <!-- Link Home-->
+            <li>
+                <a href="<?php echo base_url('admin') ?>">
+                    <i class="material-icons">home</i>
+                    Home
                 </a>
-            </div>
-        </div>
+            </li>
+
+            <!-- Link Usuários -->
+            <li>
+                <a href="<?php echo base_url('usuarios') ?>">
+                    <i class="material-icons">person</i>
+                    Usuários
+                </a>
+            </li>
+
+            <!-- Link Categorias -->
+            <li>
+                <a href="<?php echo base_url('categorias') ?>">
+                    <i class="material-icons">description</i>
+                    Categorias
+                </a>
+            </li>
+
+            <!-- Link Produtos -->
+            <li>
+                <a href="<?php echo base_url('produtos') ?>">
+                    <i class="material-icons">shopping_basket</i>
+                    Produtos
+                </a>
+            </li>
+
+            <!-- Link IMG Produtos -->
+            <li>
+                <a href="<?php echo base_url('imgprodutos') ?>">
+                    <i class="material-icons">image</i>
+                    IMG Produtos
+                </a>
+            </li>
+
+            <!-- Link Alterar Senha -->
+            <li>
+                <a href="<?php echo base_url('usuarios/edit_senha') ?>">
+                    <i class="material-icons">vpn_key</i>
+                    Alterar Senha
+                </a>
+            </li>
+
+            <!-- Link Alterar Nível -->
+            <li>
+                <a href="<?php echo base_url('usuarios/edit_nivel') ?>">
+                    <i class="material-icons">bar_chart</i>
+                    Alterar Nível
+                </a>
+            </li>
+
+            <!-- Botão Sair -->
+            <li>
+                <a class="btn white blue-text" href="<?php echo base_url('login/logout') ?>">
+                    <i class="material-icons">exit_to_app</i>
+                    Sair
+                </a>
+            </li>
+        </ul>
     </div>
 </nav>
-<!-- Fecha o menu de navegação -->
+
+<!-- Menu de navegação móvel -->
+<ul class="sidenav" id="mobile-demo">
+    <!-- Link Home-->
+    <li>
+        <a href="<?php echo base_url('admin') ?>">
+            <i class="material-icons">home</i>
+            Home
+        </a>
+    </li>
+
+    <!-- Link Usuários -->
+    <li>
+        <a href="<?php echo base_url('usuarios') ?>">
+            <i class="material-icons">person</i>
+            Usuários
+        </a>
+    </li>
+
+    <!-- Link Categorias -->
+    <li>
+        <a href="<?php echo base_url('categorias') ?>">
+            <i class="material-icons">description</i>
+            Categorias
+        </a>
+    </li>
+
+    <!-- Link Produtos -->
+    <li>
+        <a href="<?php echo base_url('produtos') ?>">
+            <i class="material-icons">shopping_basket</i>
+            Produtos
+        </a>
+    </li>
+
+    <!-- Link IMG Produtos -->
+    <li>
+        <a href="<?php echo base_url('imgprodutos') ?>">
+            <i class="material-icons">image</i>
+            IMG Produtos
+        </a>
+    </li>
+
+    <!-- Link Alterar Senha -->
+    <li>
+        <a href="<?php echo base_url('usuarios/edit_senha') ?>">
+            <i class="material-icons">vpn_key</i>
+            Alterar Senha
+        </a>
+    </li>
+
+    <!-- Link Alterar Nível -->
+    <li>
+        <a href="<?php echo base_url('usuarios/edit_nivel') ?>">
+            <i class="material-icons">bar_chart</i>
+            Alterar Nível
+        </a>
+    </li>
+
+    <!-- Botão Sair -->
+    <li>
+        <a class="btn white blue-text" href="<?php echo base_url('login/logout') ?>">
+            <i class="material-icons">exit_to_app</i>
+            Sair
+        </a>
+    </li>
+</ul>
