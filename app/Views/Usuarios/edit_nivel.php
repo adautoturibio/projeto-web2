@@ -10,21 +10,18 @@
 <?= $this->section('content') ?>
 
 
-<div class="container pt-4 pb-5 bg-light">
+<div class="container">
 
     <?php if(isset($msg)){echo $msg;} ?>
 
-    <h2 class="border-bottom border-2 border-primary">
-        Alterar Nível de acesso
-    </h2>
+    <h3 class="cor-1t"><b>Alterar Nível de Acesso</b></h3>
+    <hr class="divider">
 
     <form action="<?= base_url('usuarios/salvar_nivel'); ?>" method="post">
 
        <!-- select usuário -->
-        <div class="mb-3">
-            <label for="usuarios_id" class="form-label"> Usuario </label>
-            <select class="form-control" name="usuarios_id" id="usuarios_id">
-
+        <div class="input-field">
+            <select name="usuarios_id" id="usuarios_id">
                 <?php 
                     for($i=0; $i < count($usuarios);$i++){ 
                         $selected = '';
@@ -36,15 +33,14 @@
                     <?= $usuarios[$i]->nome.' '.$usuarios[$i]->sobrenome; ?>
                 </option>
                 <?php } ?>
-
             </select>
+            <label for="usuarios_id">Usuário</label>
         </div>
         
-        <!-- select nivel -->
-        <div class="mb-3">
-            <label for="usuarios_nivel" class="form-label"> Nivel </label>
-            <select class="form-control" name="usuarios_nivel" id="usuarios_nivel">
-            <?php 
+        <!-- select nível -->
+        <div class="input-field">
+            <select name="usuarios_nivel" id="usuarios_nivel">
+                <?php 
                     for($i=0; $i < count($nivel);$i++){ 
                         $selected = '';
                         if($login->nivel == $nivel[$i]['id']){
@@ -56,10 +52,14 @@
                 </option>
                 <?php } ?>
             </select>
+            <label for="usuarios_nivel">Nível</label>
         </div>
 
-        <div class="mb-3">
-            <button class="btn btn-success" type="submit"> Alterar nível <i class="bi bi-floppy"></i></button>
+        <div class="input-field">
+            <button class="btn waves-effect waves-light green" type="submit">
+                Alterar nível
+                <i class="material-icons right">save</i>
+            </button>
         </div>
 
     </form>
