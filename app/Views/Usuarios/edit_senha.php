@@ -3,7 +3,7 @@
     session();
     if(isset($_SESSION['login'])){
         $login = $_SESSION['login'];
-        if($login->usuarios_nivel == 1){
+        if($login->nivel == 1){
     
 ?>
 <?= $this->extend('Templates_admin') ?>
@@ -25,12 +25,12 @@
             </div>
             
             <div class="input-field">
-                <input type="password" name="usuarios_nova_senha" id="usuarios_nova_senha" class="validate" value="<?= $usuarios->usuarios_nova_senha; ?>">
+                <input type="password" name="usuarios_nova_senha" id="usuarios_nova_senha" class="validate" value="<?= $usuarios->nova_senha; ?>">
                 <label for="usuarios_nova_senha">Nova Senha</label>
             </div>
 
             <div class="input-field">
-                <input type="password" name="usuarios_confirmar_senha" id="usuarios_confirmar_senha" class="validate" value="<?= $usuarios->usuarios_confirmar_senha; ?>">
+                <input type="password" name="usuarios_confirmar_senha" id="usuarios_confirmar_senha" class="validate" value="<?= $usuarios->confirmar_senha; ?>">
                 <label for="usuarios_confirmar_senha">Confirma nova senha</label>
             </div>
             
