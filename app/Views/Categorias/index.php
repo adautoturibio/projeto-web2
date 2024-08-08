@@ -13,7 +13,7 @@
     <div class="container">
 
         <h3 class="cor-1t"><b> <?= $title ?></b></h3>
-        <hr class="divider">
+        <hr class="linha">
 
         <?php if(isset($msg)){echo $msg;} ?>
 

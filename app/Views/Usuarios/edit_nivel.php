@@ -15,7 +15,7 @@
     <?php if(isset($msg)){echo $msg;} ?>
 
     <h3 class="cor-1t"><b>Alterar Nível de Acesso</b></h3>
-    <hr class="divider">
+    <hr class="linha">
 
     <form action="<?= base_url('usuarios/salvar_nivel'); ?>" method="post">
 
@@ -65,6 +65,7 @@
     </form>
 
 </div>
+<br><br><br><br><br><br>
 
 <?= $this->endSection() ?>
 
