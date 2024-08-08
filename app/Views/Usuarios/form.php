@@ -11,61 +11,57 @@
 <?= $this->section('content') ?>
 
 
-    <div class="container pt-4 pb-5 bg-light">
-        <h2 class="border-bottom border-2 border-primary">
-            <?= ucfirst($form).' '.$title ?>
-        </h2>
+    <div class="container pt-4 pb-5 white">
+        <h3 class="cor-1t"><b> <?= $title ?></b></h3>
+        <hr class="linha">
 
         <?php if (isset($validation)): ?>
-            <div class="alert alert-danger">
+            <div class="card-panel red lighten-4">
                 <?= $validation->listErrors() ?>
             </div>
         <?php endif; ?>
 
         <form action="<?= base_url('usuarios/'.$op); ?>" method="post">
-            <div class="mb-3">
-                <label for="nome" class="form-label"> Nome </label>
-                <input type="text" class="form-control" name="nome" value="<?= $usuarios->nome; ?>"  id="nome">
+            <div class="input-field largura">
+                <label for="nome"> Nome </label>
+                <input type="text" name="nome" value="<?= $usuarios->nome; ?>" id="nome">
             </div>
 
-            <div class="mb-3">
-                <label for="sobrenome" class="form-label"> Sobrenome </label>
-                <input type="text" class="form-control" name="sobrenome" value="<?= $usuarios->sobrenome; ?>"  id="sobrenome">
+            <div class="input-field">
+                <label for="sobrenome"> Sobrenome </label>
+                <input type="text" name="sobrenome" value="<?= $usuarios->sobrenome; ?>" id="sobrenome">
             </div>
 
-            <div class="mb-3">
-                <label for="telefone" class="form-label"> TeleFone </label>
-                <input type="tel" class="form-control" name="telefone" value="<?= $usuarios->telefone; ?>"  id="telefone">
+            <div class="input-field">
+                <label for="telefone"> Telefone </label>
+                <input type="tel" name="telefone" value="<?= $usuarios->telefone; ?>" id="telefone">
             </div>
 
-            <div class="mb-3">
-                <label for="data_nasc" class="form-label"> Data Nasc. </label>
-                <input type="date" class="form-control" name="data_nasc" value="<?= $usuarios->data_nasc; ?>"  id="data_nasc">
+            <div class="input-field">
+                <label for="data_nasc"> Data Nasc. </label>
+                <input type="date" name="data_nasc" value="<?= $usuarios->data_nasc; ?>" id="data_nasc">
             </div>
             
-            <div class="mb-3">
-                <label for="email" class="form-label"> E-mail </label>
-                <input type="email" class="form-control" name="email" value="<?= $usuarios->email; ?>"  id="email">
+            <div class="input-field">
+                <label for="email"> E-mail </label>
+                <input type="email" name="email" value="<?= $usuarios->email; ?>" id="email">
             </div>
 
-            <div class="mb-3">
-                <label for="senha" class="form-label"> Senha </label>
-                <input type="password" class="form-control" name="senha" value="<?= $usuarios->senha; ?>"  id="senha">
+            <div class="input-field">
+                <label for="senha"> Senha </label>
+                <input type="password" name="senha" value="<?= $usuarios->senha; ?>" id="senha">
             </div>
 
-            <div class="mb-3">
-                <label for="nivel" class="form-label"> Nível </label>
-                <select class="form-control" name="nivel" id="nivel">
+            <div class="input-field">
+                <label for="nivel"> Nível </label>
+                <select name="nivel" id="nivel" class="browser-default">
                     <option value="1" <?= $usuarios->nivel == '1' ? 'selected' : '' ?>>Administrador</option>
                     <option value="0" <?= $usuarios->nivel == '0' ? 'selected' : '' ?>>Usuário</option>
                 </select>
             </div>
 
-            <!-- <label for="usuarios_id" class="form-label"> ID </label>
-            <input type="hidden" name="usuarios_id" value="< ?= $usuarios->usuarios_id; ?>" > -->
-
-            <div class="mb-3">
-                <button class="btn btn-success" type="submit"> <?= ucfirst($form)  ?> <i class="bi bi-floppy"></i></button>
+            <div class="input-field">
+                <button class="btn green" type="submit"> <?= ucfirst($form) ?> <i class="material-icons">save</i></button>
             </div>
         
         </form>
@@ -77,12 +73,12 @@
 <?php 
         }else{
 
-            $data['msg'] = msg("Sem permissão de acesso!","danger");
+            $data['msg'] = msg("Sem permissão de acesso!", "red-text text-darken-2");
             echo view('login',$data);
         }
     }else{
 
-        $data['msg'] = msg("O usuário não está logado!","danger");
+        $data['msg'] = msg("O usuário não está logado!", "red-text text-darken-2");
         echo view('login',$data);
     }
 
